@@ -1,0 +1,42 @@
+<section class="text-center" style="position: relative;margin-top: 60px;z-index: 1;">
+  <div class="container">
+    <div class="card">
+      <div class="card-header header-elements-inline">
+        <h6 class="card-title">O que deseja procurar?</h6>
+        <div class="header-elements">
+          <div class="form-check form-check-right form-check-switchery form-check-switchery-sm">
+            <div>
+              <select class="form-control" id="opt" [(ngModel)]="categoria" (change)="mudarCategoria()">
+                <option *ngFor="let categoriaS of categorias" [value]="categoriaS.id">
+                  {{ categoriaS.name }}
+                </option>
+              </select>
+            </div>
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<agm-map [latitude]="location.lat" [longitude]="location.lng" [styles]="styles">
+  <agm-marker *ngFor="let pos of galleries" (markerClick)="openModal(template, pos)" [latitude]="pos.lat"
+    [longitude]="pos.lng">
+  </agm-marker>
+</agm-map>
+
+<ng-template #template>
+  <div class="modal-header">
+    <div class="pull-left">
+      <h4 class="modal-title">Galeria - {{ gallerieSelect.nomeInstituicao }}</h4>
+      <b>Categoria:</b> {{ getNomeCategoria(categoria) }}
+    </div>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-depoimentos [depoimentos]="gallerieSelect.galeria" [isAdmin]="false"></app-depoimentos>
+  </div>
+</ng-template>

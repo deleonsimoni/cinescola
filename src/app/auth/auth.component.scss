@@ -1,0 +1,57 @@
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.example-card {
+  width: 400px;
+  margin: 10% auto;
+}
+
+.mat-card-title {
+  font-size: 16px;
+}
+
+#submission {
+  height: 100vh;
+}
+
+#submission {
+  agm-map {
+    height: 300px;
+  }
+  padding: 90px 0 40px 0;
+  .box {
+    h4 {
+      margin-left: 0px;
+    }
+    p {
+      margin-left: 0px;
+    }
+  }
+  background-color: antiquewhite;
+  .btn-get-started {
+    background-color: rosybrown;
+    color: #fff;
+    width: 80%;
+    border: none;
+    margin: 8px 0px;
+    height: calc(1.5em + 0.75rem + 2px);
+    i {
+      font-size: 14px;
+    }
+  }
+}
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}

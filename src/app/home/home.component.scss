@@ -45,9 +45,17 @@
 }
 
 .content-section-heading h3 {
-  font-size: 1rem;
+  font-size: 1.4rem;
   text-transform: uppercase;
+  margin-top: 20px;
+  font-weight: 700;
+
 }
+
+.table td, .table th {
+  padding: 0px;
+}
+
 
 
 .portfolio-item {
@@ -119,6 +127,62 @@
     clip-path: inset(2rem);
   }
 }
+
+
+
+
+
+.wrapper{
+  background-color: #333;
+  height: 250px;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.box{
+  width: 250px;
+  height: 100%;
+  display: inline-block;
+  margin: auto;
+  overflow: hidden;
+  
+}
+.boxes{
+  width: 100%;
+  height: 40px;
+}
+.small_box{
+  margin: 0;
+  background-color: #fff;
+  display: inline-block;
+  width: 26px;
+  height: 20px;
+  margin: 10px 10px 10px 10.81px;
+}
+.center_box{
+  width: 90%;
+  height: 170px;
+  
+  margin: auto;
+  cursor: pointer;
+  transition: opacity 0.2s linear;
+  transition: transform 0.3s linear;
+  animation: load 1s linear;
+}
+
+.center_box:hover{
+  transform: scale(0.95);
+  opacity: 0.75;
+}
+
+@keyframes load{
+  from{transform: scale(0);}
+}
+
 
 
 

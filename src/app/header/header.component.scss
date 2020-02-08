@@ -1,6 +1,6 @@
 .bg-secondary {
-    background-color: white; /* For browsers that do not support gradients */
-    background-image: linear-gradient(white,white, yellow);
+    background-color: yellow !important; /* For browsers that do not support gradients */
+    //background-image: linear-gradient(rgb(255, 198, 43), #E6D927);
 }
 
 .titulo{
@@ -8,13 +8,14 @@
 }
 
 a {
-    color: #aeb724;
+    color: rgb(0, 0, 0);
     text-decoration: none;
     background-color: transparent;
+    font-weight: 700;
 }
 
 a:hover {
-    color: #000000;
+    color: #807816;
     text-decoration: none;
     background-color: transparent;
 }
@@ -24,9 +25,13 @@ a:hover {
 }
 
 .bg-primary {
-    background-color: #b2c027 !important;
+    background-color: transparent !important;
+    color: black !important;
+    font-size: 30px;
 }
 
 a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-primary:hover {
-    background-color: #b2c027  !important;
+    background-color: transparent !important;
+    color: black !important;
+    font-size: 30px;
 }

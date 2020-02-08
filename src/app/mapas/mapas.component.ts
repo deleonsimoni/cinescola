@@ -44,7 +44,7 @@ export class MapasComponent implements OnInit {
     { id: 0, name: 'Todas' },
     { id: 1, name: 'Abecedários' },
     { id: 2, name: 'Entrevistas' },
-    { id: 3, name: 'Podecasts' },
+    { id: 3, name: 'podcasts' },
     { id: 4, name: 'Produção Acadêmica' },
     { id: 5, name: 'Políticas' },
     { id: 6, name: 'Escolas' }

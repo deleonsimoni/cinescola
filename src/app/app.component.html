@@ -1,4 +1,9 @@
-<app-header [user]="user"></app-header>
+<app-header id="menu" style="display: none;" [user]="user"></app-header>
+
+<div class="splashScreenClass" id="custom-overlay">
+  <img src="../assets/img/intro.gif" />
+</div>
+
 <div class="wrapper-app">
   <router-outlet></router-outlet>
 </div>

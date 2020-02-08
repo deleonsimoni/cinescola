@@ -1,73 +1,130 @@
 .btn-primary {
     color: #fff;
-    background-color: #BC8F8F;
+    background-color: #b2c027;
     border-color: #BC8F8F;
 }
 
 .btn-primary:hover {
     color: #fff;
-    background-color: #D2B48C;
-    border-color: #D2B48C;
+    background-color: #b2c027;
+    border-color: #b2c027;
 }
 
 .textoInicial {
     color: rgb(0, 0, 0);
-    background-color: #f4e9d9;
-    border-color: #f4e9d9;
+    background-color: #ffffff;
+    border-color: #f4ff57;
 }
+
+.bg-head {
+  background-color: #f4ff57!important;
+}
+
 
 .sombra {
     text-shadow: 1px 1px rgb(0, 0, 0);
 }
 
 .bg-site {
-    color: rgb(0, 0, 0);
-    background-color: #D2B48D ;
-    border-color: #D2B48D ;
+  background-color: white; /* For browsers that do not support gradients */
+  background-image: linear-gradient(yellow, white,white);
 }
 
 .modal-header{
-  background-color: #D2B48C !important;
+  background-color: #b2c027 !important;
 }
 
 
-#portfolio .container-fluid {
-    max-width: 1920px;
+.content-section {
+  padding-top: 7.5rem;
+  padding-bottom: 7.5rem;
+}
+
+.content-section-heading h2 {
+  font-size: 3rem;
+}
+
+.content-section-heading h3 {
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+
+.portfolio-item {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  max-width: 530px;
+  margin: auto auto 1rem;
+}
+
+.portfolio-item .caption {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(33, 37, 41, 0.2);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.portfolio-item .caption .caption-content {
+  color: #fff;
+  margin: auto 2rem 2rem;
+}
+
+.portfolio-item .caption .caption-content h2 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.portfolio-item .caption .caption-content p {
+  font-weight: 300;
+  font-size: 1.2rem;
+}
+
+.container-portfolio{
+  background-color: yellow;
+}
+
+@media (min-width: 992px) {
+  .portfolio-item {
+    max-width: none;
+    margin: 0;
   }
-  
-  #portfolio .container-fluid .portfolio-box {
-    position: relative;
-    display: block;
+  .portfolio-item .caption {
+    -webkit-transition: -webkit-clip-path 0.25s ease-out, background-color 0.7s;
+    -webkit-clip-path: inset(0px);
+    clip-path: inset(0px);
   }
-  
-  #portfolio .container-fluid .portfolio-box .portfolio-box-caption {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    bottom: 0;
-    text-align: center;
-    opacity: 0;
-    color: #fff;
-    background: #BC8F8F;
-    transition: opacity 0.25s ease;
-    text-align: center;
+  .portfolio-item .caption .caption-content {
+    transition: opacity 0.25s;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    margin-bottom: 5rem;
   }
-  
-  #portfolio .container-fluid .portfolio-box .portfolio-box-caption .project-category {
-    font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
+  .portfolio-item img {
+    -webkit-transition: -webkit-clip-path 0.25s ease-out;
+    -webkit-clip-path: inset(-1px);
+    clip-path: inset(-1px);
   }
-  
-  #portfolio .container-fluid .portfolio-box .portfolio-box-caption .project-name {
-    font-size: 1.2rem;
+  .portfolio-item:hover img {
+    -webkit-clip-path: inset(2rem);
+    clip-path: inset(2rem);
   }
-  
-  #portfolio .container-fluid .portfolio-box:hover .portfolio-box-caption {
-    opacity: 1;
+  .portfolio-item:hover .caption {
+    background-color: rgba(216, 228, 52, 0.9);
+    -webkit-clip-path: inset(2rem);
+    clip-path: inset(2rem);
   }
+}
+
+
+
+
+
+
+
+
+

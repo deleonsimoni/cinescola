@@ -16,9 +16,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
 
-    setTimeout(() => {
+    /*setTimeout(() => {
       this.modalRef = this.modalService.show(this.templateRef);
-    }, 500);
+    }, 500);*/
 
   }
 

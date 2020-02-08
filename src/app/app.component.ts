@@ -31,8 +31,24 @@ export class AppComponent implements OnInit {
 
     // init this.user on startup
     this.authService.me().subscribe(data => {
+
+      const splashScreen: HTMLElement = document.getElementById('custom-overlay');
+      if (splashScreen) {
+        splashScreen.remove();
+      }
+
       this.user = data.user;
     });
+
+    setTimeout(() => {    //<<<---    using ()=> syntax
+      const splashScreen: HTMLElement = document.getElementById('custom-overlay');
+      const menu: HTMLElement = document.getElementById('menu');
+
+      if (splashScreen) {
+        menu.removeAttribute("style");
+        splashScreen.remove();
+      }
+    }, 3000);
 
     // update this.user after login/register/logout
     this.userSubscription = this.authService.$userSource.subscribe((user) => {
@@ -49,7 +65,7 @@ export class AppComponent implements OnInit {
     this.router.navigate([link]);
   }
 
-  ngOnDestroy() { 
+  ngOnDestroy() {
     if (this.userSubscription) {
       this.userSubscription.unsubscribe();
     }

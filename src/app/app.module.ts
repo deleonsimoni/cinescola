@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { AdminModule } from './admin/admin.module';
 import { AuthHeaderInterceptor } from './interceptors/header.interceptor';
 import { CatchErrorInterceptor } from './interceptors/http-error.interceptor';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { HeaderComponent } from './header/header.component';
@@ -27,6 +28,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { UploadComponent } from './upload/upload.component';
 import { environment } from '../environments/environment';
 import { DepoimentosComponent } from './depoimentos/depoimentos/depoimentos.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -47,6 +50,7 @@ import { DepoimentosComponent } from './depoimentos/depoimentos/depoimentos.comp
     SharedModule,
     AuthModule,
     AdminModule,
+    AngularFontAwesomeModule,
     AppRoutingModule,
     BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
@@ -56,6 +60,7 @@ import { DepoimentosComponent } from './depoimentos/depoimentos/depoimentos.comp
       apiKey: 'AIzaSyDH7oOZdBbMgyLURojHNE9tcggTpnJTa3Q'
     }),
     ModalModule.forRoot(),
+    NgbModule,
   ],
   providers: [
     BsModalRef,

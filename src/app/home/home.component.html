@@ -1,29 +1,49 @@
 <!-- Masthead -->
-<header class="masthead text-white text-center">
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-xl-9 mx-auto">
-        <h1 class="mb-5 sombra">Pronto para construir a história da escola?</h1>
+
+<!-- Services -->
+<section class="text-white text-center bg-head" id="services">
+
+  <ngb-carousel [showNavigationArrows]="true" [showNavigationIndicators]="true" interval="10000" [keyboard]="true"
+    [pauseOnHover]="true" [wrap]="true" [activeId]="'slideTwo'">
+
+    <ng-template ngbSlide>
+      <div class="picsum-img-wrapper">
+        <img src="../../assets/img/abecedario.jpg" alt="Random first slide" class="mh-100 img-fluid"
+          style="width: 100%; height: 50vh">
       </div>
-      <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-        <form>
-          <div class="form-row">
-            <div class="col-12 col-md-9 mb-2 mb-md-0">
-              <input type="text" class="form-control form-control-lg" [(ngModel)]='itemPesquisa' name="first"
-                placeholder="ex: ESCOLAS, CADERNOS, DEPOIMENTOS..." />
-            </div>
-            <div class="col-12 col-md-3">
-              <button [routerLink]="'/mapas'" [queryParams]="itemPesquisa" class="btn btn-block btn-lg btn-primary">
-                Buscar
-              </button>
-            </div>
-          </div>
-        </form>
+      <div class="carousel-caption">
+        <h3>Abecedários</h3>
+        <p>Gesto de comunicação e compartilhamento de produção colaborativa de conhecimento.</p>
       </div>
-    </div>
-  </div>
-</header>
+    </ng-template>
+
+    <ng-template ngbSlide>
+      <div class="picsum-img-wrapper">
+        <img src="../../assets/img/cinemateca.jpg" alt="Random first slide" class="mh-100 img-fluid"
+          style="width: 100%; height: 50vh; text-align: center;">
+      </div>
+      <div class="carousel-caption">
+        <h3>Cinematecas</h3>
+        <p>Conheça as cinematecas ao redor do mundo.</p>
+      </div>
+    </ng-template>
+
+    <ng-template ngbSlide>
+      <div class="picsum-img-wrapper">
+        <img src="../../assets/img/encontros.jpg" alt="Random first slide" class="mh-100 img-fluid"
+          style="width: 100%; height: 50vh">
+      </div>
+      <div class="carousel-caption">
+        <h3>Novidades</h3>
+        <p>Atualizaremos com frequencia a plataforma com conteúdos imperdíveis.</p>
+      </div>
+    </ng-template>
+
+  </ngb-carousel>
+</section>
+
+
+
 <!-- About Section -->
 <section class="page-section textoInicial" id="about">
   <div class="container ">
@@ -31,34 +51,50 @@
       <div class="col-lg-8" style="text-align: center;">
         <br />
 
-        <h2 class="mt-0">MUSEU PEDAGÓGICO VIRTUAL</h2>
+        <h2 class="mt-0">Cinescola. Mas o que é?</h2>
         <hr class="divider light my-4">
         <p class="mb-4 " style="text-align: justify;text-justify: inter-word;">
 
-          O Museu Pedagógico Virtual Brasileiro (MPVB) é uma plataforma colaborativa e pretende reunir iconografia,
-          videografia, filmografia e textos sobre a educação brasileira, fundamentalmente dando destaque as ESCOLAS.
-          Acreditamos que hoje e sempre precisamos afirmar e defender a escola pública e criar este espaço de memória
-          virtual significa apostar na importância de constituir um acervo de memórias para nutrir a imaginação desta
-          escola sempre em devir, em processo constante de reinvenção.
+          Este projeto é produto de uma longa história entre a Cinemateca do MAM-Rio com a Faculdade de Educação, que
+          deu início depois da assinatura de um convênio celebrado em fevereiro de 2008 com o objetivo de co cinema e
+          educação através da aproximação das instituições, seus saberes e práticas, dos processos de formação de
+          professores e de práticas de ensino e aprendizagem ligadas à Educação Básica. Guiados pelo forte propósito de
+          democratizar o acesso ao cinema brasileiro pelas escolas públicas e convidando-as a participar em diferentes
+          atividades de exibição e produção audiovisual, atualizamos esta parceria propondo um projeto que renova e
+          amplia aqueles objetivos inicias, enriquecidos pela maturidade e experiência desse encontro entre a
+          cinemateca, a universidade e a escola no Rio de Janeiro.
           <br /><br />
-          Destacamos também que a página pretende ser um espaço de encontro entre Museus (e outros espaços de memória)
-          pedagógicos, de educação, escolares, da infância, do brinquedo; assim como propiciar um espaço especial para a
-          relação entre ARTE e EDUCAÇÃO, com especial atenção as Escolinhas de Arte do Brasil que vivem uma forte ameaça
-          de desaparecimento.
+          O objetivo principal deste projeto consiste em materializar o encontro de estudantes e professores de escolas
+          públicas com filmes nacionais na Cinemateca do MAM. Objetivos secundarios dan sequencia e diversifican
+          posibilidades dentro desta proposta que ambiciona produzir um movimento simultâneo de preservação de filmes
+          nacionais e seu compartilhamento com todas as escolas do país a partir da criação de uma plataforma que os
+          disponibilize progressivamente, depois de uma cuidadosa curadoria interdisciplinar e institucional. Esse
+          acervo oriundo das Cinemateca do MAM, pretende no segundo semestre incorporar todas as cinematecas e museus de
+          Imagem e Som, produtoras, colecionadores, acervos privados, etc. que desejem construir coletivamente uma
+          plataforma de filmes para livre circulação entre as escolas de educação básica do país. O MAM, como sede desse
+          processo, se propõe a desenvolver ações locais em parceria com a UFRJ, no contexto do Complexo de Formação de
+          Professores e as. Xxxx escolas conveniadas.
+          O projeto prevé a digitalização do acervo nacional local, começando por 10 (ou 50 ou100?) filmes entre curtas
+          e longas, de diferentes épocas, regiones, diretores e diretoras, estéticas visando a parceria do Instituto
+          Benjamin Constant e do Instituto Nacional de Educação de Surdos para a produção de tecnologias assistivas para
+          todos eles e ainda a produção de legendas inicialmente em português, espanhol, inglês, francês e alemão para
+          todos os filmes.
+
           <br /><br />
-          O MPVB nasceu no contexto de um minicurso do Grupo de Trabalho Educação e Arte (GT-24), na 39a Reunião Anual
-          da Associação Nacional de Pesquisa e Pós-Graduação em Educação (ANPED), com o objetivo de manter-se aberto e
-          em franco processo de interatividade e crescimento para a produção colaborativa de memória e conhecimento
+          A plataforma será disponibilizada integralmente para todas as escolas (públicas?) do país.
           <br /><br />
           Composto por imagens solicitadas a pessoas, entidades e instituições de diferentes estados, visamos
           organizá-las e disponibilizá-las para quem se interesse em utilizá-las em atividades de pesquisa, ensino ou
           extensão.
           <br /><br />
-          Esperamos em breve poder organizar e disponibilizar na internet páginas da história da educação brasileiras,
-          com FOTOGRAFIAS, DESENHOS e REGISTROS AUDIOVISUAIS de escolas, uniformes, utilitários escolares, mobiliários,
-          cadernos, fichas, livros, depoimentos, documentos, sujeitos, espaços e tempos que serão transformados em
-          material iconográfico e filmes com o propósito de contribuir para a construção da memória da educação
-          brasileira, principalmente da escola pública, enquanto patrimônio educacional e cultural nacional.
+
+          Para as escolas do Rio de Janeiro que não fazem parte do Complexo de Formação, e desejam participar, haverá
+          uma chamada aberta para inscrição visando uma progressiva inclusão, em função da demanda.
+          Para participação virtual de todas as escolas do país será criada uma plataforma (eventualmente poderia se
+          tomar a tv escola como dispositivo de comunicação que já existe e tem sinal analógica e digital, isto é, chega
+          efetivamente a todas as escolas do país) para disponibilizar os filmes na medida que sejam preservados e
+          digitalizados, visando um espaço para subir as produções audiovisuais escolares a partir de categorias criadas
+          em função dos próprios filmes nacionais que dão inspiração ao trabalho de criação.
 
         </p>
       </div>
@@ -66,13 +102,136 @@
   </div>
 </section>
 
-<!-- Portfolio Section -->
+
+
+
+<!-- Services -->
+<section class="content-section bg-primary text-white text-center" id="services">
+  <div class="container">
+    <div class="content-section-heading">
+      <h3 class="mb-0" style="color: yellow;">Conteúdos</h3>
+      <h2 class="mb-5">Aqui você encontrará</h2>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+        <span class="service-icon rounded-circle mx-auto mb-3">
+          <i class="fa fa-address-card"></i>
+        </span>
+        <h4>
+          <strong>Abecedários</strong>
+        </h4>
+        <p class="text-faded mb-0">Vídeos de diálogos de cinema e educação</p>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+        <span class="service-icon rounded-circle mx-auto mb-3">
+          <i class="fa fa-camera"></i>
+        </span>
+        <h4>
+          <strong>Entrevistas</strong>
+        </h4>
+        <p class="text-faded mb-0">Entrevistas com diretores, cineastas, artistas</p>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
+        <span class="service-icon rounded-circle mx-auto mb-3">
+          <i class="fa fa-volume-up"></i>
+        </span>
+        <h4>
+          <strong>Podecast</strong>
+        </h4>
+        <p class="text-faded mb-0">Entrevistas em áudio sobre curiosidades de cinematecas
+          <i class=""></i>
+        </p>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <span class="service-icon rounded-circle mx-auto mb-3">
+          <i class="fa fa-graduation-cap "></i>
+        </span>
+        <h4>
+          <strong>Produção Acadêmica</strong>
+        </h4>
+        <p class="text-faded mb-0">Artigos e conteúdos criados pela parte acadêmica</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- Portfolio -->
+<section class="" id="portfolio">
+  <div class="container-portfolio" style="padding-top: 15px;">
+    <div class="content-section-heading text-center">
+      <h3 class="mb-0" style="color: #007bff;">Recentes na Plataforma</h3>
+      <h2 class="mb-5">Conteúdos que possam te interessar</h2>
+    </div>
+    <div class="row no-gutters">
+      <div class="col-lg-6">
+        <a class="portfolio-item" href="#">
+          <span class="caption">
+            <span class="caption-content">
+              <h2>Entrevista com ...</h2>
+              <p class="mb-0">Confira essa entrevista super construtiva</p>
+            </span>
+          </span>
+          <img class="img-fluid" src="../../assets/img/abecedario.jpg" alt="">
+        </a>
+      </div>
+      <div class="col-lg-6">
+        <a class="portfolio-item" href="#">
+          <span class="caption">
+            <span class="caption-content">
+              <h2>Podecast Avenida de Mayo 3</h2>
+              <p class="mb-0">Política, cinema, dicas e muito mais!</p>
+            </span>
+          </span>
+          <img class="img-fluid" src="../../assets/img/sound.jpg" alt="">
+        </a>
+      </div>
+      <div class="col-lg-6">
+        <a class="portfolio-item" href="#">
+          <span class="caption">
+            <span class="caption-content">
+              <h2>Prodção Acadêmica Articulo dussel cine y educacion copia</h2>
+              <p class="mb-0">O artigo examina os vínculos entre o cinema e a escola</p>
+            </span>
+          </span>
+          <img class="img-fluid" src="../../assets/img/graduation.jpg" alt="">
+        </a>
+      </div>
+      <div class="col-lg-6">
+        <a class="portfolio-item" href="#">
+          <span class="caption">
+            <span class="caption-content">
+              <h2>Gabriela Agustowsky</h2>
+              <p class="mb-0">Conheça mais dos projetos Animate e Animar.</p>
+            </span>
+          </span>
+          <img class="img-fluid" src="../../assets/img/sound.jpg" alt="">
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Portfolio Section 
 <section id="portfolio">
   <div class="container-fluid p-0">
     <div class="row no-gutters">
       <div class="col-lg-4 col-sm-6">
         <a class="portfolio-box">
-          <img class="img-fluid" src="../assets/img/pedro22.jpg" alt="">
+          <img class="img-fluid" src="../assets/img/portfolio-2.jpg" alt="">
           <div class="portfolio-box-caption">
             <div class="project-category text-white-50">
               Categoria: Escola
@@ -85,7 +244,7 @@
       </div>
       <div class="col-lg-4 col-sm-6">
         <a class="portfolio-box">
-          <img class="img-fluid" src="../assets/img/pedro22.jpg" alt="">
+          <img class="img-fluid" src="../assets/img/portfolio-2.jpg" alt="">
           <div class="portfolio-box-caption">
             <div class="project-category text-white-50">
               Categoria: Escola
@@ -98,7 +257,7 @@
       </div>
       <div class="col-lg-4 col-sm-6">
         <a class="portfolio-box">
-          <img class="img-fluid" src="../assets/img/pedro22.jpg" alt="">
+          <img class="img-fluid" src="../assets/img/portfolio-2.jpg" alt="">
           <div class="portfolio-box-caption">
             <div class="project-category text-white-50">
               Categoria: Escola
@@ -111,7 +270,7 @@
       </div>
       <div class="col-lg-4 col-sm-6">
         <a class="portfolio-box">
-          <img class="img-fluid" src="../assets/img/pedro22.jpg" alt="">
+          <img class="img-fluid" src="../assets/img/portfolio-2.jpg" alt="">
           <div class="portfolio-box-caption">
             <div class="project-category text-white-50">
               Categoria: Escola
@@ -124,7 +283,7 @@
       </div>
       <div class="col-lg-4 col-sm-6">
         <a class="portfolio-box">
-          <img class="img-fluid" src="../assets/img/pedro22.jpg" alt="">
+          <img class="img-fluid" src="../assets/img/portfolio-2.jpg" alt="">
           <div class="portfolio-box-caption">
             <div class="project-category text-white-50">
               Categoria: Escola
@@ -137,7 +296,7 @@
       </div>
       <div class="col-lg-4 col-sm-6">
         <a class="portfolio-box">
-          <img class="img-fluid" src="../assets/img/pedro22.jpg" alt="">
+          <img class="img-fluid" src="../assets/img/portfolio-2.jpg" alt="">
           <div class="portfolio-box-caption p-3">
             <div class="project-category text-white-50">
               Categoria: Escola
@@ -150,15 +309,17 @@
       </div>
     </div>
   </div>
-</section>
+</section>-->
 
 <!-- Call to Action Section -->
 <section class="page-section bg-site">
   <div class="container text-center">
     <br />
-    <h2 class="mb-4">Aguardando financiamento</h2>
+
     <button class="btn btn-primary">
-      Aguardando financiamento
+      <h2>
+        Vamos ao mapa!
+      </h2>
     </button>
   </div>
 </section>

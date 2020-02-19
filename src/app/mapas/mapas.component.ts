@@ -1,8 +1,9 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ElementRef } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
+import { EmbedVideoService } from 'ngx-embed-video';
 
 declare var google: any;
 
@@ -34,15 +35,17 @@ export class MapasComponent implements OnInit {
 
   modalRef: BsModalRef;
   carregando = false;
+  isCategoriaAberta = false;
   geocoder: any;
   galleries: any;
   gallerieSelect: any;
   categoria = "0";
   user: any;
+  @ViewChild('categoriaSeta', { static: false }) categoriaSeta: ElementRef;
+
 
   public categorias = [
-    { id: 0, name: 'Todas' },
-    { id: 1, name: 'Abecedários' },
+    { id: 1, name: 'Abecedários', icon: 'abecedario.png' },
     { id: 2, name: 'Entrevistas' },
     { id: 3, name: 'podcasts' },
     { id: 4, name: 'Produção Acadêmica' },
@@ -51,15 +54,16 @@ export class MapasComponent implements OnInit {
   ];
 
   location: Location = {
-    lat: -22.893244,
-    lng: -43.1234836,
-    zoom: 10
+    lat: 10.2989969,
+    lng: -78.2803034,
+    zoom: 4
   };
 
   constructor(public mapsApiLoader: MapsAPILoader,
     private modalService: BsModalService,
     private authService: AuthService,
-    private http: HttpClient
+    private http: HttpClient,
+    private embedService: EmbedVideoService,
   ) { }
 
   ngOnInit() {
@@ -70,6 +74,20 @@ export class MapasComponent implements OnInit {
     }, err => {
       this.carregando = false;
     });
+  }
+
+  exibirCategorias() {
+    if (this.isCategoriaAberta) {
+      this.categoriaSeta.nativeElement.className = 'fa fa-chevron-down pull-right';
+      this.isCategoriaAberta = false;
+    } else {
+      this.categoriaSeta.nativeElement.className = 'fa fa-chevron-up pull-right';
+      this.isCategoriaAberta = true;
+    }
+  }
+
+  getIcon(categoria) {
+    return "../../assets/icones/abcdario3.png"
   }
 
   openModal(template: TemplateRef<any>, pos: any) {
@@ -104,5 +122,6 @@ export class MapasComponent implements OnInit {
   }
 
   styles = [
+
   ]
 }

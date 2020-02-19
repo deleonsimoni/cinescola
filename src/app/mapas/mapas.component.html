@@ -1,36 +1,40 @@
-<section class="text-center" style="position: relative;margin-top: 60px;z-index: 1;">
-  <div class="container">
-    <div class="card">
-      <div class="card-header header-elements-inline">
-        <h6 class="card-title">Selecione</h6>
-        <div class="header-elements">
-          <div class="form-check form-check-right form-check-switchery form-check-switchery-sm">
-            <div>
-              <select class="form-control" id="opt" [(ngModel)]="categoria" (change)="mudarCategoria()">
+<div id="wrapper">
+  <div id="over_map">
+
+    <section class="text-center" style="position: relative;margin-top: 155px;z-index: 1;">
+
+      <!--<select class="form-control" id="opt" [(ngModel)]="categoria" (change)="mudarCategoria()">
                 <option *ngFor="let categoriaS of categorias" [value]="categoriaS.id">
                   {{ categoriaS.name }}
                 </option>
-              </select>
-            </div>
-            <br />
-          </div>
+              </select>-->
+      <div class="card" style="width: 18rem;">
+        <div class="card-header" style="cursor: pointer;" (click)="exibirCategorias()">
+          Categorias <i #categoriaSeta class="fa fa-chevron-down pull-right"></i>
         </div>
+        <ul [style.display]="isCategoriaAberta ? 'block' : 'none'" *ngFor="let categoria of categorias"
+          class="dontShow list-group list-group-flush">
+          <li id="{{categoria.id}}" style="cursor: pointer;" class="list-group-item text-left">
+            <img *ngIf="categoria.icon" style="margin-right: 10px;" src="../../assets/icones/{{categoria.icon}}"
+              width="30px" height="30px" />{{ categoria.name }}
+          </li>
+        </ul>
       </div>
-    </div>
-  </div>
-</section>
 
-<agm-map [latitude]="location.lat" [longitude]="location.lng" [styles]="styles">
-  <agm-marker *ngFor="let pos of galleries" (markerClick)="openModal(template, pos)" [latitude]="pos.lat"
-    [longitude]="pos.lng">
-  </agm-marker>
-</agm-map>
+    </section>
+  </div>
+  <agm-map [latitude]="location.lat" [zoom]="location.zoom" [longitude]="location.lng" [styles]="styles">
+    <agm-marker *ngFor="let pos of galleries" [iconUrl]="getIcon(pos.categoria)"
+      (markerClick)="openModal(template, pos)" [latitude]="pos.lat" [longitude]="pos.lng">
+    </agm-marker>
+  </agm-map>
+</div>
 
 <ng-template #template>
   <div class="modal-header">
     <div class="pull-left">
-      <h4 class="modal-title">Galeria - {{ gallerieSelect.nomeInstituicao }}</h4>
-      <b>Categoria:</b> {{ getNomeCategoria(categoria) }}
+      <h4 class="modal-title">{{ gallerieSelect.nomeInstituicao }}</h4>
+      <b>Categoria:</b> Abcedário
     </div>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>

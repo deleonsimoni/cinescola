@@ -17,7 +17,8 @@
 }
 
 .bg-head {
-  background-color: #f4ff57!important;
+  background-color: #435F76!important;
+  margin-top: 80px;
 }
 
 
@@ -38,6 +39,7 @@
 .content-section {
   padding-top: 7.5rem;
   padding-bottom: 7.5rem;
+  background-color: #435F76 !important;
 }
 
 .content-section-heading h2 {
@@ -92,10 +94,6 @@
   font-size: 1.2rem;
 }
 
-.container-portfolio{
-  background-color: yellow;
-}
-
 @media (min-width: 992px) {
   .portfolio-item {
     max-width: none;
@@ -122,7 +120,7 @@
     clip-path: inset(2rem);
   }
   .portfolio-item:hover .caption {
-    background-color: rgba(216, 228, 52, 0.9);
+    background-color: #DC8573;
     -webkit-clip-path: inset(2rem);
     clip-path: inset(2rem);
   }
@@ -184,6 +182,11 @@
 }
 
 
+.picsum-img-wrapper{
+  margin:auto;
+  height:360px;
+  text-align: center;
+}
 
 
 

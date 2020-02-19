@@ -1,15 +1,31 @@
 <mat-card *ngFor="let item of depoimentos" class="card">
+
+    {{ item.titulo }}
+
     <mat-card-header *ngIf="item.url" style="text-align: center;">
-        <iframe width="560" height="315" [src]='sanitizeURL(item.url)' frameborder="0" allowfullscreen></iframe>
+        <div [innerHtml]="item.ytEmbed"></div>
     </mat-card-header>
 
     <mat-card-header>
-        {{ item.descricao }}
+        <b> Entrevistado(a): &nbsp;</b> {{ item.nomeEntrevistado }}
     </mat-card-header>
 
-    <mat-card-content style="font-family: Roboto,sans-serif;">
-        por <b>{{ item.titulo }}</b>
-    </mat-card-content>
+    <mat-card-header>
+        <b>País onde foi filmado:&nbsp;</b> {{ item.paisEntrevistado }}
+    </mat-card-header>
+
+    <mat-card-header>
+        <b> Original:&nbsp;</b> {{ item.original }}
+    </mat-card-header>
+
+    <mat-card-header>
+        <b>Duração:&nbsp;</b> {{ item.duracao }}
+    </mat-card-header>
+
+    <mat-card-header>
+        <b>Descrição:&nbsp;</b> {{ item.descricao }}
+    </mat-card-header>
+
 
     <mat-card-actions>
         <button *ngIf="item._id && isAdmin" mat-button (click)="deleteDepoimento(item._id)">Deletar</button>

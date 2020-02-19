@@ -6,6 +6,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../auth/auth.service';
 
+
 declare var google: any;
 
 interface Galeria {
@@ -29,6 +30,8 @@ export class UploadComponent implements OnInit {
 
   public submissionForm: FormGroup;
   public carregando = false;
+  public carregandoMapa = false;
+  public address = '';
 
   public galeria: Galeria = {
     titulo: "", descricao: "", id: ""
@@ -38,16 +41,19 @@ export class UploadComponent implements OnInit {
   id: any = null;
   user: any;
 
+  public locationMap = {
+    lat: 19.2286289,
+    lng: -97.4840638,
+    zoom: 5
+  };
+
   public categorias = [
-    { id: 1, name: 'Depoimentos' },
-    //{ id: 1, name: 'Museus pedagógicos' },
-    { id: 2, name: 'Museus de escola' },
-    { id: 3, name: 'Centros de memoria' },
-    { id: 4, name: 'Outros museus e centros de memórias internacionais' },
-    { id: 5, name: 'Escolas' },
-    { id: 6, name: 'Arte educação' },
-    { id: 7, name: 'Escolinhas de arte do Brasil' },
-    { id: 8, name: 'Formação docente' }
+    { id: 1, name: 'Abecedários', icon: 'abecedario.png' },
+    { id: 2, name: 'Entrevistas' },
+    { id: 3, name: 'podcasts' },
+    { id: 4, name: 'Produção Acadêmica' },
+    { id: 5, name: 'Políticas' },
+    { id: 6, name: 'Escolas' }
   ];
 
   constructor(
@@ -144,24 +150,40 @@ export class UploadComponent implements OnInit {
     }
   }
 
-  findLocation(address) {
-    if (!this.geocoder) { this.geocoder = new google.maps.Geocoder(); }
-    this.geocoder.geocode({
-      'address': address.target.value
-    }, (results, status) => {
-      if (status == google.maps.GeocoderStatus.OK) {
-        for (var i = 0; i < results[0].address_components.length; i++) {
-          let types = results[0].address_components[i].types;
-        }
+  findLocation() {
 
-        if (results[0].geometry.location) {
-          this.submissionForm.get('lat').setValue(results[0].geometry.location.lat());
-          this.submissionForm.get('lng').setValue(results[0].geometry.location.lng());
+    if (!this.address) {
+
+      this.toastr.error('Digite o local que deseja buscar.', 'Atenção: ');
+
+    } else {
+
+      this.carregandoMapa = true;
+      if (!this.geocoder) { this.geocoder = new google.maps.Geocoder(); }
+      this.geocoder.geocode({
+        'address': this.address
+      }, (results, status) => {
+        if (status == google.maps.GeocoderStatus.OK) {
+          for (var i = 0; i < results[0].address_components.length; i++) {
+            let types = results[0].address_components[i].types;
+          }
+
+          this.carregandoMapa = false;
+          if (results[0].geometry.location) {
+            this.submissionForm.get('lat').setValue(results[0].geometry.location.lat());
+            this.submissionForm.get('lng').setValue(results[0].geometry.location.lng());
+            this.locationMap.lat = results[0].geometry.location.lat();
+            this.locationMap.lng = results[0].geometry.location.lng();
+            this.locationMap.zoom = 10;
+          }
+        } else {
+          this.carregandoMapa = false;
+          this.toastr.error('endereço não localizado no Google Maps.', 'Atenção: ');
+
         }
-      } else {
-        alert("Desculpa, mas a pesquisa não trouxe resultados");
-      }
-    });
+      });
+
+    }
   }
 
   openModal(template: TemplateRef<any>) {
@@ -171,10 +193,7 @@ export class UploadComponent implements OnInit {
 
   addGaleria() {
     if (!this.galeria.titulo) {
-      this.toastr.error('Escreva o nome do depoente', 'Atenção');
-      return;
-    } if (!this.galeria.descricao) {
-      this.toastr.error('Escreva o depoimento', 'Atenção');
+      this.toastr.error('Escreva o nome do abecedário', 'Atenção');
       return;
     }
 
@@ -198,6 +217,7 @@ export class UploadComponent implements OnInit {
         if (res && res.temErro) {
           this.toastr.error(res.mensagem, 'Erro: ');
         } else {
+          this.modalRef.hide();
           if (this.galeria.id.length > 1) {
             this.toastr.success('Arquivo alterado com sucesso', 'Sucesso');
             this.modalRef.hide();
@@ -211,10 +231,13 @@ export class UploadComponent implements OnInit {
           this.pesquisaPorCategoria();
         }
       }, err => {
+
         this.carregando = false;
         this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');
       });
     } else {
+      this.modalRef.hide();
+
       this.submissionForm.get('galeria').value.push(this.galeria);
       this.galeria = {
         titulo: "", descricao: "", id: ""

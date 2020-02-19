@@ -4,18 +4,16 @@
 <main id="submission">
     <div class="container submission-content">
         <div class="row">
-            <div class="offset-md-1 col-md-10">
+            <div class="offset-md-1 col-md-10" style="margin-top: 180px;">
                 <div class="box">
                     <div class="form">
                         <form role="form" class="contactForm" [formGroup]="submissionForm"
                             encType="multipart/form-data">
                             <div class="section-header">
-                                <h2>Upload</h2>
+                                <h2>Upload Conteúdo</h2>
                             </div>
-                            <div *ngIf="carregando">
-                                <i class="fas fa-spinner fa-pulse"></i>Aguarde...
-                            </div>
-                            <div *ngIf="!carregando">
+
+                            <div>
                                 <div>
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
@@ -35,10 +33,24 @@
                                                 <div>
                                                     <hr />
                                                     Selecione no mapa o local para inclusão das informações.<br />
-                                                    <!-- <input type="text" id="localidade" class="form-control mt-2"
-                                                                placeholder="Informe a localidade"
-                                                                (keyup.enter)='findLocation($event)' />-->
-                                                    <agm-map #map [latitude]="-22.893244" [longitude]="-43.1234836"
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Informe a localidade"
+                                                            aria-label="Informe a localidade" [(ngModel)]="address"
+                                                            [ngModelOptions]="{standalone: true}"
+                                                            aria-describedby="basic-addon2">
+                                                        <div class="input-group-append">
+                                                            <button *ngIf="!carregandoMapa" (click)="findLocation()"
+                                                                class="btn btn-primary" type="button">Pesquisar</button>
+                                                            <button *ngIf="carregandoMapa" class="btn btn-primary"
+                                                                type="button"><i
+                                                                    class="fa fa-spinner fa-pulse"></i>Aguarde...</button>
+                                                        </div>
+                                                    </div>
+                                                    <br />
+
+                                                    <agm-map #map [latitude]="locationMap.lat"
+                                                        [longitude]="locationMap.lng" [zoom]="locationMap.zoom"
                                                         [styles]="styles" (mapClick)="placeMarker($event)">
                                                         <agm-marker *ngIf="null != submissionForm.get('lat').value"
                                                             [latitude]="submissionForm.get('lat').value"
@@ -49,17 +61,18 @@
                                                             [longitude]="pos.lng">
                                                         </agm-marker>
                                                     </agm-map>
+
                                                 </div>
 
                                                 <div *ngIf="submissionForm.value.lat">
                                                     <input type="text" name="titlae" class="form-control mt-2"
-                                                        id="title" placeholder="Nome da instituição"
+                                                        id="title" placeholder="Nome do local"
                                                         formControlName="nomeInstituicao" />
 
                                                     <hr />
                                                     <button (click)="openModal(template, $event)"
                                                         type="button">Adicionar
-                                                        Depoimento</button>
+                                                        Conteúdo</button>
                                                     <div *ngIf="submissionForm.get('galeria').value.length > 0">
                                                         <app-depoimentos
                                                             [depoimentos]="submissionForm.get('galeria').value"
@@ -74,14 +87,14 @@
 
                                             </div>
                                         </div>
-                                        <div *ngIf="submissionForm.value.lat">
-                                            <div class="row justify-content-center">
-                                                <button style="width: 400px !important;" class="btn-get-started"
-                                                    *ngIf="!carregando" (click)="upload()">Salvar</button>
+                                        <div
+                                            *ngIf="submissionForm.value.lat && submissionForm.get('galeria').value.length > 0">
+                                            <div class="">
+                                                <button class="btn btn-primary mb-5" *ngIf="!carregando"
+                                                    (click)="upload()">Salvar</button>
 
-                                                <div *ngIf="carregando" class="row justify-content-center"><button
-                                                        class="btn-get-started"><i
-                                                            class="fas fa-spinner fa-pulse"></i></button>
+                                                <div *ngIf="carregando" class=""><button class="btn btn-primary"><i
+                                                            class="fa fa-spinner fa-pulse"></i></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -98,21 +111,32 @@
 
 <ng-template #template>
     <div class="modal-header">
-        <h4 class="modal-title pull-left">Depoimento</h4>
+        <h4 class="modal-title pull-left">Abecedário</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
+
     <div class="modal-body">
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Nome da pessoa"
+        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Nome"
             [(ngModel)]="galeria.titulo" required />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="URL do vídeo"
+        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Entrevistada(o)"
+            [(ngModel)]="galeria.nomeEntrevistado" />
+        <input type="text" name="title" class="form-control mt-2" id="title"
+            placeholder="País onde foi filmado ou nacionalidade do entrevistado(a)"
+            [(ngModel)]="galeria.paisEntrevistado" />
+        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="URL do abecedário (YouTube)"
             [(ngModel)]="galeria.url" required />
-        <input type="text" name="descricao" class="form-control mt-2" id="title" placeholder="Depoimento"
-            [(ngModel)]="galeria.descricao" required />
+        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Original"
+            [(ngModel)]="galeria.original" />
+        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Duração"
+            [(ngModel)]="galeria.duracao" />
+
+        <textarea [(ngModel)]="galeria.descricao" placeholder="Descrição" class="form-control mt-2"
+            id="exampleFormControlTextarea1" rows="3"></textarea>
 
         <div class="justify-content-center">
-            <button (click)="addGaleria()">Enviar</button>
+            <button class="btn btn-primary mt-2" (click)="addGaleria()">Enviar</button>
         </div>
     </div>
 </ng-template>

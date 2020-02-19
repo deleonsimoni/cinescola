@@ -29,7 +29,7 @@ import { UploadComponent } from './upload/upload.component';
 import { environment } from '../environments/environment';
 import { DepoimentosComponent } from './depoimentos/depoimentos/depoimentos.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { EmbedVideo } from 'ngx-embed-video';
 
 @NgModule({
   declarations: [
@@ -55,6 +55,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
     NgxMaskModule.forRoot(),
+    EmbedVideo.forRoot(),
     ToastrModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDH7oOZdBbMgyLURojHNE9tcggTpnJTa3Q'

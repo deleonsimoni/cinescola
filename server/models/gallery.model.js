@@ -12,7 +12,16 @@ const GallerySchema = new mongoose.Schema({
   url: {
     type: String
   },
-  caminhoArquivo: {
+  duracao: {
+    type: String
+  },
+  original: {
+    type: String
+  },
+  paisEntrevistado: {
+    type: String
+  },
+  nomeEntrevistado: {
     type: String
   },
   createdAt: {

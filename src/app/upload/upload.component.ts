@@ -5,15 +5,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../auth/auth.service';
+import { EmbedVideoService } from 'ngx-embed-video';
 
 
 declare var google: any;
 
-interface Galeria {
-  titulo: string;
-  descricao: string;
-  id: string;
-}
 
 @Component({
   selector: 'app-upload',
@@ -33,9 +29,7 @@ export class UploadComponent implements OnInit {
   public carregandoMapa = false;
   public address = '';
 
-  public galeria: Galeria = {
-    titulo: "", descricao: "", id: ""
-  };
+  public galeria: any = {};
   categoria = 0;
   galleries: any;
   id: any = null;
@@ -48,7 +42,7 @@ export class UploadComponent implements OnInit {
   };
 
   public categorias = [
-    { id: 1, name: 'Abecedários', icon: 'abecedario.png' },
+    { id: 1, name: 'Abcdários', icon: 'abecedario.png' },
     { id: 2, name: 'Entrevistas' },
     { id: 3, name: 'podcasts' },
     { id: 4, name: 'Produção Acadêmica' },
@@ -63,6 +57,8 @@ export class UploadComponent implements OnInit {
     private modalService: BsModalService,
     private http: HttpClient,
     private authService: AuthService,
+    private embedService: EmbedVideoService,
+
 
   ) {
     this.mapsApiLoader = mapsApiLoader;
@@ -205,7 +201,7 @@ export class UploadComponent implements OnInit {
         id: this.id
       }
 
-      if (this.galeria.id.length > 1) {
+      if (this.galeria.id) {
         this.reciverDelete(this.galeria.id);
       }
 
@@ -218,15 +214,14 @@ export class UploadComponent implements OnInit {
           this.toastr.error(res.mensagem, 'Erro: ');
         } else {
           this.modalRef.hide();
-          if (this.galeria.id.length > 1) {
+          if (this.galeria.id > 1) {
             this.toastr.success('Arquivo alterado com sucesso', 'Sucesso');
             this.modalRef.hide();
           } else {
             this.toastr.success('Depoimento registrado com sucesso', 'Sucesso');
           }
-          this.galeria = {
-            titulo: "", descricao: "", id: ""
-          };
+          this.galeria = {};
+
 
           this.pesquisaPorCategoria();
         }
@@ -237,11 +232,11 @@ export class UploadComponent implements OnInit {
       });
     } else {
       this.modalRef.hide();
-
+      this.submissionForm.patchValue({
+        galeria: []
+      });
       this.submissionForm.get('galeria').value.push(this.galeria);
-      this.galeria = {
-        titulo: "", descricao: "", id: ""
-      };
+      this.galeria = {};
     }
   }
 
@@ -260,7 +255,7 @@ export class UploadComponent implements OnInit {
           this.toastr.error(res.mensagem, 'Erro: ');
         } else {
           this.pesquisaPorCategoria();
-          if (this.galeria.id.length > 1) {
+          if (this.galeria.id > 1) {
             this.toastr.success('Arquivo removido com sucesso', 'Sucesso');
           }
         }
@@ -272,9 +267,7 @@ export class UploadComponent implements OnInit {
   }
 
   reciverAlter(depoimento) {
-    this.galeria = {
-      titulo: depoimento.titulo, descricao: depoimento.descricao, id: depoimento._id
-    };
+    this.galeria = depoimento;
 
     this.modalRef = this.modalService.show(this.templateRef);
   }
@@ -307,5 +300,14 @@ export class UploadComponent implements OnInit {
     this.submissionForm.get('galeria').setValue(
       this.galleries.find(element => element._id == this.id
       ).galeria);
+
+    this.galleries.forEach(element => {
+      if (element.url) {
+        element.ytEmbed = this.embedService.embed(element.url, {
+          attr: { width: 400, height: 315, frameborder: 0 }
+        });
+      }
+    });
+
   }
 }

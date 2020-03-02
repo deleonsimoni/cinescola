@@ -11,7 +11,11 @@ module.exports = router;
 router.post('/register', asyncHandler(register), login);
 router.post('/login', passport.authenticate('local', { session: false }), login);
 router.get('/me', passport.authenticate('jwt', { session: false }), login);
+router.get('/refresh', passport.authenticate('jwt', { session: false }), refresh);
 
+async function refresh(req, res) {
+  res.json({ user: req.user });
+}
 
 async function register(req, res, next) {
   let user = await userCtrl.insert(req.body);

@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.user = this.authService.getDecodedAccessToken(this.authService.getToken());
   }
 
   logout(): void {

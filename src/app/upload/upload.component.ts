@@ -18,22 +18,27 @@ declare var google: any;
 })
 export class UploadComponent implements OnInit {
 
-  @ViewChild('template', { static: false }) templateRef: TemplateRef<any>;
+  @ViewChild('abecedario', { static: false }) abecedarioRef: TemplateRef<any>;
+  @ViewChild('producaoAcademica', { static: false }) producaoAcademicaRef: TemplateRef<any>;
+  @ViewChild('audio', { static: false }) audioRef: TemplateRef<any>;
+  @ViewChild('entrevista', { static: false }) entrevistaRef: TemplateRef<any>;
 
   geocoder: any;
   modalRef: BsModalRef;
 
-
   public submissionForm: FormGroup;
   public carregando = false;
   public carregandoMapa = false;
-  public address = '';
 
-  public galeria: any = {};
-  categoria = 0;
-  galleries: any;
-  id: any = null;
-  user: any;
+  public abecedario: any = {};
+  public producaoAcademica: any = {};
+  public audio: any = {};
+  public entrevista: any = {};
+  public point: any = {};
+  public points: any = {};
+  public address;
+  public categoria = 0;
+  public user: any;
 
   public locationMap = {
     lat: 19.2286289,
@@ -42,9 +47,9 @@ export class UploadComponent implements OnInit {
   };
 
   public categorias = [
-    { id: 1, name: 'Abcdários', icon: 'abecedario.png' },
+    { id: 1, name: 'Abecedários', icon: 'abecedario.png' },
     { id: 2, name: 'Entrevistas' },
-    { id: 3, name: 'podcasts' },
+    { id: 3, name: 'Audios' },
     { id: 4, name: 'Produção Acadêmica' },
     { id: 5, name: 'Políticas' },
     { id: 6, name: 'Escolas' }
@@ -68,82 +73,85 @@ export class UploadComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.authService.getUser();
-    this.createForm();
-  }
-
-  private createForm(): void {
-    this.submissionForm = this.builder.group({
-      categoria: [null],
-      nomeInstituicao: [null],
-      galeria: [[]],
-      lat: [null],
-      lng: [null]
+    this.authService.refresh().subscribe((res: any) => {
+      this.user = res.user;
+      this.carregando = false;
     });
   }
+
+  pesquisaPorCategoria() {
+    this.http.get("api/points?categoria=" + this.categoria).subscribe((res: any) => {
+      this.points = res;
+    }, err => {
+      this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');
+    });
+  }
+
+  mudarCategoria() {
+    this.points = {};
+    this.abecedario = {};
+    this.audio = {};
+    this.entrevista = {};
+    this.producaoAcademica = {};
+    this.pesquisaPorCategoria();
+  }
+
+  openModal() {
+
+    switch (this.categoria) {
+      case 1:
+        this.modalRef = this.modalService.show(this.abecedarioRef);
+
+        break;
+      case 2:
+        this.modalRef = this.modalService.show(this.entrevistaRef);
+
+        break;
+      case 3:
+        this.modalRef = this.modalService.show(this.audioRef);
+
+        break;
+      case 4:
+        this.modalRef = this.modalService.show(this.producaoAcademicaRef);
+
+        break;
+
+      default:
+        break;
+    }
+
+  }
+
+
+  addAbecedario() {
+    this.carregando = true;
+
+    this.http.post(`api/user/upload-galeria`, this.abecedario).subscribe((res: any) => {
+      this.carregando = false;
+
+      if (res && res.temErro) {
+        this.toastr.error(res.mensagem, 'Erro: ');
+      } else {
+        this.modalRef.hide();
+        this.toastr.success('Abecedário registrado com sucesso', 'Sucesso');
+        this.abecedario = {};
+        this.pesquisaPorCategoria();
+      }
+    }, err => {
+
+      this.carregando = false;
+      this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');
+    });
+  }
+
 
   placeMarker(position: any) {
-    const lat = position.coords.lat;
-    const lng = position.coords.lng;
-
-    this.submissionForm.patchValue({
-      nomeInstituicao: "",
-      galeria: [],
-      lat: lat,
-      lng: lng
-    });
-    this.id = null;
+    this.point.lat = position.coords.lat;
+    this.point.lng = position.coords.lng;
   }
 
   selectMarker(position: any) {
-    this.submissionForm.patchValue({
-      categoria: position.categoria,
-      nomeInstituicao: position.nomeInstituicao,
-      galeria: position.galeria,
-      lat: position.lat,
-      lng: position.lng
-    });
-    this.id = position._id;
-  }
 
-  public upload() {
-    if (!this.submissionForm.value.categoria) {
-      this.toastr.error('Selecione uma categoria.', 'Atenção');
-      return;
-    } if (!this.submissionForm.value.nomeInstituicao) {
-      this.toastr.error('Escreva o nome da Instituição.', 'Atenção');
-      return;
-    } if (!this.submissionForm.value.lng) {
-      this.toastr.error('Marque uma posição no mapa.', 'Atenção');
-      return;
-    } else {
-      this.carregando = true;
-
-      const formData: FormData = new FormData();
-
-      formData.append('formulario', JSON.stringify(this.submissionForm.value));
-
-      this.http.post(`api/user/upload/`, formData).subscribe((res: any) => {
-        this.carregando = false;
-
-        if (res && res.temErro) {
-          this.toastr.error(res.mensagem, 'Erro: ');
-        } else {
-          this.toastr.success('Arquivo enviado com sucesso', 'Sucesso');
-          this.mudarCategoria();
-
-          this.submissionForm.patchValue({
-            nomeInstituicao: "",
-            galeria: [],
-            lat: null,
-            lng: null
-          });
-        }
-      }, err => {
-        this.carregando = false;
-        this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');
-      });
-    }
   }
 
   findLocation() {
@@ -166,8 +174,8 @@ export class UploadComponent implements OnInit {
 
           this.carregandoMapa = false;
           if (results[0].geometry.location) {
-            this.submissionForm.get('lat').setValue(results[0].geometry.location.lat());
-            this.submissionForm.get('lng').setValue(results[0].geometry.location.lng());
+            this.point.lat = results[0].geometry.location.lat();
+            this.point.lng = results[0].geometry.location.lng();
             this.locationMap.lat = results[0].geometry.location.lat();
             this.locationMap.lng = results[0].geometry.location.lng();
             this.locationMap.zoom = 10;
@@ -182,132 +190,120 @@ export class UploadComponent implements OnInit {
     }
   }
 
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
-    return false;
-  }
-
-  addGaleria() {
-    if (!this.galeria.titulo) {
-      this.toastr.error('Escreva o nome do abecedário', 'Atenção');
-      return;
-    }
-
-    if (this.id) {
-      const formData: FormData = new FormData();
-
-      let aux = {
-        galeria: this.galeria,
-        id: this.id
+  /*
+    addGaleria() {
+      if (!this.galeria.titulo) {
+        this.toastr.error('Escreva o nome do abecedário', 'Atenção');
+        return;
       }
-
-      if (this.galeria.id) {
-        this.reciverDelete(this.galeria.id);
-      }
-
-      formData.append('galeria', JSON.stringify(aux));
-
-      this.http.post(`api/user/upload-galeria/`, formData).subscribe((res: any) => {
-        this.carregando = false;
-
-        if (res && res.temErro) {
-          this.toastr.error(res.mensagem, 'Erro: ');
-        } else {
-          this.modalRef.hide();
-          if (this.galeria.id > 1) {
-            this.toastr.success('Arquivo alterado com sucesso', 'Sucesso');
-            this.modalRef.hide();
-          } else {
-            this.toastr.success('Depoimento registrado com sucesso', 'Sucesso');
-          }
-          this.galeria = {};
-
-
-          this.pesquisaPorCategoria();
-        }
-      }, err => {
-
-        this.carregando = false;
-        this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');
-      });
-    } else {
-      this.modalRef.hide();
-      this.submissionForm.patchValue({
-        galeria: []
-      });
-      this.submissionForm.get('galeria').value.push(this.galeria);
-      this.galeria = {};
-    }
-  }
-
-  removerID(id, arr) {
-    return arr.filter(function (obj) {
-      return obj._id != id;
-    });
-  }
-
-  reciverDelete(depoimentoId) {
-    if (!this.id) {
-      this.submissionForm.get('galeria').value.push(this.removerID(depoimentoId, this.submissionForm.get('galeria').value));
-    } else {
-      this.http.delete("api/user/deleteDepoimento/" + depoimentoId).subscribe((res: any) => {
-        if (res && res.temErro) {
-          this.toastr.error(res.mensagem, 'Erro: ');
-        } else {
-          this.pesquisaPorCategoria();
-          if (this.galeria.id > 1) {
-            this.toastr.success('Arquivo removido com sucesso', 'Sucesso');
-          }
-        }
-      }, err => {
-        this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ' + err);
-      });
-      console.log('Delecao', depoimentoId);
-    }
-  }
-
-  reciverAlter(depoimento) {
-    this.galeria = depoimento;
-
-    this.modalRef = this.modalService.show(this.templateRef);
-  }
-
-  mudarCategoria() {
-    this.pesquisaPorCategoria();
-
-    this.id = null;
-
-    this.submissionForm.patchValue({
-      nomeInstituicao: "",
-      galeria: this.galeria,
-      lat: null,
-      lng: null
-    });
-  }
-
-  pesquisaPorCategoria() {
-    this.http.get("api/user/getGallerys?categoria=" + this.submissionForm.get('categoria').value).subscribe((res: any) => {
-      this.galleries = res;
+  
       if (this.id) {
-        this.populaListaDepoimento();
-      }
-    }, err => {
-    });
-  }
-
-  populaListaDepoimento() {
-    console.log(this.galleries.find(element => element._id == this.id).galeria);
-    this.submissionForm.get('galeria').setValue(
-      this.galleries.find(element => element._id == this.id
-      ).galeria);
-
-    this.galleries.forEach(element => {
-      if (element.url) {
-        element.ytEmbed = this.embedService.embed(element.url, {
-          attr: { width: 400, height: 315, frameborder: 0 }
+        const formData: FormData = new FormData();
+  
+        let aux = {
+          galeria: this.galeria,
+          id: this.id
+        }
+  
+        if (this.galeria.id) {
+          this.reciverDelete(this.galeria.id);
+        }
+  
+        formData.append('galeria', JSON.stringify(aux));
+  
+        this.http.post(`api/user/upload-galeria/`, formData).subscribe((res: any) => {
+          this.carregando = false;
+  
+          if (res && res.temErro) {
+            this.toastr.error(res.mensagem, 'Erro: ');
+          } else {
+            this.modalRef.hide();
+            if (this.galeria.id > 1) {
+              this.toastr.success('Arquivo alterado com sucesso', 'Sucesso');
+              this.modalRef.hide();
+            } else {
+              this.toastr.success('Depoimento registrado com sucesso', 'Sucesso');
+            }
+            this.galeria = {};
+  
+  
+            this.pesquisaPorCategoria();
+          }
+        }, err => {
+  
+          this.carregando = false;
+          this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');
         });
+      } else {
+        this.modalRef.hide();
+        this.submissionForm.patchValue({
+          galeria: []
+        });
+        this.submissionForm.get('galeria').value.push(this.galeria);
+        this.galeria = {};
       }
-    });
-
-  }
+    }
+  
+    removerID(id, arr) {
+      return arr.filter(function (obj) {
+        return obj._id != id;
+      });
+    }
+  
+    reciverDelete(depoimentoId) {
+      if (!this.id) {
+        this.submissionForm.get('galeria').value.push(this.removerID(depoimentoId, this.submissionForm.get('galeria').value));
+      } else {
+        this.http.delete("api/user/deleteDepoimento/" + depoimentoId).subscribe((res: any) => {
+          if (res && res.temErro) {
+            this.toastr.error(res.mensagem, 'Erro: ');
+          } else {
+            this.pesquisaPorCategoria();
+            if (this.galeria.id > 1) {
+              this.toastr.success('Arquivo removido com sucesso', 'Sucesso');
+            }
+          }
+        }, err => {
+          this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ' + err);
+        });
+        console.log('Delecao', depoimentoId);
+      }
+    }
+  
+    reciverAlter(depoimento) {
+      this.galeria = depoimento;
+  
+      this.modalRef = this.modalService.show(this.templateRef);
+    }
+  
+    mudarCategoria() {
+      this.pesquisaPorCategoria();
+  
+      this.id = null;
+  
+      this.submissionForm.patchValue({
+        nomeInstituicao: "",
+        galeria: this.galeria,
+        lat: null,
+        lng: null
+      });
+    }
+  
+  
+  
+    populaListaDepoimento() {
+      console.log(this.galleries.find(element => element._id == this.id).galeria);
+      this.submissionForm.get('galeria').setValue(
+        this.galleries.find(element => element._id == this.id
+        ).galeria);
+  
+      this.galleries.forEach(element => {
+        if (element.url) {
+          element.ytEmbed = this.embedService.embed(element.url, {
+            attr: { width: 400, height: 315, frameborder: 0 }
+          });
+        }
+      });
+  
+    }*/
 }

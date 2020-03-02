@@ -10,6 +10,7 @@ const config = require('./config');
 const localLogin = new LocalStrategy({
   usernameField: 'email'
 }, async (email, password, done) => {
+  console.log('a')
   let user = await User.findOne({ email });
   if (!user || !bcrypt.compareSync(password, user.hashedPassword)) {
     return done(null, false, { error: 'Your login details could not be verified. Please try again.' });
@@ -23,6 +24,8 @@ const jwtLogin = new JwtStrategy({
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: config.jwtSecret
 }, async (payload, done) => {
+  console.log('b')
+
   let user = await User.findById(payload._id);
   if (!user) {
     return done(null, false);

@@ -36,6 +36,7 @@ export class UploadComponent implements OnInit {
   public entrevista: any = {};
   public point: any = {};
   public points: any = {};
+  public contents: any = {};
   public address;
   public categoria = 0;
   public user: any;
@@ -93,11 +94,16 @@ export class UploadComponent implements OnInit {
     this.audio = {};
     this.entrevista = {};
     this.producaoAcademica = {};
+    this.contents = {};
+
     this.pesquisaPorCategoria();
   }
 
   openModal() {
-
+    if (!this.point.nome) {
+      this.toastr.error('Preencha o nome do local para prosseguir.', 'Atenção: ');
+      return;
+    }
     switch (Number(this.categoria)) {
       case 1:
         this.modalRef = this.modalService.show(this.abecedarioRef);
@@ -123,11 +129,19 @@ export class UploadComponent implements OnInit {
   }
 
 
-  addAbecedario() {
+  buscarAbecedarioPontos() {
+    this.http.get("api/points/abecedario/" + this.categoria).subscribe((res: any) => {
+      this.points = res;
+    }, err => {
+      this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');
+    });
+  }
+
+  addContent() {
     this.carregando = true;
 
-    this.point.abecedario = this.abecedario;
-    this.http.post(`api/points/abecedario`, this.point).subscribe((res: any) => {
+    this.point.content = this.abecedario;
+    this.http.post(`api/points/` + this.categoria, this.point).subscribe((res: any) => {
       this.carregando = false;
 
       if (res && res.temErro) {
@@ -136,7 +150,8 @@ export class UploadComponent implements OnInit {
         this.modalRef.hide();
         this.toastr.success(res.message, 'Sucesso');
         this.abecedario = {};
-        this.pesquisaPorCategoria();
+        this.point = { pointId: res.point._id };
+        this.buscarAbecedarioPontos();
       }
     }, err => {
 
@@ -147,11 +162,20 @@ export class UploadComponent implements OnInit {
 
 
   placeMarker(position: any) {
+    this.point = {};
+    this.contents = {};
     this.point.lat = position.coords.lat;
     this.point.lng = position.coords.lng;
   }
 
   selectMarker(position: any) {
+    this.point = position;
+
+    this.http.get("api/points/" + this.categoria + "/" + position._id).subscribe((res: any) => {
+      this.contents = res;
+    }, err => {
+      this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');
+    });
 
   }
 
@@ -189,6 +213,32 @@ export class UploadComponent implements OnInit {
       });
 
     }
+  }
+
+  reciverDelete(depoimentoId) {
+    /*if (!this.id) {
+      this.submissionForm.get('galeria').value.push(this.removerID(depoimentoId, this.submissionForm.get('galeria').value));
+    } else {
+      this.http.delete("api/user/deleteDepoimento/" + depoimentoId).subscribe((res: any) => {
+        if (res && res.temErro) {
+          this.toastr.error(res.mensagem, 'Erro: ');
+        } else {
+          this.pesquisaPorCategoria();
+          if (this.galeria.id > 1) {
+            this.toastr.success('Arquivo removido com sucesso', 'Sucesso');
+          }
+        }
+      }, err => {
+        this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ' + err);
+      });
+      console.log('Delecao', depoimentoId);
+    }*/
+  }
+
+  reciverAlter(depoimento) {
+    /*this.galeria = depoimento;
+
+    this.modalRef = this.modalService.show(this.templateRef);*/
   }
 
   /*

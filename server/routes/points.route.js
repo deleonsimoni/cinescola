@@ -14,85 +14,101 @@ router.use(passport.authenticate('jwt', {
   session: false
 }))
 
-router.post('/abecedario', asyncHandler(incluirAbecedario));
-router.delete('/abecedario/:abecedarioId', asyncHandler(deletarAbecedario));
-router.put('/abecedario/:abecedarioId', asyncHandler(alterarAbecedario));
-
-router.post('/audio', asyncHandler(incluirAudio));
-router.delete('/audio/:audioId', asyncHandler(deletarAudio));
-router.put('/audio/:audioId', asyncHandler(alterarAudio));
-
-router.post('/entrevista', asyncHandler(incluirEntrevista));
-router.delete('/entrevista/:entrevistaId', asyncHandler(deletarEntrevista));
-router.put('/entrevista/:entrevistaId', asyncHandler(alterarEntrevista));
-
-router.post('/producaoAcademica', asyncHandler(incluirProducaoAcademica));
-router.delete('/producaoAcademica/:producaoAcademicaId', asyncHandler(deletarProducaoAcademica));
-router.put('/producaoAcademica/:producaoAcademicaId', asyncHandler(alterarProducaoAcademica));
-
 router.get('/:categoriaId', asyncHandler(getPointsByCategoria));
+router.get('/:categoriaId/:pointId', asyncHandler(getContentOfPoint));
+
+router.post('/:categoriaId', asyncHandler(incluirContentByCategoria));
+
+router.get('/abecedario/:pointId', asyncHandler(getAbecedarioPoint));
+router.get('/audio/:pointId', asyncHandler(getAudioPoint));
+router.get('/entrevista/:pointId', asyncHandler(getEntrevistaPoint));
+router.get('/producaoAcademica/:pointId', asyncHandler(getProducaoAcademicaPoint));
+
+async function getContentOfPoint(req, res) {
+  let user = await pointsCtrl.getContentOfPoint(req);
+  res.json(user);
+}
+
+async function getAbecedarioPoint(req, res) {
+  let user = await pointsCtrl.getAbecedarioPoint(req);
+  res.json(user);
+}
+
+async function getAudioPoint(req, res) {
+  let user = await pointsCtrl.getAudioPoint(req);
+  res.json(user);
+}
+
+async function getEntrevistaPoint(req, res) {
+  let user = await pointsCtrl.getEntrevistaPoint(req);
+  res.json(user);
+}
+
+async function getProducaoAcademicaPoint(req, res) {
+  let user = await pointsCtrl.getProducaoAcademicaPoint(req);
+  res.json(user);
+}
 
 async function getPointsByCategoria(req, res) {
   let user = await pointsCtrl.getPointsByCategoria(req);
   res.json(user);
 }
 
-async function incluirAbecedario(req, res) {
-  let user = await abecedarioCtrl.insert(req);
-  res.json(user);
+async function incluirContentByCategoria(req, res) {
+  console.log('aaa' + req.params.categoriaId)
+  let content;
+  switch (Number(req.params.categoriaId)) {
+    case 1:
+      content = await abecedarioCtrl.insert(req);
+      res.json(content);
+    case 2:
+      content = await audioCtrl.insert(req);
+      res.json(content);
+    case 3:
+      content = await entrevistaCtrl.insert(req);
+      res.json(content);
+    case 4:
+      content = await producaoAcademicaCtrl.insert(req);
+      res.json(content);
+    default:
+      break;
+  }
 }
 
-async function deletarAbecedario(req, res) {
-  let user = await abecedarioCtrl.delete(req.body);
-  res.json(user);
+async function deleteContentByCategoria(req, res) {
+  switch (Number(req.params.categoriaId)) {
+    case 1:
+      let user = await abecedarioCtrl.delete(req.body);
+      res.json(user);
+    case 2:
+      let user = await audioCtrl.delete(req);
+      res.json(user);
+    case 3:
+      let user = await entrevistaCtrl.delete(req);
+      res.json(user);
+    case 4:
+      let user = await producaoAcademicaCtrl.delete(req);
+      res.json(user);
+    default:
+      break;
+  }
 }
 
-async function alterarAbecedario(req, res) {
-  let user = await abecedarioCtrl.update(req);
-  res.json(user);
-}
-
-async function incluirAudio(req, res) {
-  let user = await audioCtrl.insert(req);
-  res.json(user);
-}
-
-async function deletarAudio(req, res) {
-  let user = await audioCtrl.delete(req);
-  res.json(user);
-}
-
-async function alterarAudio(req, res) {
-  let user = await audioCtrl.update(req);
-  res.json(user);
-}
-
-async function incluirEntrevista(req, res) {
-  let user = await entrevistaCtrl.insert(req);
-  res.json(user);
-}
-
-async function deletarEntrevista(req, res) {
-  let user = await entrevistaCtrl.delete(req);
-  res.json(user);
-}
-
-async function alterarEntrevista(req, res) {
-  let user = await entrevistaCtrl.update(req);
-  res.json(user);
-}
-
-async function incluirProducaoAcademica(req, res) {
-  let user = await producaoAcademicaCtrl.insert(req);
-  res.json(user);
-}
-
-async function deletarProducaoAcademica(req, res) {
-  let user = await producaoAcademicaCtrl.delete(req);
-  res.json(user);
-}
-
-async function alterarProducaoAcademica(req, res) {
-  let user = await producaoAcademicaCtrl.update(req);
-  res.json(user);
+async function updateContentByCategoria(req, res) {
+  switch (Number(req.params.categoriaId)) {
+    case 1:
+      let user = await abecedarioCtrl.update(req);
+      res.json(user);
+    case 2:
+      let user = await audioCtrl.update(req);
+      res.json(user);
+    case 3:
+      let user = await entrevistaCtrl.update(req);
+      res.json(user);
+    case 4:
+      let user = await producaoAcademicaCtrl.update(req);
+      res.json(user);
+    default:
+      break;
+  }
 }

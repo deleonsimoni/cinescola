@@ -18,22 +18,18 @@ async function insert(req) {
   };
   req.body.userId = req.user._id;
 
-  console.log(req.body)
-
   let pointFound = await PointsCtrl.getPointsByCoordinator(req.body.lat, req.body.lng);
-  console.log(!pointFound)
+  console.log(req.body.lat, req.body.lng)
   if (!pointFound._id) {
-    console.log('bb')
+
     pointFound = await PointsCtrl.create(req.body);
-    console.log('b' + pointFound)
   }
-  console.log("cc")
-  req.body.abecedario.userId = req.user._id;
-  req.body.abecedario.pointId = pointFound._id;
+  req.body.content.userId = req.user._id;
+  req.body.content.pointId = pointFound._id;
 
-  let abecedario = await new Abecedario(req.body.abecedario).save();
+  let abecedario = await new Abecedario(req.body.content).save();
 
-  await Points.findByIdAndUpdate(pointFound._id, {
+  response.point = await Points.findByIdAndUpdate(pointFound._id, {
     $push: {
       abecedarios: abecedario._id
     },

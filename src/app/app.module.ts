@@ -67,7 +67,7 @@ import { EmbedVideo } from 'ngx-embed-video';
     BsModalRef,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: CatchErrorInterceptor,
+      useClass: AuthHeaderInterceptor,
       multi: true,
     }],
   entryComponents: [],

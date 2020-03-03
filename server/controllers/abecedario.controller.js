@@ -1,5 +1,6 @@
-
 const Abecedario = require('../models/abecedario.model');
+const Points = require('../models/points.model');
+const PointsCtrl = require('./point.controller');
 
 
 module.exports = {
@@ -9,8 +10,37 @@ module.exports = {
 }
 
 async function insert(req) {
-  delete user.password;
-  return await new User(user).save();
+
+  let response = {
+    status: 200,
+    temErro: false,
+    message: `Abecedário criado com sucesso.`
+  };
+  req.body.userId = req.user._id;
+
+  console.log(req.body)
+
+  let pointFound = await PointsCtrl.getPointsByCoordinator(req.body.lat, req.body.lng);
+  console.log(!pointFound)
+  if (!pointFound._id) {
+    console.log('bb')
+    pointFound = await PointsCtrl.create(req.body);
+    console.log('b' + pointFound)
+  }
+  console.log("cc")
+  req.body.abecedario.userId = req.user._id;
+  req.body.abecedario.pointId = pointFound._id;
+
+  let abecedario = await new Abecedario(req.body.abecedario).save();
+
+  await Points.findByIdAndUpdate(pointFound._id, {
+    $push: {
+      abecedarios: abecedario._id
+    },
+    ultimaCategoria: 1
+  })
+
+  return response;
 }
 
 async function update(req) {
@@ -21,7 +51,9 @@ async function update(req) {
 }
 
 async function deletar(req) {
-  let galleryInsert = Gallery.findOne({ '_id': galeria.id }).exec(function (err, book) {
+  let galleryInsert = Gallery.findOne({
+    '_id': galeria.id
+  }).exec(function (err, book) {
     book.galeria.push(galeria.galeria);
     book.save(function (err) {
       console.log('galeria.galeria' + err);

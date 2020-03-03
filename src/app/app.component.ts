@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
   public ngOnInit() {
 
     // init this.user on startup
-    this.authService.me().subscribe(data => {
+    /*this.authService.me().subscribe(data => {
 
       const splashScreen: HTMLElement = document.getElementById('custom-overlay');
       if (splashScreen) {
@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
       }
 
       this.user = data.user;
-    });
+    });*/
 
     setTimeout(() => {    //<<<---    using ()=> syntax
       const splashScreen: HTMLElement = document.getElementById('custom-overlay');
@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
         menu.removeAttribute("style");
         splashScreen.remove();
       }
-    }, /*5500*/2);
+    }, 5500);
 
     // update this.user after login/register/logout
     this.userSubscription = this.authService.$userSource.subscribe((user) => {

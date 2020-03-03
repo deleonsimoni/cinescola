@@ -18,10 +18,10 @@ declare var google: any;
 })
 export class UploadComponent implements OnInit {
 
-  @ViewChild('abecedario', { static: false }) abecedarioRef: TemplateRef<any>;
-  @ViewChild('producaoAcademica', { static: false }) producaoAcademicaRef: TemplateRef<any>;
-  @ViewChild('audio', { static: false }) audioRef: TemplateRef<any>;
-  @ViewChild('entrevista', { static: false }) entrevistaRef: TemplateRef<any>;
+  @ViewChild('abecedarioModal', { static: false }) abecedarioRef: TemplateRef<any>;
+  @ViewChild('producaoAcademicaModal', { static: false }) producaoAcademicaRef: TemplateRef<any>;
+  @ViewChild('audioModal', { static: false }) audioRef: TemplateRef<any>;
+  @ViewChild('entrevistaModal', { static: false }) entrevistaRef: TemplateRef<any>;
 
   geocoder: any;
   modalRef: BsModalRef;
@@ -80,7 +80,7 @@ export class UploadComponent implements OnInit {
   }
 
   pesquisaPorCategoria() {
-    this.http.get("api/points?categoria=" + this.categoria).subscribe((res: any) => {
+    this.http.get("api/points/" + this.categoria).subscribe((res: any) => {
       this.points = res;
     }, err => {
       this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');
@@ -98,7 +98,7 @@ export class UploadComponent implements OnInit {
 
   openModal() {
 
-    switch (this.categoria) {
+    switch (Number(this.categoria)) {
       case 1:
         this.modalRef = this.modalService.show(this.abecedarioRef);
 
@@ -126,14 +126,15 @@ export class UploadComponent implements OnInit {
   addAbecedario() {
     this.carregando = true;
 
-    this.http.post(`api/user/upload-galeria`, this.abecedario).subscribe((res: any) => {
+    this.point.abecedario = this.abecedario;
+    this.http.post(`api/points/abecedario`, this.point).subscribe((res: any) => {
       this.carregando = false;
 
       if (res && res.temErro) {
         this.toastr.error(res.mensagem, 'Erro: ');
       } else {
         this.modalRef.hide();
-        this.toastr.success('Abecedário registrado com sucesso', 'Sucesso');
+        this.toastr.success(res.message, 'Sucesso');
         this.abecedario = {};
         this.pesquisaPorCategoria();
       }

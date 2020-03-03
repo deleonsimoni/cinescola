@@ -56,7 +56,7 @@ export class RegisterComponent implements OnInit {
       repeatPassword
     } = this.userForm.getRawValue();
 
-    this.authService.register(fullname, email, password, repeatPassword)
+    this.authService.register(this.userForm.getRawValue())
       .subscribe(data => {
         this.router.navigate(['']);
       })

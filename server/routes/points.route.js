@@ -10,7 +10,9 @@ const pointsCtrl = require('../controllers/point.controller');
 const router = express.Router();
 module.exports = router;
 
-router.use(passport.authenticate('jwt', { session: false }))
+router.use(passport.authenticate('jwt', {
+  session: false
+}))
 
 router.post('/abecedario', asyncHandler(incluirAbecedario));
 router.delete('/abecedario/:abecedarioId', asyncHandler(deletarAbecedario));

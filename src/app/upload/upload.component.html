@@ -2,75 +2,67 @@
     Submission
   ============================-->
 <main id="submission">
-    <div class="container submission-content">
-        <div class="row">
-            <div class="offset-md-1 col-md-10" style="margin-top: 150px;">
-                <div class="box">
-                    <div class="form">
-                        <form role="form" class="contactForm" encType="multipart/form-data">
-                            <div class="section-header">
-                                <h2>Upload Conteúdo</h2>
-                            </div>
+  <div class="container submission-content">
+    <div class="row">
+      <div class="offset-md-1 col-md-10" style="margin-top: 150px;">
+        <div class="box">
+          <div class="form">
+            <div class="section-header">
+              <h2>Upload Conteúdo</h2>
+            </div>
 
-                            <div>
-                                <div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-12">
-                                            <div>
-                                                <select class="form-control" id="opt" [(ngModel)]="categoria"
-                                                    (change)="mudarCategoria()">
-                                                    <option disabled="true" [selected]="!categoria">Selecione a
-                                                        categoria</option>
-                                                    <option *ngFor="let option of categorias" [value]="option.id">
-                                                        {{ option.name }}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div *ngIf="categoria">
+            <div>
+              <div>
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <div>
+                      <select class="form-control" id="opt" [(ngModel)]="categoria" (change)="mudarCategoria()">
+                        <option disabled="true" [value]="0">Selecione a
+                          categoria</option>
 
-                                                <div>
-                                                    <hr />
-                                                    Selecione no mapa o local para inclusão das informações.<br />
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control"
-                                                            placeholder="Informe a localidade"
-                                                            aria-label="Informe a localidade" [(ngModel)]="address"
-                                                            aria-describedby="basic-addon2">
-                                                        <div class="input-group-append">
-                                                            <button *ngIf="!carregandoMapa" (click)="findLocation()"
-                                                                class="btn btn-primary" type="button">Pesquisar</button>
-                                                            <button *ngIf="carregandoMapa" class="btn btn-primary"
-                                                                type="button"><i
-                                                                    class="fa fa-spinner fa-pulse"></i>Aguarde...</button>
-                                                        </div>
-                                                    </div>
-                                                    <br />
+                        <option *ngFor="let option of categorias" [value]="option.id">
+                          {{ option.name }}
+                        </option>
+                      </select>
+                    </div>
+                    <div *ngIf="categoria">
 
-                                                    <agm-map #map [latitude]="locationMap.lat"
-                                                        [longitude]="locationMap.lng" [zoom]="locationMap.zoom"
-                                                        [styles]="styles" (mapClick)="placeMarker($event)">
-                                                        <agm-marker *ngIf="!point.lat" [latitude]="point.lat"
-                                                            [longitude]="point.lng">
-                                                        </agm-marker>
-                                                        <agm-marker *ngFor="let point of points"
-                                                            (markerClick)="selectMarker(point)" [latitude]="point.lat"
-                                                            [longitude]="point.lng">
-                                                        </agm-marker>
-                                                    </agm-map>
+                      <div>
+                        <hr />
+                        Selecione no mapa o local para inclusão das informações.<br />
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="Informe a localidade"
+                            aria-label="Informe a localidade" [(ngModel)]="address" aria-describedby="basic-addon2">
+                          <div class="input-group-append">
+                            <button *ngIf="!carregandoMapa" (click)="findLocation()" class="btn btn-primary"
+                              type="button">Pesquisar</button>
+                            <button *ngIf="carregandoMapa" class="btn btn-primary" type="button"><i
+                                class="fa fa-spinner fa-pulse"></i>Aguarde...</button>
+                          </div>
+                        </div>
+                        <br />
 
-                                                </div>
+                        <agm-map #map [latitude]="locationMap.lat" [longitude]="locationMap.lng"
+                          [zoom]="locationMap.zoom" [styles]="styles" (mapClick)="placeMarker($event)">
+                          <agm-marker *ngIf="!point.lat" [latitude]="point.lat" [longitude]="point.lng">
+                          </agm-marker>
+                          <agm-marker *ngFor="let point of points" (markerClick)="selectMarker(point)"
+                            [latitude]="point.lat" [longitude]="point.lng">
+                          </agm-marker>
+                        </agm-map>
 
-                                                <div *ngIf="point.lng">
-                                                    <input type="text" name="titlae" class="form-control mt-2"
-                                                        id="title" placeholder="Nome para o ponto"
-                                                        [(ngModel)]="point.nome" />
+                      </div>
 
-                                                    <hr />
+                      <div *ngIf="point.lng">
+                        <input type="text" name="titlae" class="form-control mt-2" id="title"
+                          placeholder="Nome para o ponto" [(ngModel)]="point.nome" />
+
+                        <hr />
 
 
-                                                    <button (click)="openModal($event)" type="button">Adicionar
-                                                        Conteúdo</button>
-                                                    <!-- <div *ngIf="submissionForm.get('galeria').value.length > 0">
+                        <button (click)="openModal($event)" type="button">Adicionar
+                          Conteúdo</button>
+                        <!-- <div *ngIf="submissionForm.get('galeria').value.length > 0">
                                                         <app-depoimentos
                                                             [depoimentos]="submissionForm.get('galeria').value"
                                                             [isAdmin]="true"
@@ -80,178 +72,143 @@
                                                     </div>-->
 
 
-                                                </div>
+                      </div>
 
-                                            </div>
-                                        </div>
-                                        <div
-                                            *ngIf="point?.lat && (abecedario || audio || producaoAcademica || entrevista)">
-                                            <div class="">
-                                                <button class="btn btn-primary mb-5" *ngIf="!carregando"
-                                                    (click)="upload()">Salvar</button>
-
-                                                <div *ngIf="carregando" class=""><button class="btn btn-primary"><i
-                                                            class="fa fa-spinner fa-pulse"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
                     </div>
+                  </div>
+                  <div *ngIf="point?.lat && (abecedario || audio || producaoAcademica || entrevista)">
+                    <div class="">
+                      <button class="btn btn-primary mb-5" *ngIf="!carregando" (click)="upload()">Salvar</button>
+
+                      <div *ngIf="carregando" class=""><button class="btn btn-primary"><i
+                            class="fa fa-spinner fa-pulse"></i></button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </main>
 
-<ng-template #template>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Abecedário</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-        </button>
+<ng-template #abecedarioModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Abecedário</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <input type="text" name="title" class="form-control mt-2" id="abc1" placeholder="Nome" [(ngModel)]="abecedario.nome"
+      required />
+    <input type="text" name="title" class="form-control mt-2" id="abc12" placeholder="URL do abecedário (YouTube)"
+      [(ngModel)]="abecedario.linkVideo" required />
+    <input type="text" name="title" class="form-control mt-2" id="abc13" placeholder="Entrevistada(o)"
+      [(ngModel)]="abecedario.entrevistado" />
+    <input type="text" name="title" class="form-control mt-2" id="abc14" placeholder="País"
+      [(ngModel)]="abecedario.pais" />
+    <input type="text" name="title" class="form-control mt-2" id="abc5" placeholder="Duração"
+      [(ngModel)]="abecedario.duracao" />
+    <textarea [(ngModel)]="abecedario.descricao" placeholder="Descrição" class="form-control mt-2"
+      id="exampleFormControlTextarea1" rows="3"></textarea>
+    <input type="text" name="title" class="form-control mt-2" id="abc6" placeholder="Links Extras(Separe=os com ; )"
+      [(ngModel)]="abecedario.linksExtras" />
+    <div class="justify-content-center">
+      <button class="btn btn-primary mt-2" (click)="addAbecedario()">Adicionar Abecedário</button>
     </div>
+  </div>
 
-    <div class="modal-body">
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Nome"
-            [(ngModel)]="galeria.titulo" required />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Entrevistada(o)"
-            [(ngModel)]="galeria.nomeEntrevistado" />
-        <input type="text" name="title" class="form-control mt-2" id="title"
-            placeholder="País onde foi filmado ou nacionalidade do entrevistado(a)"
-            [(ngModel)]="galeria.paisEntrevistado" />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="URL do abecedário (YouTube)"
-            [(ngModel)]="galeria.url" required />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Original"
-            [(ngModel)]="galeria.original" />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Duração"
-            [(ngModel)]="galeria.duracao" />
-
-        <textarea [(ngModel)]="galeria.descricao" placeholder="Descrição" class="form-control mt-2"
-            id="exampleFormControlTextarea1" rows="3"></textarea>
-
-        <div class="justify-content-center">
-            <button class="btn btn-primary mt-2" (click)="addGaleria()">Enviar</button>
-        </div>
-    </div>
 </ng-template>
 
-<ng-template #abecedario>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Abecedário</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+<ng-template #entrevistaModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Entrevista</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 
-    <div class="modal-body">
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Nome"
-            [(ngModel)]="abecedario.nome" required />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="URL do abecedário (YouTube)"
-            [(ngModel)]="abecedario.linkVideo" required />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Entrevistada(o)"
-            [(ngModel)]="abecedario.entrevistado" />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="País"
-            [(ngModel)]="abecedario.pais" />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Duração"
-            [(ngModel)]="abecedario.duracao" />
-        <textarea [(ngModel)]="abecedario.descricao" placeholder="Descrição" class="form-control mt-2"
-            id="exampleFormControlTextarea1" rows="3"></textarea>
-        <input type="text" name="title" class="form-control mt-2" id="title"
-            placeholder="Links Extras(Separe=os com ; )" [(ngModel)]="abecedario.linksExtras" />
-        <div class="justify-content-center">
-            <button class="btn btn-primary mt-2" (click)="addAbecedario()">Enviar</button>
-        </div>
+  <div class="modal-body">
+    <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Verbete"
+      [(ngModel)]="entrevista.verbete" required />
+    <input type="text" name="title" class="form-control mt-2" id="title" placeholder="URL vídeo (YouTube)"
+      [(ngModel)]="entrevista.linkVideo" required />
+    <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Entrevistada(o)"
+      [(ngModel)]="entrevista.entrevistado" />
+    <input type="text" name="title" class="form-control mt-2" id="title" placeholder="País"
+      [(ngModel)]="entrevista.pais" />
+    <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Duração"
+      [(ngModel)]="entrevista.duracao" />
+    <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Formato"
+      [(ngModel)]="entrevista.formato" />
+    <textarea [(ngModel)]="entrevista.descricao" placeholder="Descrição" class="form-control mt-2"
+      id="exampleFormControlTextarea1" rows="3"></textarea>
+    <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Links Extras(Separe=os com ; )"
+      [(ngModel)]="entrevista.linksExtras" />
+    <div class="justify-content-center">
+      <button class="btn btn-primary mt-2" (click)="addEntrevista()">Enviar</button>
     </div>
+  </div>
 </ng-template>
 
-<ng-template #entrevista>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Entrevista</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+<ng-template #audioModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Áudio</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 
-    <div class="modal-body">
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Verbete"
-            [(ngModel)]="entrevista.verbete" required />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="URL vídeo (YouTube)"
-            [(ngModel)]="entrevista.linkVideo" required />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Entrevistada(o)"
-            [(ngModel)]="entrevista.entrevistado" />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="País"
-            [(ngModel)]="entrevista.pais" />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Duração"
-            [(ngModel)]="entrevista.duracao" />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Formato"
-            [(ngModel)]="entrevista.formato" />
-        <textarea [(ngModel)]="entrevista.descricao" placeholder="Descrição" class="form-control mt-2"
-            id="exampleFormControlTextarea1" rows="3"></textarea>
-        <input type="text" name="title" class="form-control mt-2" id="title"
-            placeholder="Links Extras(Separe=os com ; )" [(ngModel)]="entrevista.linksExtras" />
-        <div class="justify-content-center">
-            <button class="btn btn-primary mt-2" (click)="addEntrevista()">Enviar</button>
-        </div>
+  <div class="modal-body">
+    <input type="text" name="title" class="form-control mt-2" id="title" placeholder="URL áudio"
+      [(ngModel)]="audio.linkAudio" required />
+    <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Entrevistada(o)"
+      [(ngModel)]="audio.entrevistado" />
+    <input type="text" name="title" class="form-control mt-2" id="title" placeholder="País" [(ngModel)]="audio.pais" />
+    <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Duração"
+      [(ngModel)]="audio.duracao" />
+    <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Formato"
+      [(ngModel)]="audio.formato" />
+    <textarea [(ngModel)]="audio.descricao" placeholder="Descrição" class="form-control mt-2"
+      id="exampleFormControlTextarea1" rows="3"></textarea>
+    <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Links Extras(Separe=os com ; )"
+      [(ngModel)]="audio.linksExtras" />
+    <div class="justify-content-center">
+      <button class="btn btn-primary mt-2" (click)="addAudio()">Enviar</button>
     </div>
+  </div>
 </ng-template>
 
-<ng-template #audio>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Áudio</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+<ng-template #producaoAcademicaModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Produção Acadêmica</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 
-    <div class="modal-body">
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="URL áudio"
-            [(ngModel)]="audio.linkAudio" required />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Entrevistada(o)"
-            [(ngModel)]="audio.entrevistado" />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="País"
-            [(ngModel)]="audio.pais" />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Duração"
-            [(ngModel)]="audio.duracao" />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Formato"
-            [(ngModel)]="audio.formato" />
-        <textarea [(ngModel)]="audio.descricao" placeholder="Descrição" class="form-control mt-2"
-            id="exampleFormControlTextarea1" rows="3"></textarea>
-        <input type="text" name="title" class="form-control mt-2" id="title"
-            placeholder="Links Extras(Separe=os com ; )" [(ngModel)]="audio.linksExtras" />
-        <div class="justify-content-center">
-            <button class="btn btn-primary mt-2" (click)="addAudio()">Enviar</button>
-        </div>
+  <div class="modal-body">
+    <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Titulo"
+      [(ngModel)]="producaoAcademica.titulo" required />
+    <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Autoria"
+      [(ngModel)]="producaoAcademica.autoria" required />
+    <input type="text" name="title" class="form-control mt-2" id="title" placeholder="URL Vídeo"
+      [(ngModel)]="producaoAcademica.linkVideo" required />
+    <input type="text" name="title" class="form-control mt-2" id="title" placeholder="País"
+      [(ngModel)]="producaoAcademica.pais" />
+    <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Formato"
+      [(ngModel)]="producaoAcademica.formato" />
+    <textarea [(ngModel)]="galeria.descricao" placeholder="Descrição" class="form-control mt-2"
+      id="exampleFormControlTextarea1" rows="3"></textarea>
+    <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Links Extras(Separe=os com ; )"
+      [(ngModel)]="producaoAcademica.linksExtras" />
+    <div class="justify-content-center">
+      <button class="btn btn-primary mt-2" (click)="addProducaoAcademica()">Enviar</button>
     </div>
-</ng-template>
-
-<ng-template #producaoAcademica>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Produção Acadêmica</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-
-    <div class="modal-body">
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Titulo"
-            [(ngModel)]="producaoAcademica.titulo" required />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Autoria"
-            [(ngModel)]="producaoAcademica.autoria" required />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="URL Vídeo"
-            [(ngModel)]="producaoAcademica.linkVideo" required />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="País"
-            [(ngModel)]="producaoAcademica.pais" />
-        <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Formato"
-            [(ngModel)]="producaoAcademica.formato" />
-        <textarea [(ngModel)]="galeria.descricao" placeholder="Descrição" class="form-control mt-2"
-            id="exampleFormControlTextarea1" rows="3"></textarea>
-        <input type="text" name="title" class="form-control mt-2" id="title"
-            placeholder="Links Extras(Separe=os com ; )" [(ngModel)]="producaoAcademica.linksExtras" />
-        <div class="justify-content-center">
-            <button class="btn btn-primary mt-2" (click)="addProducaoAcademica()">Enviar</button>
-        </div>
-    </div>
+  </div>
 </ng-template>

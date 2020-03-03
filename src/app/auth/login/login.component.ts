@@ -19,6 +19,9 @@ export class LoginComponent implements OnInit {
   email: string;
   password: string;
   carregando: false;
+  isLogin = true;
+  register: any = {};
+  regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   ngOnInit() {
   }
@@ -38,6 +41,43 @@ export class LoginComponent implements OnInit {
           }
         });
     }
+  }
+
+  registrar(): void {
+
+    if (!this.register.icAcceptTerms) {
+      this.toastr.error('Aceite os termos de uso para prosseguir', 'Atenção: ');
+      return;
+    }
+
+    if (!this.register.fullname || !this.register.email || !this.register.email2 || !this.register.document || !this.register.password || !this.register.password2) {
+      this.toastr.error('Preencha todos os campos do formulário', 'Atenção: ');
+      return;
+    }
+
+    if (this.register.email && this.register.email2 && this.register.email != this.register.email2) {
+      this.toastr.error('Emails preenchidos não conferem', 'Atenção: ');
+      return;
+    }
+
+    if (this.register.password && this.register.password2 && this.register.password != this.register.password2) {
+      this.toastr.error('Senhas preenchidas não conferem', 'Atenção: ');
+      return;
+    }
+
+    if (!this.regexEmail.test(this.register.email)) {
+      this.toastr.error('Email inválido', 'Atenção: ');
+      return;
+    }
+
+    this.authService.register(this.register)
+      .subscribe(data => {
+        this.authService.setUser(data.user, data.token);
+        window.location.assign("/");
+      }, err => {
+        this.toastr.error('Servidor momentaneamente inoperante', 'Erro: ');
+      });
+
   }
 
 }

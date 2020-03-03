@@ -26,6 +26,10 @@ export class HeaderComponent implements OnInit {
     this.navigate('/');
   }
 
+  getShortName(fullName) {
+    return fullName.split(' ')[0];
+  }
+
   navigate(link): void {
     this.router.navigate([link]);
   }

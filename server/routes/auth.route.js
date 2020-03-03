@@ -9,12 +9,20 @@ const router = express.Router();
 module.exports = router;
 
 router.post('/register', asyncHandler(register), login);
-router.post('/login', passport.authenticate('local', { session: false }), login);
-router.get('/me', passport.authenticate('jwt', { session: false }), login);
-router.get('/refresh', passport.authenticate('jwt', { session: false }), refresh);
+router.post('/login', passport.authenticate('local', {
+  session: false
+}), login);
+router.get('/me', passport.authenticate('jwt', {
+  session: false
+}), login);
+router.get('/refresh', passport.authenticate('jwt', {
+  session: false
+}), refresh);
 
 async function refresh(req, res) {
-  res.json({ user: req.user });
+  res.json({
+    user: req.user
+  });
 }
 
 async function register(req, res, next) {
@@ -28,5 +36,8 @@ async function register(req, res, next) {
 function login(req, res) {
   let user = req.user;
   let token = authCtrl.generateToken(user);
-  res.json({ user, token });
+  res.json({
+    user,
+    token
+  });
 }

@@ -47,19 +47,16 @@ export class AuthService {
     localStorage.removeItem(TOKEN_KEY);
   }
 
-  register(fullname: string, email: string, password: string, repeatPassword: string): Observable<any> {
+  register(register): Observable<any> {
     return Observable.create(observer => {
-      this.http.post('/api/auth/register', {
-        fullname,
-        email,
-        password,
-        repeatPassword
-      }).subscribe((data: any) => {
+      this.http.post('/api/auth/register', register).subscribe((data: any) => {
         observer.next({ user: data.user });
         this.setUser(data.user, data.token);
         this.token.saveToken(data.token);
         observer.complete();
       })
+    }, error => {
+      alert('Ocorreu um erro na criação do usuário, tente novamente mais tarde.');
     });
   }
 

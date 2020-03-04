@@ -140,8 +140,41 @@ export class UploadComponent implements OnInit {
   addContent() {
     this.carregando = true;
 
-    this.point.content = this.abecedario;
-    this.http.post(`api/points/` + this.categoria, this.point).subscribe((res: any) => {
+    switch (Number(this.categoria)) {
+      case 1:
+        this.point.content = this.abecedario;
+
+        break;
+      case 2:
+        this.point.content = this.entrevista;
+
+        break;
+      case 3:
+        this.point.content = this.audio;
+
+        break;
+      case 4:
+        this.point.content = this.producaoAcademica;
+
+        break;
+
+      default:
+        break;
+    }
+
+    if (this.point.content._id) {
+
+      this.updateContent(this.point)
+
+    } else {
+      this.insertContent(this.point)
+    }
+
+  }
+
+
+  updateContent(point) {
+    this.http.put(`api/points/` + this.categoria, point).subscribe((res: any) => {
       this.carregando = false;
 
       if (res && res.temErro) {
@@ -150,8 +183,31 @@ export class UploadComponent implements OnInit {
         this.modalRef.hide();
         this.toastr.success(res.message, 'Sucesso');
         this.abecedario = {};
-        this.point = { pointId: res.point._id };
+        this.selectMarker(this.point);
         this.getContentsPoint();
+
+      }
+    }, err => {
+
+      this.carregando = false;
+      this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');
+    });
+  }
+
+  insertContent(point) {
+    this.http.post(`api/points/` + this.categoria, point).subscribe((res: any) => {
+      this.carregando = false;
+
+      if (res && res.temErro) {
+        this.toastr.error(res.mensagem, 'Erro: ');
+      } else {
+        this.modalRef.hide();
+        this.toastr.success(res.message, 'Sucesso');
+        this.abecedario = {};
+        this.point._id = res.point._id;
+        this.selectMarker(this.point);
+        this.getContentsPoint();
+
       }
     }, err => {
 
@@ -224,27 +280,57 @@ export class UploadComponent implements OnInit {
     }
   }
 
-  reciverDelete(depoimentoId) {
-    /*if (!this.id) {
-      this.submissionForm.get('galeria').value.push(this.removerID(depoimentoId, this.submissionForm.get('galeria').value));
-    } else {
-      this.http.delete("api/user/deleteDepoimento/" + depoimentoId).subscribe((res: any) => {
-        if (res && res.temErro) {
-          this.toastr.error(res.mensagem, 'Erro: ');
-        } else {
-          this.pesquisaPorCategoria();
-          if (this.galeria.id > 1) {
-            this.toastr.success('Arquivo removido com sucesso', 'Sucesso');
-          }
-        }
-      }, err => {
-        this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ' + err);
-      });
-      console.log('Delecao', depoimentoId);
-    }*/
+  reciverDelete(contentId) {
+    this.carregando = true;
+
+    this.http.delete(`api/points/` + this.categoria + "/" + contentId).subscribe((res: any) => {
+      this.carregando = false;
+
+      if (res && res.temErro) {
+        this.toastr.error(res.mensagem, 'Erro: ');
+      } else {
+        this.toastr.success('Item excluído com sucesso', 'Sucesso');
+        this.abecedario = {};
+        this.selectMarker(this.point);
+
+      }
+    }, err => {
+
+      this.carregando = false;
+      this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');
+    });
   }
 
-  reciverAlter(depoimento) {
+  reciverAlter(content) {
+
+
+    switch (Number(this.categoria)) {
+      case 1:
+        this.abecedario = content;
+        this.modalRef = this.modalService.show(this.abecedarioRef);
+
+        break;
+      case 2:
+        this.entrevista = content;
+        this.modalRef = this.modalService.show(this.entrevistaRef);
+
+        break;
+      case 3:
+        this.audio = content;
+        this.modalRef = this.modalService.show(this.audioRef);
+
+        break;
+      case 4:
+        this.producaoAcademica = content;
+        this.modalRef = this.modalService.show(this.producaoAcademicaRef);
+        break;
+
+      default:
+        break;
+    }
+
+
+
     /*this.galeria = depoimento;
 
     this.modalRef = this.modalService.show(this.templateRef);*/

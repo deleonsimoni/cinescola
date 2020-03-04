@@ -16,7 +16,6 @@ export class AbecedarioComponent implements OnInit {
 
   constructor(
     private _sanitizer: DomSanitizer,
-    private embedService: EmbedVideoService,
   ) { }
 
   ngOnInit() {

@@ -38,20 +38,17 @@ async function insert(req) {
 }
 
 async function update(req) {
-  let galeria = JSON.parse(req.body.galeria);
-  let galleryInsert = await saveUploadGaleria(galeria);
-
-  return galleryInsert;
+  return await Abecedario.findByIdAndUpdate(req.body.content._id, req.body.content);
 }
 
 async function deletar(req) {
-  let galleryInsert = Gallery.findOne({
-    '_id': galeria.id
-  }).exec(function (err, book) {
-    book.galeria.push(galeria.galeria);
-    book.save(function (err) {
-      console.log('galeria.galeria' + err);
-    });
+  return await Abecedario.findOneAndRemove({
+    _id: req.params.contentId
+  }, function (err, doc) {
+    if (err) {
+      console.log("erro ao deletar o Abecedario: " + req.params.contentId, err);
+    } else {
+      console.log("Abecedario deletado com sucesso: " + req.params.contentId);
+    }
   });
-  return galleryInsert;
 }

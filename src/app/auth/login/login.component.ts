@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.email, this.password)
         .subscribe(data => {
           this.authService.setUser(data.user, data.token);
-          this.router.navigate(['']);
+          window.location.assign("/");
         }, err => {
           if (err.status === 401) {
             this.toastr.error('Email ou senha inválidos', 'Erro: ');

@@ -55,7 +55,7 @@ async function getPointsByCategoria(req) {
           }
         })
         .sort({
-          createAt: -1
+          createAt: 1
         });
 
     case 2:
@@ -65,7 +65,7 @@ async function getPointsByCategoria(req) {
           }
         })
         .sort({
-          createAt: -1
+          createAt: 1
         });
 
     case 3:
@@ -75,7 +75,7 @@ async function getPointsByCategoria(req) {
           }
         })
         .sort({
-          createAt: -1
+          createAt: 1
         });
 
     case 4:
@@ -85,7 +85,7 @@ async function getPointsByCategoria(req) {
           }
         })
         .sort({
-          createAt: -1
+          createAt: 1
         });
 
     default:
@@ -98,7 +98,7 @@ async function getAbecedarioPoint(req) {
       pointId: req.params.pointId
     })
     .sort({
-      createAt: -1
+      createAt: 1
     });
 }
 
@@ -107,7 +107,7 @@ async function getAudioPoint(req) {
       pointId: req.params.pointId
     })
     .sort({
-      createAt: -1
+      createAt: 1
     });
 }
 
@@ -116,7 +116,7 @@ async function getEntrevistaPoint(req) {
       pointId: req.params.pointId
     })
     .sort({
-      createAt: -1
+      createAt: 1
     });
 }
 
@@ -125,6 +125,6 @@ async function getProducaoAcademicaPoint(req) {
       pointId: req.params.pointId
     })
     .sort({
-      createAt: -1
+      createAt: 1
     });
 }

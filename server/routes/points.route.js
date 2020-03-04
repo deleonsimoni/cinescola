@@ -10,23 +10,37 @@ const pointsCtrl = require('../controllers/point.controller');
 const router = express.Router();
 module.exports = router;
 
-router.use(passport.authenticate('jwt', {
+/*router.use(passport.authenticate('jwt', {
   session: false
-}))
+}))*/
 
 router.get('/:categoriaId', asyncHandler(getPointsByCategoria));
 router.get('/:categoriaId/:pointId', asyncHandler(getContentOfPoint));
 
-router.post('/:categoriaId', asyncHandler(incluirContentByCategoria));
+router.post('/:categoriaId', passport.authenticate('jwt', {
+  session: false
+}), asyncHandler(incluirContentByCategoria));
 
-router.delete('/:categoriaId', asyncHandler(deleteContentByCategoria));
+router.delete('/:categoriaId/:contentId', passport.authenticate('jwt', {
+  session: false
+}), asyncHandler(deleteContentByCategoria));
 
-router.put('/:categoriaId', asyncHandler(updateContentByCategoria));
+router.put('/:categoriaId', passport.authenticate('jwt', {
+  session: false
+}), asyncHandler(updateContentByCategoria));
 
-router.get('/abecedario/:pointId', asyncHandler(getAbecedarioPoint));
-router.get('/audio/:pointId', asyncHandler(getAudioPoint));
-router.get('/entrevista/:pointId', asyncHandler(getEntrevistaPoint));
-router.get('/producaoAcademica/:pointId', asyncHandler(getProducaoAcademicaPoint));
+router.get('/abecedario/:pointId', passport.authenticate('jwt', {
+  session: false
+}), asyncHandler(getAbecedarioPoint));
+router.get('/audio/:pointId', passport.authenticate('jwt', {
+  session: false
+}), asyncHandler(getAudioPoint));
+router.get('/entrevista/:pointId', passport.authenticate('jwt', {
+  session: false
+}), asyncHandler(getEntrevistaPoint));
+router.get('/producaoAcademica/:pointId', passport.authenticate('jwt', {
+  session: false
+}), asyncHandler(getProducaoAcademicaPoint));
 
 async function getContentOfPoint(req, res) {
   let user = await pointsCtrl.getContentOfPoint(req);
@@ -66,10 +80,10 @@ async function incluirContentByCategoria(req, res) {
       content = await abecedarioCtrl.insert(req);
       res.json(content);
     case 2:
-      content = await audioCtrl.insert(req);
+      content = await entrevistaCtrl.insert(req);
       res.json(content);
     case 3:
-      content = await entrevistaCtrl.insert(req);
+      content = await audioCtrl.insert(req);
       res.json(content);
     case 4:
       content = await producaoAcademicaCtrl.insert(req);
@@ -80,18 +94,19 @@ async function incluirContentByCategoria(req, res) {
 }
 
 async function deleteContentByCategoria(req, res) {
+  let user;
   switch (Number(req.params.categoriaId)) {
     case 1:
-      let user = await abecedarioCtrl.delete(req.body);
+      user = await abecedarioCtrl.deletar(req);
       res.json(user);
     case 2:
-      let user = await audioCtrl.delete(req);
+      user = await entrevistaCtrl.delete(req);
       res.json(user);
     case 3:
-      let user = await entrevistaCtrl.delete(req);
+      user = await audioCtrl.delete(req);
       res.json(user);
     case 4:
-      let user = await producaoAcademicaCtrl.delete(req);
+      user = await producaoAcademicaCtrl.delete(req);
       res.json(user);
     default:
       break;
@@ -99,18 +114,19 @@ async function deleteContentByCategoria(req, res) {
 }
 
 async function updateContentByCategoria(req, res) {
+  let user;
   switch (Number(req.params.categoriaId)) {
     case 1:
-      let user = await abecedarioCtrl.update(req);
+      user = await abecedarioCtrl.update(req);
       res.json(user);
     case 2:
-      let user = await audioCtrl.update(req);
+      user = await entrevistaCtrl.update(req);
       res.json(user);
     case 3:
-      let user = await entrevistaCtrl.update(req);
+      user = await audioCtrl.update(req);
       res.json(user);
     case 4:
-      let user = await producaoAcademicaCtrl.update(req);
+      user = await producaoAcademicaCtrl.update(req);
       res.json(user);
     default:
       break;

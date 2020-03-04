@@ -27,7 +27,6 @@ import { NgxMaskModule } from 'ngx-mask';
 import { ToastrModule } from 'ngx-toastr';
 import { UploadComponent } from './upload/upload.component';
 import { environment } from '../environments/environment';
-import { DepoimentosComponent } from './depoimentos/depoimentos/depoimentos.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EmbedVideo } from 'ngx-embed-video';
 import { AbecedarioComponent } from './cards/abecedario/abecedario.component';
@@ -44,7 +43,6 @@ import { PoliticasComponent } from './cards/politicas/politicas.component';
     FooterComponent,
     MapasComponent,
     UploadComponent,
-    DepoimentosComponent,
     AbecedarioComponent,
     AudioComponent,
     ProducaoAcademicaComponent,

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { EmbedVideoService } from 'ngx-embed-video';
 import { ToastrService } from 'ngx-toastr';
+import { DomSanitizer } from '@angular/platform-browser';
 
 declare var google: any;
 
@@ -71,6 +72,7 @@ export class MapasComponent implements OnInit {
     private http: HttpClient,
     private toastr: ToastrService,
     private embedService: EmbedVideoService,
+    private _sanitizer: DomSanitizer
   ) { }
 
   ngOnInit() {
@@ -92,9 +94,12 @@ export class MapasComponent implements OnInit {
 
       this.contents.forEach(element => {
         if (element.linkVideo) {
-          element.ytEmbed = this.embedService.embed(element.linkVideo, {
-            attr: { border: 0, height: '100%', left: 0, position: 'absolute', top: 0, width: '100%' }
-          });
+          /* element.ytEmbed = this.embedService.embed(element.linkVideo, {
+             attr: {}
+           });*/
+
+          element.ytEmbed = this._sanitizer.bypassSecurityTrustResourceUrl(element.linkVideo.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/"));
+
         }
       });
 

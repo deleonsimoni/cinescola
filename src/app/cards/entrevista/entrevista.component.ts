@@ -16,21 +16,11 @@ export class EntrevistaComponent implements OnInit {
 
   constructor(
     private _sanitizer: DomSanitizer,
-    private embedService: EmbedVideoService,
   ) { }
 
   ngOnInit() {
 
-    this.contents.forEach(element => {
-      if (element.url) {
-        element.ytEmbed = this.embedService.embed(element.url, {
-          attr: { width: 400, height: 315, frameborder: 0 }
-        });
-      }
-    });
-
   }
-
 
   delete(idabecedario) {
     this.remover.emit(idabecedario);
@@ -42,6 +32,7 @@ export class EntrevistaComponent implements OnInit {
   sanitizeURL(url) {
     return this._sanitizer.bypassSecurityTrustResourceUrl(url);
   }
+
 
 
 }

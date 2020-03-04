@@ -79,6 +79,19 @@
               <b>Duração:&nbsp;</b> {{ item.duracao }}
             </div>
           </div>
+
+
+          <div *ngIf="item.links.length > 0" class="col-sm-5">
+            <mat-card-header>
+              <h3 class="mt-3 mt-sm-0">Links para conteúdos</h3>
+            </mat-card-header>
+
+            <mat-card-header *ngFor="let linkExtra of item.links; let i = index;">
+              <p> {{ linkExtra.nome }} </p>
+            </mat-card-header>
+          </div>
+
+
         </div>
       </mat-card-content>
 

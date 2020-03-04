@@ -39,6 +39,10 @@ export class UploadComponent implements OnInit {
   public contents: any = {};
   public address;
   public categoria = 0;
+  public links: any[] = [{
+    nome: '',
+    link: ''
+  }];
   public user: any;
 
   public locationMap = {
@@ -162,16 +166,23 @@ export class UploadComponent implements OnInit {
         break;
     }
 
+    this.point.content.links = this.links;
+    this.links = [{ nome: '', link: '' }];
+
     if (this.point.content._id) {
-
       this.updateContent(this.point)
-
     } else {
       this.insertContent(this.point)
     }
 
   }
 
+  addLinkExtraForm() {
+    this.links.push({
+      nome: '',
+      link: ''
+    });
+  }
 
   updateContent(point) {
     this.http.put(`api/points/` + this.categoria, point).subscribe((res: any) => {

@@ -133,8 +133,19 @@
       [(ngModel)]="abecedario.duracao" />
     <textarea [(ngModel)]="abecedario.descricao" placeholder="Descrição" class="form-control mt-2"
       id="exampleFormControlTextarea1" rows="3"></textarea>
-    <input type="text" name="title" class="form-control mt-2" id="abc6" placeholder="Links Extras(Separe=os com ; )"
-      [(ngModel)]="abecedario.linksExtras" />
+
+
+    Links Extras (PDF, Imagens, etc...)
+    <div *ngFor="let linkExtra of links; let i = index;">
+      <input type="text" name="nome_{{i}}" class="form-control mt-2" id="abc6" placeholder="Nome do Conteúdo"
+        [(ngModel)]="linkExtra.nome" />
+      <input type="text" name="link_{{i}}" class="form-control mt-2" id="abc6" placeholder="Link para o conteúdo"
+        [(ngModel)]="linkExtra.link" />
+    </div>
+
+
+    <button type="button" class="btn btn-success mt-2" (click)="addLinkExtraForm()">+ Link</button>
+
     <div class="justify-content-center">
       <button class="btn btn-primary mt-2" (click)="addContent()">Salvar Abecedário</button>
     </div>

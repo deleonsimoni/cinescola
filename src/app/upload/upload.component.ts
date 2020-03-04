@@ -129,8 +129,8 @@ export class UploadComponent implements OnInit {
   }
 
 
-  buscarAbecedarioPontos() {
-    this.http.get("api/points/abecedario/" + this.categoria).subscribe((res: any) => {
+  getContentsPoint() {
+    this.http.get("api/points/" + this.categoria).subscribe((res: any) => {
       this.points = res;
     }, err => {
       this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');
@@ -151,7 +151,7 @@ export class UploadComponent implements OnInit {
         this.toastr.success(res.message, 'Sucesso');
         this.abecedario = {};
         this.point = { pointId: res.point._id };
-        this.buscarAbecedarioPontos();
+        this.getContentsPoint();
       }
     }, err => {
 
@@ -173,6 +173,15 @@ export class UploadComponent implements OnInit {
 
     this.http.get("api/points/" + this.categoria + "/" + position._id).subscribe((res: any) => {
       this.contents = res;
+
+      this.contents.forEach(element => {
+        if (element.linkVideo) {
+          element.ytEmbed = this.embedService.embed(element.linkVideo, {
+            attr: { width: 400, height: 315, frameborder: 0 }
+          });
+        }
+      });
+
     }, err => {
       this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');
     });

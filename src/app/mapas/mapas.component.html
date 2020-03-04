@@ -24,16 +24,23 @@
     </section>
   </div>
   <agm-map [latitude]="location.lat" [zoom]="location.zoom" [longitude]="location.lng" [styles]="styles">
-    <agm-marker *ngFor="let pos of galleries" [iconUrl]="getIcon(pos.categoria)"
+    <!--<agm-marker *ngFor="let pos of galleries" [iconUrl]="getIcon(pos.categoria)"
       (markerClick)="openModal(template, pos)" [latitude]="pos.lat" [longitude]="pos.lng">
+    </agm-marker>-->
+
+    <agm-marker *ngFor="let point of points" [iconUrl]="getIcon(1)" (markerClick)="selectMarker(point)"
+      [latitude]="point.lat" [longitude]="point.lng">
     </agm-marker>
+
+
+
   </agm-map>
 </div>
 
-<ng-template #template>
+<ng-template #modalTemplate>
   <div class="modal-header">
     <div class="pull-left">
-      <h4 class="modal-title">{{ gallerieSelect.nomeInstituicao }}</h4>
+      <h4 class="modal-title">{{ point.nome }}</h4>
       <b>Categoria:</b> Abcedário
     </div>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
@@ -41,6 +48,32 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-depoimentos [depoimentos]="gallerieSelect.galeria" [isAdmin]="false"></app-depoimentos>
+
+
+    <div *ngIf="contents.length > 0">
+      <app-abecedario [contents]="contents" [isAdmin]="false" (remover)="reciverDelete($event)"
+        (alterar)="reciverAlter($event)">
+      </app-abecedario>
+    </div>
+    <!--
+    <div *ngIf="categoria == 2 && contents.length > 0">
+      <app-audio [contents]="contents" [isAdmin]="false" (remover)="reciverDelete($event)"
+        (alterar)="reciverAlter($event)">
+      </app-audio>
+    </div>
+
+    <div *ngIf="categoria == 3 && contents.length > 0">
+      <app-entrevista [contents]="contents" [isAdmin]="false" (remover)="reciverDelete($event)"
+        (alterar)="reciverAlter($event)">
+      </app-entrevista>
+    </div>
+
+    <div *ngIf="categoria == 4 && contents.length > 0">
+      <app-producao-academica [contents]="contents" [isAdmin]="false" (remover)="reciverDelete($event)"
+        (alterar)="reciverAlter($event)">
+      </app-producao-academica>
+    </div>
+-->
+
   </div>
 </ng-template>

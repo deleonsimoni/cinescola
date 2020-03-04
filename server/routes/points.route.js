@@ -19,6 +19,10 @@ router.get('/:categoriaId/:pointId', asyncHandler(getContentOfPoint));
 
 router.post('/:categoriaId', asyncHandler(incluirContentByCategoria));
 
+router.delete('/:categoriaId', asyncHandler(deleteContentByCategoria));
+
+router.put('/:categoriaId', asyncHandler(updateContentByCategoria));
+
 router.get('/abecedario/:pointId', asyncHandler(getAbecedarioPoint));
 router.get('/audio/:pointId', asyncHandler(getAudioPoint));
 router.get('/entrevista/:pointId', asyncHandler(getEntrevistaPoint));

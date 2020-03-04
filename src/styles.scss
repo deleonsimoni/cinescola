@@ -8,8 +8,7 @@
 
 //@import '~src/assets/scss/landing-page.scss';
 
-$custom-typography: mat-typography-config(
-    $font-family: 'Exo'
+$custom-typography: mat-typography-config($font-family: 'Exo'
 );
 
 @include mat-core($custom-typography);
@@ -17,12 +16,32 @@ $custom-typography: mat-typography-config(
 body {
   background-color: aliceblue;
   margin: 0;
+
   app-root * {
     font-family: 'Exo', sans-serif;
   }
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: 'Roboto', sans-serif; }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: 'Roboto', sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.modal-edit {
+  max-width: 90%;
+}

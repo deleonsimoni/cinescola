@@ -1,8 +1,58 @@
 .card {
-    border-radius: 30px;
-    border-top-left-radius: inherit;
-    margin: 10px;
-  }
+  border-radius: 30px;
+  border-top-left-radius: inherit;
+  margin: 10px;
+}
+
 .mat-card {
-    padding: 15px;
+  padding: 15px;
+}
+
+
+.card {
+  margin: 10px;
+  background-color: black;
+  color: white;
+  max-height: 75vh;
+}
+
+.mat-card {
+  padding: 15px;
+}
+
+.iframe-container {
+  overflow: hidden;
+  // Calculated from the aspect ration of the content (in case of 16:9 it is 9/16= 0.5625)
+  padding-top: 56.25%;
+  padding-right: 0px;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.iframe-container iframe {
+  border: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.desc-item {
+  margin: 5px;
+}
+
+.carousel-control-next-icon {
+  margin-left: 80px;
+  padding: 1em;
+}
+
+.carousel-control-prev-icon {
+  margin-left: 80px;
+  padding: 1em;
+}
+
+.modal-edit {
+  max-width: 90%;
+  color: white;
 }

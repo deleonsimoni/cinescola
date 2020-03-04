@@ -4,6 +4,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { EmbedVideoService } from 'ngx-embed-video';
+import { ToastrService } from 'ngx-toastr';
 
 declare var google: any;
 
@@ -39,9 +40,14 @@ export class MapasComponent implements OnInit {
   geocoder: any;
   galleries: any;
   gallerieSelect: any;
+  points: any = {};
+  point: any = {};
+  contents: any = {};
+
   categoria = "0";
   user: any;
   @ViewChild('categoriaSeta', { static: false }) categoriaSeta: ElementRef;
+  @ViewChild('modalTemplate', { static: false }) modalTemplateRef: TemplateRef<any>;
 
 
   public categorias = [
@@ -63,17 +69,42 @@ export class MapasComponent implements OnInit {
     private modalService: BsModalService,
     private authService: AuthService,
     private http: HttpClient,
+    private toastr: ToastrService,
     private embedService: EmbedVideoService,
   ) { }
 
   ngOnInit() {
     this.carregando = true;
-    this.http.get(`api/user/getGallerys`).subscribe((res: any) => {
-      this.galleries = res;
+    this.http.get("api/points/1").subscribe((res: any) => {
       this.carregando = false;
+      this.points = res;
     }, err => {
       this.carregando = false;
+      this.toastr.error('Servidor momentaneamente inoperante. Tente novamente mais tarde', 'Erro: ');
     });
+  }
+
+  selectMarker(position: any) {
+    this.point = position;
+
+    this.http.get("api/points/1" + "/" + position._id).subscribe((res: any) => {
+      this.contents = res;
+
+      this.contents.forEach(element => {
+        if (element.linkVideo) {
+          element.ytEmbed = this.embedService.embed(element.linkVideo, {
+            attr: { width: 400, height: 315, frameborder: 0 }
+          });
+        }
+      });
+
+
+      this.modalRef = this.modalService.show(this.modalTemplateRef, Object.assign({}, { class: 'modal-edit' }));
+
+    }, err => {
+      this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');
+    });
+
   }
 
   exibirCategorias() {
@@ -90,8 +121,7 @@ export class MapasComponent implements OnInit {
     return "../../assets/icones/abcdario3.png"
   }
 
-  openModal(template: TemplateRef<any>, pos: any) {
-    this.gallerieSelect = pos;
+  openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
 

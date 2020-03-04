@@ -19,9 +19,7 @@ async function insert(req) {
   req.body.userId = req.user._id;
 
   let pointFound = await PointsCtrl.getPointsByCoordinator(req.body.lat, req.body.lng);
-  console.log(req.body.lat, req.body.lng)
-  if (!pointFound._id) {
-
+  if (!pointFound) {
     pointFound = await PointsCtrl.create(req.body);
   }
   req.body.content.userId = req.user._id;

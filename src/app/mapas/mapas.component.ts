@@ -93,7 +93,7 @@ export class MapasComponent implements OnInit {
       this.contents.forEach(element => {
         if (element.linkVideo) {
           element.ytEmbed = this.embedService.embed(element.linkVideo, {
-            attr: { width: 400, height: 315, frameborder: 0 }
+            attr: { border: 0, height: '100%', left: 0, position: 'absolute', top: 0, width: '100%' }
           });
         }
       });

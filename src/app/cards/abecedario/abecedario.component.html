@@ -12,7 +12,7 @@
     </mat-card-header>
 
     <mat-card-header>
-      <b>País onde foi filmado:&nbsp;</b> {{ item.pais }}
+      <b>País:&nbsp;</b> {{ item.pais }}
     </mat-card-header>
 
     <mat-card-header>
@@ -46,14 +46,14 @@
         <div class="row">
           <!-- Video -->
           <div class="col-sm-7">
-            <!-- <div [innerHtml]="item.ytEmbed" ></div> -->
+            <!-- <div [innerHtml]="item.ytEmbed" ></div> 
             <div class="iframe-container">
               <iframe src="https://www.youtube.com/embed/sXqLKC58miY"></iframe>
-            </div>
-
-            <!-- <div *ngIf="item.linkVideo">
-              <div [innerHtml]="item.ytEmbed"></div>
             </div>-->
+
+            <div *ngIf="item.linkVideo">
+              <div [innerHtml]="item.ytEmbed"></div>
+            </div>
           </div>
           <!-- Informações -->
           <div class="col-sm-5">

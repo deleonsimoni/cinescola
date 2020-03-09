@@ -6,6 +6,10 @@ agm-map {
 
 }
 
+.success{
+  background-color: rgb(146, 230, 146);
+}
+
 .close {
   color: black;
 }

@@ -10,13 +10,16 @@
               </select>-->
       <div class="card" style="width: 18rem;">
         <div class="card-header" style="cursor: pointer;" (click)="exibirCategorias()">
-          Categorias <i #categoriaSeta class="fa fa-chevron-down pull-right"></i>
+          Selecionae a Categoria <i #categoriaSeta class="fa fa-chevron-down pull-right"></i>
         </div>
         <ul [style.display]="isCategoriaAberta ? 'block' : 'none'" *ngFor="let categoria of categorias"
           class="dontShow list-group list-group-flush">
-          <li id="{{categoria.id}}" style="cursor: pointer;" class="list-group-item text-left">
+          <li id="{{categoria.id}}" [ngClass]="{'success':categoriaSelecionada == categoria.id}"
+            style="cursor: pointer;" (click)="mudarCategoria(categoria.id)" class="list-group-item text-left">
             <img *ngIf="categoria.icon" style="margin-right: 10px;" src="../../assets/icones/{{categoria.icon}}"
               width="30px" height="30px" />{{ categoria.name }}
+            <span *ngIf="carregando" class="pull-right"><i style='text-align: center;'
+                class="fa fa-spinner fa-spin"></i></span>
           </li>
         </ul>
       </div>

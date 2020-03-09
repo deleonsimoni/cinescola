@@ -85,7 +85,7 @@ export class UploadComponent implements OnInit {
   }
 
   pesquisaPorCategoria() {
-    this.http.get("api/points/" + this.categoria).subscribe((res: any) => {
+    this.http.get("api/admin/points/" + this.categoria).subscribe((res: any) => {
       this.points = res;
     }, err => {
       this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');
@@ -108,20 +108,28 @@ export class UploadComponent implements OnInit {
       this.toastr.error('Preencha o nome do local para prosseguir.', 'Atenção: ');
       return;
     }
+    this.links = [{
+      nome: '',
+      link: ''
+    }];
     switch (Number(this.categoria)) {
       case 1:
+        this.abecedario = {};
         this.modalRef = this.modalService.show(this.abecedarioRef);
 
         break;
       case 2:
+        this.entrevista = {};
         this.modalRef = this.modalService.show(this.entrevistaRef);
 
         break;
       case 3:
+        this.audio = {};
         this.modalRef = this.modalService.show(this.audioRef);
 
         break;
       case 4:
+        this.producaoAcademica = {};
         this.modalRef = this.modalService.show(this.producaoAcademicaRef);
 
         break;
@@ -182,6 +190,10 @@ export class UploadComponent implements OnInit {
       nome: '',
       link: ''
     });
+  }
+
+  removeLinkExtraForm(i) {
+    this.links.splice(i, 1);
   }
 
   updateContent(point) {
@@ -318,21 +330,28 @@ export class UploadComponent implements OnInit {
     switch (Number(this.categoria)) {
       case 1:
         this.abecedario = content;
+        this.links = this.abecedario.links;
         this.modalRef = this.modalService.show(this.abecedarioRef);
 
         break;
       case 2:
         this.entrevista = content;
+        this.links = this.entrevista.links;
+
         this.modalRef = this.modalService.show(this.entrevistaRef);
 
         break;
       case 3:
         this.audio = content;
+        this.links = this.audio.links;
+
         this.modalRef = this.modalService.show(this.audioRef);
 
         break;
       case 4:
         this.producaoAcademica = content;
+        this.links = this.producaoAcademica.links;
+
         this.modalRef = this.modalService.show(this.producaoAcademicaRef);
         break;
 

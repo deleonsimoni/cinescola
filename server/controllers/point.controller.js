@@ -35,9 +35,9 @@ async function getContentOfPoint(req) {
     case 1:
       return await getAbecedarioPoint(req);
     case 2:
-      return await getAudioPoint(req);
-    case 3:
       return await getEntrevistaPoint(req);
+    case 3:
+      return await getAudioPoint(req);
     case 4:
       return await getProducaoAcademicaPoint(req);
     default:
@@ -46,44 +46,95 @@ async function getContentOfPoint(req) {
 }
 
 async function getPointsByCategoria(req) {
-
   switch (Number(req.params.categoriaId)) {
     case 1:
       return await Points.find({
-          abecedarios: {
-            $gt: []
-          }
-        })
+        abecedarios: {
+          $gt: []
+        },
+        icAprovado: true
+      })
         .sort({
           createAt: 1
         });
 
     case 2:
       return await Points.find({
-          audios: {
-            $gt: []
-          }
-        })
+        entrevistas: {
+          $gt: []
+        },
+        icAprovado: true
+      })
         .sort({
           createAt: 1
         });
 
     case 3:
       return await Points.find({
-          entrevistas: {
-            $gt: []
-          }
-        })
+        audios: {
+          $gt: []
+        },
+        icAprovado: true
+      })
         .sort({
           createAt: 1
         });
 
     case 4:
       return await Points.find({
-          producaoAcademica: {
-            $gt: []
-          }
-        })
+        producaoAcademica: {
+          $gt: []
+        },
+        icAprovado: true
+      })
+        .sort({
+          createAt: 1
+        });
+
+    default:
+      break;
+  }
+}
+
+
+async function getPointsByCategoriaAdmin(req) {
+  switch (Number(req.params.categoriaId)) {
+    case 1:
+      return await Points.find({
+        abecedarios: {
+          $gt: []
+        }
+      })
+        .sort({
+          createAt: 1
+        });
+
+    case 2:
+      return await Points.find({
+        entrevistas: {
+          $gt: []
+        }
+      })
+        .sort({
+          createAt: 1
+        });
+
+    case 3:
+      return await Points.find({
+        audios: {
+          $gt: []
+        }
+      })
+        .sort({
+          createAt: 1
+        });
+
+    case 4:
+      return await Points.find({
+        producaoAcademica: {
+          $gt: []
+        }
+      })
         .sort({
           createAt: 1
         });
@@ -95,8 +146,8 @@ async function getPointsByCategoria(req) {
 
 async function getAbecedarioPoint(req) {
   return await Abecedario.find({
-      pointId: req.params.pointId
-    })
+    pointId: req.params.pointId
+  })
     .sort({
       createAt: 1
     });
@@ -104,8 +155,8 @@ async function getAbecedarioPoint(req) {
 
 async function getAudioPoint(req) {
   return await Audio.find({
-      pointId: req.params.pointId
-    })
+    pointId: req.params.pointId
+  })
     .sort({
       createAt: 1
     });
@@ -113,8 +164,8 @@ async function getAudioPoint(req) {
 
 async function getEntrevistaPoint(req) {
   return await Entrevista.find({
-      pointId: req.params.pointId
-    })
+    pointId: req.params.pointId
+  })
     .sort({
       createAt: 1
     });
@@ -122,8 +173,8 @@ async function getEntrevistaPoint(req) {
 
 async function getProducaoAcademicaPoint(req) {
   return await ProducaoAcademica.find({
-      pointId: req.params.pointId
-    })
+    pointId: req.params.pointId
+  })
     .sort({
       createAt: 1
     });

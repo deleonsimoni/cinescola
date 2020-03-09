@@ -1,39 +1,41 @@
 <div *ngIf="isAdmin">
-  <mat-card *ngFor="let item of contents" class="card">
+  <div *ngIf="isAdmin">
+    <mat-card *ngFor="let item of contents" class="card">
 
-    <mat-card-header *ngIf="item.linkVideo" style="text-align: center;">
-      <div [innerHtml]="item.ytEmbed"></div>
-    </mat-card-header>
+      <mat-card-header *ngIf="item.linkVideo" style="text-align: center;">
+        <div [innerHtml]="item.ytEmbed"></div>
+      </mat-card-header>
 
-    <mat-card-header>
-      <b> Verbete: &nbsp;</b> {{item.verbete}}
-    </mat-card-header>
+      <mat-card-header>
+        <b> Verbete: &nbsp;</b> {{item.verbete}}
+      </mat-card-header>
 
-    <mat-card-header>
-      <b> Entrevistado(a): &nbsp;</b> {{ item.entrevistado }}
-    </mat-card-header>
+      <mat-card-header>
+        <b> Entrevistado(a): &nbsp;</b> {{ item.entrevistado }}
+      </mat-card-header>
 
-    <mat-card-header>
-      <b>País:&nbsp;</b> {{ item.pais }}
-    </mat-card-header>
+      <mat-card-header>
+        <b>País:&nbsp;</b> {{ item.pais }}
+      </mat-card-header>
 
-    <mat-card-header>
-      <b>Duração:&nbsp;</b> {{ item.duracao }}
-    </mat-card-header>
+      <mat-card-header>
+        <b>Duração:&nbsp;</b> {{ item.duracao }}
+      </mat-card-header>
 
-    <mat-card-header>
-      <b>Formato:&nbsp;</b> {{ item.formato }}
-    </mat-card-header>
+      <mat-card-header>
+        <b>Formato:&nbsp;</b> {{ item.formato }}
+      </mat-card-header>
 
-    <mat-card-header>
-      <b>Descrição:&nbsp;</b> {{ item.descricao }}
-    </mat-card-header>
+      <mat-card-header>
+        <b>Descrição:&nbsp;</b> {{ item.descricao }}
+      </mat-card-header>
 
-    <mat-card-actions>
-      <button *ngIf="item._id && isAdmin" mat-button (click)="delete(item._id)">Deletar</button>
-      <button *ngIf="item._id && isAdmin" mat-button (click)="update(item)">Editar</button>
-    </mat-card-actions>
-  </mat-card>
+      <mat-card-actions>
+        <button *ngIf="item._id && isAdmin" mat-button (click)="delete(item._id)">Deletar</button>
+        <button *ngIf="item._id && isAdmin" mat-button (click)="update(item)">Editar</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>
 
 <ngb-carousel *ngIf="!isAdmin" [showNavigationArrows]="true" [showNavigationIndicators]="true" [keyboard]="true"

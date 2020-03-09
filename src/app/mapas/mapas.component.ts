@@ -45,7 +45,7 @@ export class MapasComponent implements OnInit {
   point: any = {};
   contents: any = {};
 
-  categoria = "0";
+  categoriaSelecionada = 1;
   user: any;
   @ViewChild('categoriaSeta', { static: false }) categoriaSeta: ElementRef;
   @ViewChild('modalTemplate', { static: false }) modalTemplateRef: TemplateRef<any>;
@@ -54,7 +54,7 @@ export class MapasComponent implements OnInit {
   public categorias = [
     { id: 1, name: 'Abecedários', icon: 'abecedario.png' },
     { id: 2, name: 'Entrevistas' },
-    { id: 3, name: 'podcasts' },
+    { id: 3, name: 'Podcasts' },
     { id: 4, name: 'Produção Acadêmica' },
     { id: 5, name: 'Políticas' },
     { id: 6, name: 'Escolas' }
@@ -77,7 +77,7 @@ export class MapasComponent implements OnInit {
 
   ngOnInit() {
     this.carregando = true;
-    this.http.get("api/points/1").subscribe((res: any) => {
+    this.http.get("api/points/" + this.categoriaSelecionada).subscribe((res: any) => {
       this.carregando = false;
       this.points = res;
     }, err => {
@@ -85,6 +85,7 @@ export class MapasComponent implements OnInit {
       this.toastr.error('Servidor momentaneamente inoperante. Tente novamente mais tarde', 'Erro: ');
     });
   }
+
 
   selectMarker(position: any) {
     this.point = position;
@@ -130,13 +131,15 @@ export class MapasComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-  mudarCategoria() {
+  mudarCategoria(id) {
     this.carregando = true;
-    this.http.get(`api/user/getGallerys?categoria=${this.categoria}`).subscribe((res: any) => {
-      this.galleries = res;
+    this.categoriaSelecionada = id;
+    this.http.get("api/points/" + this.categoriaSelecionada).subscribe((res: any) => {
       this.carregando = false;
+      this.points = res;
     }, err => {
       this.carregando = false;
+      this.toastr.error('Servidor momentaneamente inoperante. Tente novamente mais tarde', 'Erro: ');
     });
   }
 

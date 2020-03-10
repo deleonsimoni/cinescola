@@ -12,30 +12,28 @@
         <div class="card-header" style="cursor: pointer;" (click)="exibirCategorias()">
           Selecionae a Categoria <i #categoriaSeta class="fa fa-chevron-down pull-right"></i>
         </div>
+
         <ul [style.display]="isCategoriaAberta ? 'block' : 'none'" *ngFor="let categoria of categorias"
           class="dontShow list-group list-group-flush">
+
           <li id="{{categoria.id}}" [ngClass]="{'success':categoriaSelecionada == categoria.id}"
             style="cursor: pointer;" (click)="mudarCategoria(categoria.id)" class="list-group-item text-left">
-            <img *ngIf="categoria.icon" style="margin-right: 10px;" src="../../assets/icones/{{categoria.icon}}"
-              width="30px" height="30px" />{{ categoria.name }}
+            <img *ngIf="categoria.icon" style="margin-right: 10px;" [src]="getIconCategoria(categoria.id)" width="30px"
+              height="30px" />{{ categoria.name }}
             <span *ngIf="carregando" class="pull-right"><i style='text-align: center;'
                 class="fa fa-spinner fa-spin"></i></span>
           </li>
+
         </ul>
       </div>
 
     </section>
   </div>
   <agm-map [latitude]="location.lat" [zoom]="location.zoom" [longitude]="location.lng" [styles]="styles">
-    <!--<agm-marker *ngFor="let pos of galleries" [iconUrl]="getIcon(pos.categoria)"
-      (markerClick)="openModal(template, pos)" [latitude]="pos.lat" [longitude]="pos.lng">
-    </agm-marker>-->
 
-    <agm-marker *ngFor="let point of points" [iconUrl]="getIcon(1)" (markerClick)="selectMarker(point)"
-      [latitude]="point.lat" [longitude]="point.lng">
+    <agm-marker *ngFor="let point of points" [iconUrl]="getIconCategoria(categoriaSelecionada)"
+      (markerClick)="selectMarker(point)" [latitude]="point.lat" [longitude]="point.lng">
     </agm-marker>
-
-
 
   </agm-map>
 </div>
@@ -44,7 +42,7 @@
   <div class="modal-header">
     <div class="pull-left">
       <h4 class="modal-title">{{ point.nome }}</h4>
-      <b>Categoria:</b> Abcedário
+      <b>Categoria:</b> {{getNameCategoria(categoriaSelecionada)}}
     </div>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>

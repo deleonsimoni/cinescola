@@ -52,12 +52,12 @@ export class MapasComponent implements OnInit {
 
 
   public categorias = [
-    { id: 1, name: 'Abecedários', icon: 'abecedario.png' },
-    { id: 2, name: 'Entrevistas' },
-    { id: 3, name: 'Podcasts' },
-    { id: 4, name: 'Produção Acadêmica' },
-    { id: 5, name: 'Políticas' },
-    { id: 6, name: 'Escolas' }
+    { id: 1, name: 'Abecedários', icon: 'abcedario.png' },
+    { id: 2, name: 'Entrevistas', icon: 'entrevista.png' },
+    { id: 3, name: 'Podcasts', icon: 'poscast.png' },
+    { id: 4, name: 'Produção Acadêmica', icon: 'prodAcademica.png' },
+    { id: 5, name: 'Políticas', icon: 'politicas.png' },
+    { id: 6, name: 'Escolas', icon: 'escolas.png' }
   ];
 
   location: Location = {
@@ -123,10 +123,6 @@ export class MapasComponent implements OnInit {
     }
   }
 
-  getIcon(categoria) {
-    return "../../assets/icones/abcdario3.png"
-  }
-
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
@@ -143,6 +139,10 @@ export class MapasComponent implements OnInit {
     });
   }
 
+  getNameCategoria(id) {
+    return this.categorias.filter(element => element.id == id)[0].name;
+  }
+
   download(nameFile) {
     const vm = this;
     function sucessoDownload() {
@@ -156,7 +156,12 @@ export class MapasComponent implements OnInit {
   }
 
   getNomeCategoria(categoria) {
-    return this.categorias.filter(element => element.id + "" === categoria)[0].name;
+    return this.categorias.filter(element => element.id == categoria)[0].name;
+  }
+
+  getIconCategoria(categoria) {
+    let icone = this.categorias.filter(element => element.id == categoria)[0].icon;
+    return '../../assets/icones/' + icone;
   }
 
   styles = [

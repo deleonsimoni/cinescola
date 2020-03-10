@@ -29,18 +29,14 @@ router.put('/:categoriaId', passport.authenticate('jwt', {
   session: false
 }), asyncHandler(updateContentByCategoria));
 
-router.get('/abecedario/:pointId', passport.authenticate('jwt', {
-  session: false
-}), asyncHandler(getAbecedarioPoint));
-router.get('/audio/:pointId', passport.authenticate('jwt', {
-  session: false
-}), asyncHandler(getAudioPoint));
-router.get('/entrevista/:pointId', passport.authenticate('jwt', {
-  session: false
-}), asyncHandler(getEntrevistaPoint));
-router.get('/producaoAcademica/:pointId', passport.authenticate('jwt', {
-  session: false
-}), asyncHandler(getProducaoAcademicaPoint));
+router.get('/abecedario/:pointId', asyncHandler(getAbecedarioPoint));
+router.get('/audio/:pointId', asyncHandler(getAudioPoint));
+router.get('/entrevista/:pointId', asyncHandler(getEntrevistaPoint));
+router.get('/producaoAcademica/:pointId', asyncHandler(getProducaoAcademicaPoint));
+
+//****** METODOS  *******/
+
+
 
 async function getContentOfPoint(req, res) {
   let user = await pointsCtrl.getContentOfPoint(req);

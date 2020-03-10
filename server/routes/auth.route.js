@@ -27,6 +27,21 @@ router.get('/:categoriaId', passport.authenticate('jwt', {
   session: false
 }), asyncHandler(getPointsByCategoriaAdmin));
 
+router.get('/abecedario/:pointId', passport.authenticate('jwt', {
+  session: false
+}), asyncHandler(getAbecedarioPointAdmin));
+
+router.get('/audio/:pointId', passport.authenticate('jwt', {
+  session: false
+}), asyncHandler(getAudioPointAdmin));
+
+router.get('/entrevista/:pointId', passport.authenticate('jwt', {
+  session: false
+}), asyncHandler(getEntrevistaPointAdmin));
+
+router.get('/producaoAcademica/:pointId', passport.authenticate('jwt', {
+  session: false
+}), asyncHandler(getProducaoAcademicaPointAdmin));
 
 
 
@@ -56,4 +71,24 @@ function login(req, res) {
     user,
     token
   });
+}
+
+async function getAbecedarioPointAdmin(req, res) {
+  let user = await pointsCtrl.getAbecedarioPointAdmin(req);
+  res.json(user);
+}
+
+async function getAudioPointAdmin(req, res) {
+  let user = await pointsCtrl.getAudioPointAdmin(req);
+  res.json(user);
+}
+
+async function getEntrevistaPointAdmin(req, res) {
+  let user = await pointsCtrl.getEntrevistaPointAdmin(req);
+  res.json(user);
+}
+
+async function getProducaoAcademicaPointAdmin(req, res) {
+  let user = await pointsCtrl.getProducaoAcademicaPointAdmin(req);
+  res.json(user);
 }

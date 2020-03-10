@@ -16,9 +16,6 @@ module.exports = router;
 
 router.get('/:categoriaId', asyncHandler(getPointsByCategoria));
 router.get('/:categoriaId/:pointId', asyncHandler(getContentOfPoint));
-router.get('admin//:categoriaId', passport.authenticate('jwt', {
-  session: false
-}), asyncHandler(getPointsByCategoriaAdmin));
 
 router.post('/:categoriaId', passport.authenticate('jwt', {
   session: false
@@ -72,11 +69,6 @@ async function getProducaoAcademicaPoint(req, res) {
 
 async function getPointsByCategoria(req, res) {
   let user = await pointsCtrl.getPointsByCategoria(req);
-  res.json(user);
-}
-
-async function getPointsByCategoriaAdmin(req, res) {
-  let user = await pointsCtrl.getPointsByCategoriaAdmin(req);
   res.json(user);
 }
 

@@ -85,7 +85,7 @@ export class UploadComponent implements OnInit {
   }
 
   pesquisaPorCategoria() {
-    this.http.get("api/admin/points/" + this.categoria).subscribe((res: any) => {
+    this.http.get("api/auth/" + this.categoria).subscribe((res: any) => {
       this.points = res;
     }, err => {
       this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');

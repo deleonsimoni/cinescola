@@ -10,8 +10,11 @@ agm-map {
   background-color: rgb(146, 230, 146);
 }
 
-.close {
-  color: black;
+.close{
+  color: white;
+  text-shadow: none;
+  opacity: 1;
+  font-size: xx-large;
 }
 
 #wrapper {

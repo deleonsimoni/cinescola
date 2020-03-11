@@ -44,4 +44,44 @@ body {
 
 .modal-edit {
   max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Editar o carrocel test */
+.modal-content{
+  background-color: transparent;
+  border: none !important;
+  border-radius: 0px !important;
+}
+.modal-header {
+  border: none !important;
+  color: white;
+  background-color: black;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 1;
+  padding: 2em;
+  width: 100%;
+}
+.modal-body{
+  margin-top: 6em;
+}
+@media only screen and (max-width: 600px) {
+  .modal-body{
+    padding: 0px;
+    margin-top: 7em;
+  }
+  .modal-edit {
+    max-width: 100%;
+  }
+}
+/* fim */
+
+.carousel-control-prev {
+  width: 1em;
+}
+.carousel-control-next {
+  width: 1em;
 }

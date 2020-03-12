@@ -106,13 +106,13 @@ async function deleteContentByCategoria(req, res) {
       user = await abecedarioCtrl.deletar(req);
       res.json(user);
     case 2:
-      user = await entrevistaCtrl.delete(req);
+      user = await entrevistaCtrl.deletar(req);
       res.json(user);
     case 3:
-      user = await audioCtrl.delete(req);
+      user = await audioCtrl.deletar(req);
       res.json(user);
     case 4:
-      user = await producaoAcademicaCtrl.delete(req);
+      user = await producaoAcademicaCtrl.deletar(req);
       res.json(user);
     default:
       break;

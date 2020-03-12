@@ -90,7 +90,7 @@ export class MapasComponent implements OnInit {
   selectMarker(position: any) {
     this.point = position;
 
-    this.http.get("api/points/1" + "/" + position._id).subscribe((res: any) => {
+    this.http.get("api/points/" + this.categoriaSelecionada + "/" + position._id).subscribe((res: any) => {
       this.contents = res;
 
       this.contents.forEach(element => {

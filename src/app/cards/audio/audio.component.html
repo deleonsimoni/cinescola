@@ -3,10 +3,6 @@
 
         {{ item.titulo }}
 
-        <mat-card-header *ngIf="item.url" style="text-align: center;">
-            <div [innerHtml]="item.ytEmbed"></div>
-        </mat-card-header>
-
         <mat-card-header>
             <b> URL áudio: &nbsp;</b> {{ item.linkAudio }}
         </mat-card-header>
@@ -38,3 +34,74 @@
         </mat-card-actions>
     </mat-card>
 </div>
+
+
+<ngb-carousel *ngIf="!isAdmin" [showNavigationArrows]="true" [showNavigationIndicators]="true" [keyboard]="true"
+    [wrap]="false" [activeId]="'slideTwo'" interval="0">
+    <ng-template *ngFor="let item of contents" ngbSlide>
+        <mat-card class="mt-5 mt-sm-0 card">
+            <!-- Titulo -->
+            <mat-card-header>
+                <mat-card-title>
+                    <h1> {{ item.titulo }}</h1>
+                </mat-card-title>
+            </mat-card-header>
+
+            <!-- Conteudo -->
+            <mat-card-content>
+                <div class="row">
+                    <!-- Video -->
+                    <div class="col-lg-7">
+                        <div class="iframe-container">
+                            <iframe [src]='item.ytEmbed'></iframe>
+                        </div>
+                    </div>
+
+                    <!-- Informações -->
+                    <div class="col-lg-5">
+                        <mat-card-header>
+                            <h3 class="mt-3 mt-sm-0">Sobre</h3>
+                        </mat-card-header>
+
+                        <mat-card-header class="sobre-over">
+                            <p> {{ item.descricao }} </p>
+                        </mat-card-header>
+                    </div>
+
+                    <div class="col-12 d-flex flex-row justify-content-center align-items-center flex-wrap">
+                        <div class="desc-item">
+                            <b> Entrevistado(a): &nbsp;</b> {{ item.entrevistado }}
+                        </div>
+                        <div class="desc-item">
+                            <b>País:&nbsp;</b> {{ item.pais }}
+                        </div>
+
+                        <div class="desc-item">
+                            <b>Duração:&nbsp;</b> {{ item.duracao }}
+                        </div>
+                        <div class="desc-item">
+                            <b>Formato:&nbsp;</b> {{ item.formato }}
+                        </div>
+                    </div>
+                    <!-- fim infs -->
+
+                    <div *ngIf="item.links.length > 0" class="col-sm-12">
+                        <mat-card-header>
+                            <h3 class="mt-3 mt-sm-0">Links para conteúdos</h3>
+                        </mat-card-header>
+
+                        <mat-card-header class="d-flex flex-row flex-wrap">
+                            <div *ngFor="let linkExtra of item.links; let i = index;" class="m-2">
+                                <a href="" target="_blank" class="link">{{ linkExtra.nome }}</a>
+                            </div>
+                        </mat-card-header>
+                    </div>
+
+
+                </div>
+            </mat-card-content>
+
+
+        </mat-card>
+    </ng-template>
+</ngb-carousel>

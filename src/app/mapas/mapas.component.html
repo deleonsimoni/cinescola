@@ -50,31 +50,21 @@
   </div>
   <div class="modal-body">
 
+    <app-abecedario *ngIf="categoriaSelecionada == 1" [contents]="contents" [isAdmin]="false"
+      (remover)="reciverDelete($event)" (alterar)="reciverAlter($event)">
+    </app-abecedario>
 
-    <div *ngIf="contents.length > 0">
-      <app-abecedario [contents]="contents" [isAdmin]="false" (remover)="reciverDelete($event)"
-        (alterar)="reciverAlter($event)">
-      </app-abecedario>
-    </div>
-    <!--
-    <div *ngIf="categoria == 2 && contents.length > 0">
-      <app-audio [contents]="contents" [isAdmin]="false" (remover)="reciverDelete($event)"
-        (alterar)="reciverAlter($event)">
-      </app-audio>
-    </div>
+    <app-entrevista *ngIf="categoriaSelecionada == 2" [contents]="contents" [isAdmin]="false"
+      (remover)="reciverDelete($event)" (alterar)="reciverAlter($event)">
+    </app-entrevista>
 
-    <div *ngIf="categoria == 3 && contents.length > 0">
-      <app-entrevista [contents]="contents" [isAdmin]="false" (remover)="reciverDelete($event)"
-        (alterar)="reciverAlter($event)">
-      </app-entrevista>
-    </div>
+    <app-audio *ngIf="categoriaSelecionada == 3" [contents]="contents" [isAdmin]="false"
+      (remover)="reciverDelete($event)" (alterar)="reciverAlter($event)">
+    </app-audio>
 
-    <div *ngIf="categoria == 4 && contents.length > 0">
-      <app-producao-academica [contents]="contents" [isAdmin]="false" (remover)="reciverDelete($event)"
-        (alterar)="reciverAlter($event)">
-      </app-producao-academica>
-    </div>
--->
+    <app-producao-academica *ngIf="categoriaSelecionada == 4" [contents]="contents" [isAdmin]="false"
+      (remover)="reciverDelete($event)" (alterar)="reciverAlter($event)">
+    </app-producao-academica>
 
   </div>
 </ng-template>

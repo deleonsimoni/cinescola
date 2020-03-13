@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { EventEmitter } from 'selenium-webdriver';
+import { EventEmitter } from 'events';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -32,6 +32,5 @@ export class CursosComponent implements OnInit {
   sanitizeURL(url) {
     return this._sanitizer.bypassSecurityTrustResourceUrl(url);
   }
-
 
 }

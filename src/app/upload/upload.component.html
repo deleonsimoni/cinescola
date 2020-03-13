@@ -88,6 +88,30 @@
                           </app-producao-academica>
                         </div>
 
+                        <div *ngIf="categoria == 5 && contents.length > 0">
+                          <app-politicas [contents]="contents" [isAdmin]="true" (remover)="reciverDelete($event)"
+                            (alterar)="reciverAlter($event)">
+                          </app-politicas>
+                        </div>
+
+                        <div *ngIf="categoria == 6 && contents.length > 0">
+                          <app-escolas [contents]="contents" [isAdmin]="true" (remover)="reciverDelete($event)"
+                            (alterar)="reciverAlter($event)">
+                          </app-escolas>
+                        </div>
+
+                        <div *ngIf="categoria == 7 && contents.length > 0">
+                          <app-cursos [contents]="contents" [isAdmin]="true" (remover)="reciverDelete($event)"
+                            (alterar)="reciverAlter($event)">
+                          </app-cursos>
+                        </div>
+
+                        <div *ngIf="categoria == 8 && contents.length > 0">
+                          <app-cineclubes [contents]="contents" [isAdmin]="true" (remover)="reciverDelete($event)"
+                            (alterar)="reciverAlter($event)">
+                          </app-cineclubes>
+                        </div>
+
 
                       </div>
 
@@ -301,8 +325,11 @@
     <div class="modal-body">
       <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Nome"
         [(ngModel)]="politica.nome" required />
-      <textarea [(ngModel)]="politica.descricao" placeholder="Descrição" class="form-control mt-2"
-        id="exampleFormControlTextarea1" rows="3"></textarea>
+      <input type="text" name="title" class="form-control mt-2" id="title" placeholder="País"
+        [(ngModel)]="politica.pais" required />
+      <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Cidade"
+        [(ngModel)]="politica.cidade" required />
+
 
       <div class="mt-2" *ngFor="let linkExtra of links; let i = index;">
         Link Extra (PDF, Imagens, etc...)
@@ -334,10 +361,12 @@
     </div>
 
     <div class="modal-body">
-      <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Titulo"
-        [(ngModel)]="escola.titulo" required />
-      <textarea [(ngModel)]="escola.descricao" placeholder="Descrição" class="form-control mt-2"
-        id="exampleFormControlTextarea1" rows="3"></textarea>
+      <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Nome" [(ngModel)]="escola.nome"
+        required />
+      <input type="text" name="title" class="form-control mt-2" id="title" placeholder="País" [(ngModel)]="escola.pais"
+        required />
+      <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Cidade"
+        [(ngModel)]="escola.cidade" required />
 
       <div class="mt-2" *ngFor="let linkExtra of links; let i = index;">
         Link Extra (PDF, Imagens, etc...)
@@ -369,12 +398,14 @@
     </div>
 
     <div class="modal-body">
-      <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Nome" [(ngModel)]="curso.titulo"
+      <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Nome" [(ngModel)]="curso.nome"
         required />
-      <input type="text" name="title" class="form-control mt-2" id="title" placeholder="País" [(ngModel)]="curso.pais"
-        required />
-      <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Cidade"
-        [(ngModel)]="curso.cidade" required />
+      <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Estado"
+        [(ngModel)]="curso.estado" required />
+      <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Universidade"
+        [(ngModel)]="curso.universidade" required />
+      <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Faculdade"
+        [(ngModel)]="curso.faculdade" required />
       <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Página"
         [(ngModel)]="curso.pagina" />
 

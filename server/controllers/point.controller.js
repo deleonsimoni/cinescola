@@ -57,7 +57,7 @@ async function getContentOfPoint(req) {
     case 7:
       return await getCursoPoint(req);
     case 8:
-      return await getcineclubPoint(req);
+      return await getCineclubPoint(req);
     default:
 
       break;

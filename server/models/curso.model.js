@@ -16,10 +16,13 @@ const cursoSchema = new mongoose.Schema({
   nome: {
     type: String
   },
-  pais: {
+  estado: {
     type: String
   },
-  cidade: {
+  universidade: {
+    type: String
+  },
+  faculdade: {
     type: String
   },
   pagina: {

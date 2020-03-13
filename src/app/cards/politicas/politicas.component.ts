@@ -15,32 +15,20 @@ export class PoliticasComponent implements OnInit {
 
   constructor(
     private _sanitizer: DomSanitizer,
-    private embedService: EmbedVideoService,
   ) { }
 
   ngOnInit() {
 
-    this.contents.forEach(element => {
-      if (element.url) {
-        element.ytEmbed = this.embedService.embed(element.url, {
-          attr: { width: 400, height: 315, frameborder: 0 }
-        });
-      }
-    });
-
   }
 
-
-  delete(idabecedario) {
-    this.remover.emit(idabecedario);
+  delete(ipPolitica) {
+    this.remover.emit(ipPolitica);
   }
-  update(abecedario) {
-    this.alterar.emit(abecedario);
+  update(politica) {
+    this.alterar.emit(politica);
   }
 
   sanitizeURL(url) {
     return this._sanitizer.bypassSecurityTrustResourceUrl(url);
   }
-
-
 }

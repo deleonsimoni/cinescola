@@ -66,5 +66,21 @@
       (remover)="reciverDelete($event)" (alterar)="reciverAlter($event)">
     </app-producao-academica>
 
+    <app-politicas *ngIf="categoriaSelecionada == 5" [contents]="contents" [isAdmin]="false"
+      (remover)="reciverDelete($event)" (alterar)="reciverAlter($event)">
+    </app-politicas>
+
+    <app-escolas *ngIf="categoriaSelecionada == 6" [contents]="contents" [isAdmin]="false"
+      (remover)="reciverDelete($event)" (alterar)="reciverAlter($event)">
+    </app-escolas>
+
+    <app-cursos *ngIf="categoriaSelecionada == 7" [contents]="contents" [isAdmin]="false"
+      (remover)="reciverDelete($event)" (alterar)="reciverAlter($event)">
+    </app-cursos>
+
+    <app-cineclubes *ngIf="categoriaSelecionada == 8" [contents]="contents" [isAdmin]="false"
+      (remover)="reciverDelete($event)" (alterar)="reciverAlter($event)">
+    </app-cineclubes>
+
   </div>
 </ng-template>

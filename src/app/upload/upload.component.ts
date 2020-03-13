@@ -22,6 +22,10 @@ export class UploadComponent implements OnInit {
   @ViewChild('producaoAcademicaModal', { static: false }) producaoAcademicaRef: TemplateRef<any>;
   @ViewChild('audioModal', { static: false }) audioRef: TemplateRef<any>;
   @ViewChild('entrevistaModal', { static: false }) entrevistaRef: TemplateRef<any>;
+  @ViewChild('politicasModal', { static: false }) politicasRef: TemplateRef<any>;
+  @ViewChild('escolasModal', { static: false }) escolasRef: TemplateRef<any>;
+  @ViewChild('cursosModal', { static: false }) cursosRef: TemplateRef<any>;
+  @ViewChild('cineclubesmodal', { static: false }) cinecluberef: TemplateRef<any>;
 
   geocoder: any;
   modalRef: BsModalRef;
@@ -34,6 +38,11 @@ export class UploadComponent implements OnInit {
   public producaoAcademica: any = {};
   public audio: any = {};
   public entrevista: any = {};
+  public politica: any = {};
+  public escola: any = {};
+  public curso: any = {};
+  public cineclube: any = {};
+
   public point: any = {};
   public points: any = {};
   public contents: any = {};
@@ -57,7 +66,9 @@ export class UploadComponent implements OnInit {
     { id: 3, name: 'Audios' },
     { id: 4, name: 'Produção Acadêmica' },
     { id: 5, name: 'Políticas' },
-    { id: 6, name: 'Escolas' }
+    { id: 6, name: 'Escolas' },
+    { id: 7, name: 'Cursos' },
+    { id: 8, name: 'Cineclubes' }
   ];
 
   constructor(
@@ -98,6 +109,11 @@ export class UploadComponent implements OnInit {
     this.audio = {};
     this.entrevista = {};
     this.producaoAcademica = {};
+    this.politica = {};
+    this.escola = {};
+    this.curso = {};
+    this.cineclube = {};
+
     this.contents = {};
 
     this.pesquisaPorCategoria();
@@ -134,6 +150,30 @@ export class UploadComponent implements OnInit {
 
         break;
 
+      case 5:
+        this.politica = {};
+        this.modalRef = this.modalService.show(this.politicasRef);
+
+        break;
+
+      case 6:
+        this.escola = {};
+        this.modalRef = this.modalService.show(this.escolasRef);
+
+        break;
+
+      case 7:
+        this.curso = {};
+        this.modalRef = this.modalService.show(this.cursosRef);
+
+        break;
+
+      case 8:
+        this.cineclube = {};
+        this.modalRef = this.modalService.show(this.cinecluberef);
+
+        break;
+
       default:
         break;
     }
@@ -167,6 +207,26 @@ export class UploadComponent implements OnInit {
         break;
       case 4:
         this.point.content = this.producaoAcademica;
+
+        break;
+
+      case 5:
+        this.point.content = this.politica;
+
+        break;
+
+      case 6:
+        this.point.content = this.escola;
+
+        break;
+
+      case 7:
+        this.point.content = this.curso;
+
+        break;
+
+      case 8:
+        this.point.content = this.cineclube;
 
         break;
 
@@ -353,6 +413,34 @@ export class UploadComponent implements OnInit {
         this.links = this.producaoAcademica.links;
 
         this.modalRef = this.modalService.show(this.producaoAcademicaRef);
+        break;
+
+      case 5:
+        this.politica = content;
+        this.links = this.politica.links;
+
+        this.modalRef = this.modalService.show(this.politica);
+        break;
+
+      case 6:
+        this.escola = content;
+        this.links = this.escola.links;
+
+        this.modalRef = this.modalService.show(this.escolasRef);
+        break;
+
+      case 7:
+        this.curso = content;
+        this.links = this.curso.links;
+
+        this.modalRef = this.modalService.show(this.cursosRef);
+        break;
+
+      case 8:
+        this.cineclube = content;
+        this.links = this.cineclube.links;
+
+        this.modalRef = this.modalService.show(this.cinecluberef);
         break;
 
       default:

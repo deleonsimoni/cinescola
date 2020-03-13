@@ -11,6 +11,10 @@
             <b>Cidade:&nbsp;</b> {{ item.cidade }}
         </mat-card-header>
 
+        <mat-card-header>
+            <b>Página:&nbsp;</b> {{ item.pagina }}
+        </mat-card-header>
+
         <mat-card-actions>
             <button *ngIf="item._id && isAdmin" mat-button (click)="delete(item._id)">Deletar</button>
             <button *ngIf="item._id && isAdmin" mat-button (click)="update(item)">Editar</button>
@@ -35,9 +39,9 @@
                     <!-- Video -->
                     <div class="col-lg-7">
                         <!--<div [innerHtml]="item.ytEmbed" ></div> 
-                          <div class="iframe-container">
-                            <iframe [src]='item.ytEmbed'></iframe>
-                          </div>-->
+                      <div class="iframe-container">
+                        <iframe [src]='item.ytEmbed'></iframe>
+                      </div>-->
                     </div>
 
                     <!-- Informações -->
@@ -54,6 +58,9 @@
                     <div class="col-12 d-flex flex-row justify-content-center align-items-center flex-wrap">
                         <div class="desc-item">
                             <b> Cidade: &nbsp;</b> {{ item.cidade }}
+                        </div>
+                        <div class="desc-item">
+                            <b>Página:&nbsp;</b> {{ item.pagina }}
                         </div>
 
                     </div>

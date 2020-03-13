@@ -43,6 +43,22 @@ router.get('/producaoAcademica/:pointId', passport.authenticate('jwt', {
   session: false
 }), asyncHandler(getProducaoAcademicaPointAdmin));
 
+router.get('/politica/:pointId', passport.authenticate('jwt', {
+  session: false
+}), asyncHandler(getPoliticaPointAdmin));
+
+router.get('/escola/:pointId', passport.authenticate('jwt', {
+  session: false
+}), asyncHandler(getEscolaPointAdmin));
+
+router.get('/curso/:pointId', passport.authenticate('jwt', {
+  session: false
+}), asyncHandler(getCursoPointAdmin));
+
+router.get('/cineclub/:pointId', passport.authenticate('jwt', {
+  session: false
+}), asyncHandler(getCineclubPointAdmin));
+
 
 
 async function refresh(req, res) {
@@ -90,5 +106,25 @@ async function getEntrevistaPointAdmin(req, res) {
 
 async function getProducaoAcademicaPointAdmin(req, res) {
   let user = await pointsCtrl.getProducaoAcademicaPointAdmin(req);
+  res.json(user);
+}
+
+async function getPoliticaPointAdmin(req, res) {
+  let user = await pointsCtrl.getPoliticaPointAdmin(req);
+  res.json(user);
+}
+
+async function getEscolaPointAdmin(req, res) {
+  let user = await pointsCtrl.getEscolaPointAdmin(req);
+  res.json(user);
+}
+
+async function getCursoPointAdmin(req, res) {
+  let user = await pointsCtrl.getCursoPointAdmin(req);
+  res.json(user);
+}
+
+async function getCineclubPointAdmin(req, res) {
+  let user = await pointsCtrl.getcineclubPointAdmin(req);
   res.json(user);
 }

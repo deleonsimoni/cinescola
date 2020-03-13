@@ -34,6 +34,9 @@ import { AudioComponent } from './cards/audio/audio.component';
 import { ProducaoAcademicaComponent } from './cards/producao-academica/producao-academica.component';
 import { EntrevistaComponent } from './cards/entrevista/entrevista.component';
 import { PoliticasComponent } from './cards/politicas/politicas.component';
+import { EscolasComponent } from './cards/escolas/escolas.component';
+import { CursosComponent } from './cards/cursos/cursos.component';
+import { CineclubesComponent } from './cards/cineclubes/cineclubes.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +51,9 @@ import { PoliticasComponent } from './cards/politicas/politicas.component';
     ProducaoAcademicaComponent,
     EntrevistaComponent,
     PoliticasComponent,
+    EscolasComponent,
+    CursosComponent,
+    CineclubesComponent,
   ],
   imports: [
     BrowserModule,

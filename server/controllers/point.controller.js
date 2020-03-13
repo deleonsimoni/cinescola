@@ -4,6 +4,11 @@ const Audio = require('../models/audio.model');
 const Entrevista = require('../models/entrevista.model');
 const ProducaoAcademica = require('../models/producaoAcademica.model');
 
+const Escola = require('../models/escola.model');
+const Politica = require('../models/politica.model');
+const Curso = require('../models/curso.model');
+const Cineclub = require('../models/cineclub.model');
+
 
 module.exports = {
   getPointsByCategoria,
@@ -12,6 +17,10 @@ module.exports = {
   getAudioPointAdmin,
   getEntrevistaPointAdmin,
   getProducaoAcademicaPointAdmin,
+  getEscolaPointAdmin,
+  getPoliticaPointAdmin,
+  getCursoPointAdmin,
+  getCineclubPointAdmin,
   getContentOfPoint,
   create,
   getPointsByCategoriaAdmin,
@@ -41,7 +50,16 @@ async function getContentOfPoint(req) {
       return await getAudioPoint(req);
     case 4:
       return await getProducaoAcademicaPoint(req);
+    case 5:
+      return await getPoliticaPoint(req);
+    case 6:
+      return await getEscolaPoint(req);
+    case 7:
+      return await getCursoPoint(req);
+    case 8:
+      return await getcineclubPoint(req);
     default:
+
       break;
   }
 }
@@ -81,6 +99,46 @@ async function getPointsByCategoria(req) {
     case 4:
       return await Points.find({
         producaoAcademica: {
+          $gt: []
+        }
+      })
+        .sort({
+          createAt: 1
+        });
+
+    case 5:
+      return await Points.find({
+        politica: {
+          $gt: []
+        }
+      })
+        .sort({
+          createAt: 1
+        });
+
+    case 6:
+      return await Points.find({
+        escola: {
+          $gt: []
+        }
+      })
+        .sort({
+          createAt: 1
+        });
+
+    case 7:
+      return await Points.find({
+        curso: {
+          $gt: []
+        }
+      })
+        .sort({
+          createAt: 1
+        });
+
+    case 8:
+      return await Points.find({
+        cineclub: {
           $gt: []
         }
       })
@@ -129,6 +187,46 @@ async function getPointsByCategoriaAdmin(req) {
     case 4:
       return await Points.find({
         producaoAcademica: {
+          $gt: []
+        }
+      })
+        .sort({
+          createAt: 1
+        });
+
+    case 5:
+      return await Points.find({
+        politica: {
+          $gt: []
+        }
+      })
+        .sort({
+          createAt: 1
+        });
+
+    case 6:
+      return await Points.find({
+        escola: {
+          $gt: []
+        }
+      })
+        .sort({
+          createAt: 1
+        });
+
+    case 7:
+      return await Points.find({
+        curso: {
+          $gt: []
+        }
+      })
+        .sort({
+          createAt: 1
+        });
+
+    case 8:
+      return await Points.find({
+        cineclub: {
           $gt: []
         }
       })
@@ -217,3 +315,83 @@ async function getProducaoAcademicaPointAdmin(req) {
       createAt: 1
     });
 }
+
+async function getPoliticaPoint(req) {
+  return await Politica.find({
+    pointId: req.params.pointId,
+    icAprovado: true
+  })
+    .sort({
+      createAt: 1
+    });
+}
+
+async function getPoliticaPointAdmin(req) {
+  return await Politica.find({
+    pointId: req.params.pointId
+  })
+    .sort({
+      createAt: 1
+    });
+}
+
+
+async function getEscolaPoint(req) {
+  return await Escola.find({
+    pointId: req.params.pointId,
+    icAprovado: true
+  })
+    .sort({
+      createAt: 1
+    });
+}
+
+async function getEscolaPointAdmin(req) {
+  return await Escola.find({
+    pointId: req.params.pointId
+  })
+    .sort({
+      createAt: 1
+    });
+}
+
+
+async function getCursoPoint(req) {
+  return await Curso.find({
+    pointId: req.params.pointId,
+    icAprovado: true
+  })
+    .sort({
+      createAt: 1
+    });
+}
+
+async function getCursoPointAdmin(req) {
+  return await Curso.find({
+    pointId: req.params.pointId
+  })
+    .sort({
+      createAt: 1
+    });
+}
+
+
+async function getCineclubPoint(req) {
+  return await Cineclub.find({
+    pointId: req.params.pointId,
+    icAprovado: true
+  })
+    .sort({
+      createAt: 1
+    });
+}
+
+async function getCineclubPointAdmin(req) {
+  return await Cineclub.find({
+    pointId: req.params.pointId
+  })
+    .sort({
+      createAt: 1
+    });
+}
+

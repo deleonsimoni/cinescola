@@ -52,6 +52,36 @@ const PointsSchema = new mongoose.Schema({
             ref: 'ProducaoAcademica'
         }
     ],
+
+    politica: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Politica'
+        }
+    ],
+
+    escola: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Escola'
+        }
+    ],
+
+    curso: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Curso'
+        }
+    ],
+
+    cineclub: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'cineclub'
+        }
+    ],
+
+
     createdAt: {
         type: Date,
         default: Date.now

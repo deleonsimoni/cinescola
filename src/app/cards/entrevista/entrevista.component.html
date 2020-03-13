@@ -1,6 +1,6 @@
 <div *ngIf="isAdmin">
   <div *ngIf="isAdmin">
-    <mat-card *ngFor="let item of contents" class="card">
+    <mat-card *ngFor="let item of contents" class="card mt-3 mr-3">
 
       <mat-card-header *ngIf="item.linkVideo" style="text-align: center;">
         <div [innerHtml]="item.ytEmbed"></div>

@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
         menu.removeAttribute("style");
         splashScreen.remove();
       }
-    }, /*5500*/2);
+    }, 5500);
 
     // update this.user after login/register/logout
     this.userSubscription = this.authService.$userSource.subscribe((user) => {

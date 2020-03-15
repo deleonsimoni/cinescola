@@ -321,7 +321,7 @@ export class UploadComponent implements OnInit {
           });
         } else if (element.linkAudio) {
 
-          element.linkAudio = this.sanitizer.bypassSecurityTrustResourceUrl(element.linkAudio);
+          //element.linkAudio = this.sanitizer.bypassSecurityTrustHtml(element.linkAudio);
 
         }
       });

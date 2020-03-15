@@ -98,11 +98,12 @@ export class MapasComponent implements OnInit {
 
       this.contents.forEach(element => {
         if (element.linkVideo) {
-          /* element.ytEmbed = this.embedService.embed(element.linkVideo, {
-             attr: {}
-           });*/
 
           element.ytEmbed = this._sanitizer.bypassSecurityTrustResourceUrl(element.linkVideo.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/"));
+
+        } else if (element.linkAudio) {
+
+          element.linkAudio = this._sanitizer.bypassSecurityTrustResourceUrl(element.linkAudio);
 
         }
       });

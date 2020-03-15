@@ -6,6 +6,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../auth/auth.service';
 import { EmbedVideoService } from 'ngx-embed-video';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 declare var google: any;
@@ -79,7 +80,7 @@ export class UploadComponent implements OnInit {
     private http: HttpClient,
     private authService: AuthService,
     private embedService: EmbedVideoService,
-
+    private sanitizer: DomSanitizer,
 
   ) {
     this.mapsApiLoader = mapsApiLoader;
@@ -318,6 +319,10 @@ export class UploadComponent implements OnInit {
           element.ytEmbed = this.embedService.embed(element.linkVideo, {
             attr: { width: 400, height: 315, frameborder: 0 }
           });
+        } else if (element.linkAudio) {
+
+          element.linkAudio = this.sanitizer.bypassSecurityTrustResourceUrl(element.linkAudio);
+
         }
       });
 

@@ -10,7 +10,7 @@
               </select>-->
       <div class="card" style="width: 18rem;">
         <div class="card-header" style="cursor: pointer;" (click)="exibirCategorias()">
-          Selecionae a Categoria <i #categoriaSeta class="fa fa-chevron-down pull-right"></i>
+          Selecione a Categoria <i #categoriaSeta class="fa fa-chevron-down pull-right"></i>
         </div>
 
         <ul [style.display]="isCategoriaAberta ? 'block' : 'none'" *ngFor="let categoria of categorias"

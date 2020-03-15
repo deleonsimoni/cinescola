@@ -87,7 +87,7 @@
 
             <mat-card-header class="d-flex flex-row flex-wrap">
               <div *ngFor="let linkExtra of item.links; let i = index;" class="m-2">
-                <a href="" target="_blank" class="link">{{ linkExtra.nome }}</a>
+                <a href="{{ linkExtra.link }}" target="_blank" class="link">{{ linkExtra.nome }}</a>
               </div>
             </mat-card-header>
           </div>

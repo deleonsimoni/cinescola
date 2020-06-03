@@ -14,8 +14,8 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li *ngIf="user" class="nav-item mx-0 mx-lg-1">
-          <a style="color:white" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger">Olá,
-            {{getShortName(user?.fullname)}}</a>
+          <p style="color:white; cursor: default;" class="py-3 px-0 px-lg-3 rounded js-scroll-trigger">Olá,
+            {{getShortName(user?.fullname)}}</p>
         </li>
         <li class="nav-item mx-0 mx-lg-1">
           <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" routerLink="/mapas">acesse</a>
@@ -33,7 +33,7 @@
         </li>
         <li class="nav-item mx-0 mx-lg-1">
           <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" [routerLink]="['/']"
-            fragment="portfolio">contato</a>
+            fragment="portfolio">principal</a>
         </li>
         <li *ngIf="user" class="nav-item mx-0 mx-lg-1">
           <a href class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" (click)="logout()">sair</a>

@@ -1,24 +1,42 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-@import '~angular-tree-component/dist/angular-tree-component.css';
-@import '~@angular/material/theming';
-@import '~dragula/dist/dragula.css';
-@import '~bootstrap/dist/css/bootstrap.min.css';
-
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "~angular-tree-component/dist/angular-tree-component.css";
+@import "~@angular/material/theming";
+@import "~dragula/dist/dragula.css";
+@import "~bootstrap/dist/css/bootstrap.min.css";
 
 //@import '~src/assets/scss/landing-page.scss';
 
-$custom-typography: mat-typography-config($font-family: 'Exo'
+$custom-typography: mat-typography-config(
+  $font-family: "Exo",
 );
 
 @include mat-core($custom-typography);
 
+@font-face {
+  font-family: Avenir;
+  src: url("./assets/fonts/CarroisGothic-Regular.eot");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-weight: bold;
+  src: url("./assets/fonts/CarroisGothic-Regular.eot");
+}
+
+* {
+  font-family: Avenir !important;
+}
+
+ul {
+  font-family: Avenir;
+}
 body {
   background-color: aliceblue;
   margin: 0;
 
   app-root * {
-    font-family: 'Exo', sans-serif;
+    font-family: "Exo", sans-serif;
   }
 }
 
@@ -29,7 +47,7 @@ body {
 
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 html,
@@ -39,7 +57,7 @@ body {
 
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .modal-edit {
@@ -49,7 +67,7 @@ body {
 }
 
 /* Editar o carrocel test */
-.modal-content{
+.modal-content {
   background-color: transparent;
   border: none !important;
   border-radius: 0px !important;
@@ -65,11 +83,11 @@ body {
   padding: 2em;
   width: 100%;
 }
-.modal-body{
+.modal-body {
   margin-top: 6em;
 }
 @media only screen and (max-width: 600px) {
-  .modal-body{
+  .modal-body {
     padding: 0px;
     margin-top: 7em;
   }

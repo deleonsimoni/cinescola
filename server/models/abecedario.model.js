@@ -22,6 +22,9 @@ const AbecedarioSchema = new mongoose.Schema({
   pais: {
     type: String
   },
+  idioma: {
+    type: String
+  },
   entrevistado: {
     type: String
   },

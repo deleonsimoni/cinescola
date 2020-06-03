@@ -50,13 +50,21 @@
   width: 100%;
 }
 
+.box-carrossel{
+  max-height: 180mm;
+  max-width: 300mm;
+  text-align: center;
+  position: initial;
+}
+
 .desc-item {
   margin: 5px;
 }
 
 .sobre-over{
   overflow-y: auto;
-  max-height: 22em;
+  max-height: 24em;
+  text-align: justify;
 }
 
 .link{

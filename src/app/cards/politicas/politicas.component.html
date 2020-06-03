@@ -57,7 +57,7 @@
 
           <!-- fim infs -->
 
-          <div *ngIf="item.links.length > 0" class="col-sm-12">
+          <div *ngIf="item.links.length > 0 && item.links[0].nome" class="col-sm-12">
             <mat-card-header>
               <h3 class="mt-3 mt-sm-0">Links para conteúdos</h3>
             </mat-card-header>

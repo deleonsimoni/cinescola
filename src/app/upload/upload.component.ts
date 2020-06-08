@@ -315,15 +315,17 @@ export class UploadComponent implements OnInit {
       this.contents = res;
 
       this.contents.forEach(element => {
+        
         if (element.linkVideo) {
           element.ytEmbed = this.embedService.embed(element.linkVideo, {
             attr: { width: 400, height: 315, frameborder: 0 }
           });
         } else if (element.linkAudio) {
-
-          //element.linkAudio = this.sanitizer.bypassSecurityTrustHtml(element.linkAudio);
-
+          element.ytEmbed = this.embedService.embed(element.linkAudio, {
+            attr: { width: 400, height: 315, frameborder: 0 }
+          });
         }
+
       });
 
     }, err => {

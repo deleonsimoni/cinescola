@@ -103,7 +103,8 @@ export class MapasComponent implements OnInit {
 
         } else if (element.linkAudio) {
 
-          element.linkAudio = this._sanitizer.bypassSecurityTrustResourceUrl(element.linkAudio);
+          element.ytEmbed = this._sanitizer.bypassSecurityTrustResourceUrl(element.linkAudio.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/"));
+
 
         }
       });

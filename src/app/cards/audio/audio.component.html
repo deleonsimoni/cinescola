@@ -2,7 +2,9 @@
   <mat-card *ngFor="let item of contents" class="card mt-3 mr-3">
     {{ item.titulo }}
 
-    <mat-card-header> <b> URL áudio: &nbsp;</b> {{ item.linkAudio }} </mat-card-header>
+    <mat-card-header *ngIf="item.linkAudio" style="text-align: center;">
+      <div [innerHtml]="item.ytEmbed"></div>
+    </mat-card-header>
 
     <mat-card-header> <b>Entrevistada(o):&nbsp;</b> {{ item.entrevistado }} </mat-card-header>
 
@@ -45,14 +47,7 @@
           <!-- Video -->
           <div class="col-lg-7">
             <div class="iframe-container">
-              <iframe
-                width="100%"
-                height="300"
-                scrolling="no"
-                frameborder="no"
-                allow="autoplay"
-                [src]="item.linkAudio"
-              ></iframe>
+              <iframe [src]="item.ytEmbed"></iframe>
             </div>
           </div>
 

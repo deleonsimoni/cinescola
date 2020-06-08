@@ -17,8 +17,15 @@ async function insert(req) {
     message: `Abecedário criado com sucesso.`
   };
   req.body.userId = req.user._id;
+  
+  let pointFound;
+  
+  if(req.body.lat){
+    pointFound = await PointsCtrl.getPointsByCoordinator(req.body.lat, req.body.lng);
+  } else {
+    pointFound = await PointsCtrl.getPointsByCoordinator(req.body.location.coordinates[1], req.body.location.coordinates[0]);
+  }
 
-  let pointFound = await PointsCtrl.getPointsByCoordinator(req.body.lat, req.body.lng);
   if (!pointFound) {
     pointFound = await PointsCtrl.create(req.body);
   }

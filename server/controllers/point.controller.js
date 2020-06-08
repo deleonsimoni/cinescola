@@ -28,13 +28,27 @@ module.exports = {
 }
 
 async function create(point) {
+  point.location = {
+    coordinates: [point.lng, point.lat]
+  }
   return await new Points(point).save();
 }
 
 async function getPointsByCoordinator(lat, lng) {
+  /*return await Points.findOne({
+    'location.coordinates': {
+      $near: {
+        //$maxDistance: 1,
+        //$minDistance: 0.001,
+        $geometry: {
+          type: "Point",
+          coordinates: [lng, lat]
+        }
+      }
+    }
+  });*/
   return await Points.findOne({
-    'lat': lat,
-    'lng': lng
+    'location.coordinates': [lng, lat]
   });
 }
 
@@ -68,6 +82,16 @@ async function getPointsByCategoria(req) {
   switch (Number(req.params.categoriaId)) {
     case 1:
       return await Points.find({
+         /*   'location.coordinates': {
+          $near: {
+            //$maxDistance: 1,
+            //$minDistance: 0.001,
+            $geometry: {
+              type: "Point",
+              coordinates: [lng, lat]
+            }
+          }
+        }*/
         abecedarios: {
           $gt: []
         }

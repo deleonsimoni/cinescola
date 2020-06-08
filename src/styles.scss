@@ -14,27 +14,21 @@ $custom-typography: mat-typography-config(
 @include mat-core($custom-typography);
 
 @font-face {
-  font-family: Avenir;
-  src: url("./assets/fonts/CarroisGothic-Regular.eot");
-}
-
-@font-face {
-  font-family: Avenir;
-  font-weight: bold;
-  src: url("./assets/fonts/CarroisGothic-Regular.eot");
+  font-family: Timeless;
+  src: url("./assets/fonts/Timeless.ttf");
 }
 
 * {
-  font-family: Avenir !important;
+  font-family: Timeless;
 }
 
 ul {
-  font-family: Avenir;
+  font-family: Timeless;
 }
 body {
   background-color: aliceblue;
   margin: 0;
-
+  
   app-root * {
     font-family: "Exo", sans-serif;
   }

@@ -37,7 +37,7 @@
                             <button *ngIf="!carregandoMapa" (click)="findLocation()" class="btn btn-primary"
                               type="button">Pesquisar</button>
                             <button *ngIf="carregandoMapa" class="btn btn-primary" type="button"><i
-                                class="fa fa-spinner fa-pulse"></i>Aguarde...</button>
+                                class="fa fa-spinner fa-pulse" style="font-style: normal;font-variant: normal;text-rendering: auto;"></i>Aguarde...</button>
                           </div>
                         </div>
                         <br />
@@ -47,13 +47,13 @@
                           <agm-marker *ngIf="!point._id" [latitude]="point.lat" [longitude]="point.lng">
                           </agm-marker>
                           <agm-marker *ngFor="let point of points" (markerClick)="selectMarker(point)"
-                            [latitude]="point.lat" [longitude]="point.lng">
+                          [latitude]="point.location.coordinates[1]" [longitude]="point.location.coordinates[0]">
                           </agm-marker>
                         </agm-map>
 
                       </div>
 
-                      <div *ngIf="point.lng">
+                      <div *ngIf="point.lng || point?.location?.coordinates[0]">
                         <input type="text" name="titlae" class="form-control mt-2" id="title"
                           placeholder="Nome do local para o ponto" [(ngModel)]="point.nome" />
 

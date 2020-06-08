@@ -54,13 +54,20 @@
                       </div>
 
                       <div *ngIf="point.lng || point?.location?.coordinates[0]">
-                        <input type="text" name="titlae" class="form-control mt-2" id="title"
-                          placeholder="Nome do local para o ponto" [(ngModel)]="point.nome" />
-
+                        <div class="input-group">
+                          <input type="text" name="titlae" class="form-control mt-2" id="title"
+                            placeholder="Nome do local para o ponto" [(ngModel)]="point.nome" />
+                            <div class="input-group-append">
+                              <button *ngIf="!carregandoAlterarNome" (click)="changePointName()" class="btn btn-primary"
+                                type="button">Alterar Nome</button>
+                              <button *ngIf="carregandoAlterarNome" class="btn btn-primary" type="button"><i
+                                  class="fa fa-spinner fa-pulse" style="font-style: normal;font-variant: normal;text-rendering: auto;"></i>Aguarde...</button>
+                            </div>
+                        </div>
                         <hr />
 
 
-                        <button (click)="openModal($event)" type="button">Adicionar
+                        <button (click)="openModal($event)" class="btn btn-success" type="button">Adicionar
                           Conteúdo</button>
 
 

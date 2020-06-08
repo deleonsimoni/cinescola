@@ -23,17 +23,29 @@ module.exports = router;
 router.get('/:categoriaId', asyncHandler(getPointsByCategoria));
 router.get('/:categoriaId/:pointId', asyncHandler(getContentOfPoint));
 
+
+
 router.post('/:categoriaId', passport.authenticate('jwt', {
   session: false
 }), asyncHandler(incluirContentByCategoria));
+
+
 
 router.delete('/:categoriaId/:contentId', passport.authenticate('jwt', {
   session: false
 }), asyncHandler(deleteContentByCategoria));
 
+
+
 router.put('/:categoriaId', passport.authenticate('jwt', {
   session: false
 }), asyncHandler(updateContentByCategoria));
+
+router.put('/changePointName/:idPoint', passport.authenticate('jwt', {
+  session: false
+}), asyncHandler(changePointName));
+
+
 
 router.get('/abecedario/:pointId', asyncHandler(getAbecedarioPoint));
 router.get('/audio/:pointId', asyncHandler(getAudioPoint));
@@ -96,6 +108,15 @@ async function getCineclubPoint(req, res) {
 async function getPointsByCategoria(req, res) {
   let user = await pointsCtrl.getPointsByCategoria(req);
   res.json(user);
+}
+
+async function changePointName(req, res) {
+  console.log(req.body)
+  if (req.user.icAdmin) {
+    let point = await pointsCtrl.changePointName(req.params.idPoint, req.body.nome);
+    res.json(point);
+  }
+
 }
 
 async function incluirContentByCategoria(req, res) {

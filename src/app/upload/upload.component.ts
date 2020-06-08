@@ -34,7 +34,7 @@ export class UploadComponent implements OnInit {
   public submissionForm: FormGroup;
   public carregando = false;
   public carregandoMapa = false;
-
+  public carregandoAlterarNome = false;
   public abecedario: any = {};
   public producaoAcademica: any = {};
   public audio: any = {};
@@ -118,6 +118,29 @@ export class UploadComponent implements OnInit {
     this.contents = {};
 
     this.pesquisaPorCategoria();
+  }
+
+  changePointName(){
+    if(this.point.nome && this.point.nome != ""){
+      this.carregandoAlterarNome = true;
+
+      this.http.put(`api/points/changePointName/` + this.point._id, this.point).subscribe((res: any) => {
+        this.carregandoAlterarNome = false;
+  
+        if (res && res.temErro) {
+          this.toastr.error(res.mensagem, 'Erro: ');
+        } else {
+          this.toastr.success(res.message, 'Sucesso');
+        }
+      }, err => {
+  
+        this.carregandoAlterarNome = false;
+        this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');
+      });
+
+    } else {
+      this.toastr.error('Preencha o nome do local para prosseguir.', 'Atenção: ');
+    }
   }
 
   openModal() {

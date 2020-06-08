@@ -24,6 +24,7 @@ module.exports = {
   getContentOfPoint,
   create,
   getPointsByCategoriaAdmin,
+  changePointName,
 
 }
 
@@ -32,6 +33,11 @@ async function create(point) {
     coordinates: [point.lng, point.lat]
   }
   return await new Points(point).save();
+}
+
+
+async function changePointName(id, nome) {
+  return await Points.findByIdAndUpdate(id,{"nome": nome});
 }
 
 async function getPointsByCoordinator(lat, lng) {

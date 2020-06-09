@@ -97,16 +97,18 @@ export class MapasComponent implements OnInit {
       this.contents = res;
 
       this.contents.forEach(element => {
-        if (element.linkVideo) {
 
-          element.ytEmbed = this._sanitizer.bypassSecurityTrustResourceUrl(element.linkVideo.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/"));
+        if (element.linkVideo) {
+          if(element.linkVideo.includes('youtube')){
+            element.ytEmbed = this._sanitizer.bypassSecurityTrustResourceUrl(element.linkVideo.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/"));
+          } else {
+            element.ytEmbed = this._sanitizer.bypassSecurityTrustResourceUrl(element.linkVideo.replace("https://vimeo.com/", "https://player.vimeo.com/video/"));
+          }
 
         } else if (element.linkAudio) {
-
           element.ytEmbed = this._sanitizer.bypassSecurityTrustResourceUrl(element.linkAudio.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/"));
-
-
         }
+        
       });
 
 

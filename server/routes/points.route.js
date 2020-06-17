@@ -11,6 +11,7 @@ const cursoCtrl = require('../controllers/curso.controller');
 const cineclubCtrl = require('../controllers/cineclub.controller');
 
 const pointsCtrl = require('../controllers/point.controller');
+const pointsUserCtrl = require('../controllers/point-user.controller');
 
 
 const router = express.Router();
@@ -23,6 +24,9 @@ module.exports = router;
 router.get('/:categoriaId', asyncHandler(getPointsByCategoria));
 router.get('/:categoriaId/:pointId', asyncHandler(getContentOfPoint));
 
+router.get('/admin/:categoriaId/:pointId', passport.authenticate('jwt', {
+  session: false
+}), asyncHandler(getContentOfPointAdmin));
 
 
 router.post('/:categoriaId', passport.authenticate('jwt', {
@@ -36,6 +40,9 @@ router.delete('/:categoriaId/:contentId', passport.authenticate('jwt', {
 }), asyncHandler(deleteContentByCategoria));
 
 
+router.put('/admin/aceitar/:categoriaId/:contentId', passport.authenticate('jwt', {
+  session: false
+}), asyncHandler(aceitarContentByCategoria));
 
 router.put('/:categoriaId', passport.authenticate('jwt', {
   session: false
@@ -61,51 +68,125 @@ router.get('/cineclub/:pointId', asyncHandler(getCineclubPoint));
 
 
 async function getContentOfPoint(req, res) {
+  
   let user = await pointsCtrl.getContentOfPoint(req);
   res.json(user);
 }
 
+async function getContentOfPointAdmin(req, res) {
+
+  let user;
+  
+  if(req.user.icAdmin){
+    user = await pointsCtrl.getContentOfPointAdmin(req);
+  } else {
+    user = await pointsUserCtrl.getContentOfPoint(req);
+  }
+  
+  res.json(user);
+}
+
 async function getAbecedarioPoint(req, res) {
-  let user = await pointsCtrl.getAbecedarioPoint(req);
+
+  let user;
+  
+  if(req.user.icAdmin){
+    user = await pointsCtrl.getAbecedarioPoint(req);
+  } else {
+    user = await pointsUserCtrl.getAbecedarioPoint(req);
+  }
+  
   res.json(user);
 }
 
 async function getAudioPoint(req, res) {
-  let user = await pointsCtrl.getAudioPoint(req);
+  let user;
+  
+  if(req.user.icAdmin){
+    user = await pointsCtrl.getAudioPoint(req);
+  } else {
+    user = await pointsUserCtrl.getAudioPoint(req);
+  }
+  
   res.json(user);
 }
 
 async function getEntrevistaPoint(req, res) {
-  let user = await pointsCtrl.getEntrevistaPoint(req);
+  let user;
+  
+  if(req.user.icAdmin){
+    user = await pointsCtrl.getEntrevistaPoint(req);
+  } else {
+    user = await pointsUserCtrl.getEntrevistaPoint(req);
+  }
+  
   res.json(user);
 }
 
 async function getProducaoAcademicaPoint(req, res) {
-  let user = await pointsCtrl.getProducaoAcademicaPoint(req);
+  let user;
+  
+  if(req.user.icAdmin){
+    user = await pointsCtrl.getProducaoAcademicaPoint(req);
+  } else {
+    user = await pointsUserCtrl.getProducaoAcademicaPoint(req);
+  }
+  
   res.json(user);
 }
 
 async function getPoliticaPoint(req, res) {
-  let user = await politicaCtrl.getPoliticaPoint(req);
+
+  let user;
+  
+  if(req.user.icAdmin){
+    user = await pointsCtrl.getPoliticaPoint(req);
+  } else {
+    user = await pointsUserCtrl.getPoliticaPoint(req);
+  }
+  
   res.json(user);
 }
 
 async function getEscolaPoint(req, res) {
-  let user = await escolaCtrl.getEscolaPoint(req);
+  let user;
+  
+  if(req.user.icAdmin){
+    user = await pointsCtrl.getEscolaPoint(req);
+  } else {
+    user = await pointsUserCtrl.getEscolaPoint(req);
+  }
+  
   res.json(user);
 }
 
 async function getCursoPoint(req, res) {
-  let user = await cursoCtrl.getCursoPoint(req);
+
+  let user;
+  
+  if(req.user.icAdmin){
+    user = await pointsCtrl.getCursoPoint(req);
+  } else {
+    user = await pointsUserCtrl.getCursoPoint(req);
+  }
+  
   res.json(user);
 }
 
 async function getCineclubPoint(req, res) {
-  let user = await cineclubCtrl.getCineclubPoint(req);
+  let user;
+  
+  if(req.user.icAdmin){
+    user = await pointsCtrl.getCineclubPoint(req);
+  } else {
+    user = await pointsUserCtrl.getCineclubPoint(req);
+  }
+  
   res.json(user);
 }
 
 async function getPointsByCategoria(req, res) {
+
   let user = await pointsCtrl.getPointsByCategoria(req);
   res.json(user);
 }
@@ -124,7 +205,10 @@ async function incluirContentByCategoria(req, res) {
 
   if (req.user.icAdmin) {
     req.body.content.icAprovado = true;
+  } else {
+    req.body.content.icAprovado = false;
   }
+
   switch (Number(req.params.categoriaId)) {
     case 1:
       content = await abecedarioCtrl.insert(req);
@@ -172,45 +256,99 @@ async function incluirContentByCategoria(req, res) {
 
 async function deleteContentByCategoria(req, res) {
   let user;
-  switch (Number(req.params.categoriaId)) {
-    case 1:
-      user = await abecedarioCtrl.deletar(req);
-      res.json(user);
-      break;
-    case 2:
-      user = await entrevistaCtrl.deletar(req);
-      res.json(user);
-      break;
-    case 3:
-      user = await audioCtrl.deletar(req);
-      res.json(user);
-      break;
-    case 4:
-      user = await producaoAcademicaCtrl.deletar(req);
-      res.json(user);
-      break;
+  if(req.user.icAdmin){
+  
+    switch (Number(req.params.categoriaId)) {
+      case 1:
+        user = await abecedarioCtrl.deletar(req);
+        res.json(user);
+        break;
+      case 2:
+        user = await entrevistaCtrl.deletar(req);
+        res.json(user);
+        break;
+      case 3:
+        user = await audioCtrl.deletar(req);
+        res.json(user);
+        break;
+      case 4:
+        user = await producaoAcademicaCtrl.deletar(req);
+        res.json(user);
+        break;
 
-    case 5:
-      user = await politicaCtrl.deletar(req);
-      res.json(user);
-      break;
+      case 5:
+        user = await politicaCtrl.deletar(req);
+        res.json(user);
+        break;
 
-    case 6:
-      user = await escolaCtrl.deletar(req);
-      res.json(user);
-      break;
+      case 6:
+        user = await escolaCtrl.deletar(req);
+        res.json(user);
+        break;
 
-    case 7:
-      user = await cursoCtrl.deletar(req);
-      res.json(user);
-      break;
+      case 7:
+        user = await cursoCtrl.deletar(req);
+        res.json(user);
+        break;
 
-    case 8:
-      user = await cineclubCtrl.deletar(req);
-      res.json(user);
-      break;
-    default:
-      break;
+      case 8:
+        user = await cineclubCtrl.deletar(req);
+        res.json(user);
+        break;
+      default:
+        break;
+    }
+  } else {
+    res.send(401, 'Acesso Não Autorizado');
+  }
+}
+
+
+async function aceitarContentByCategoria(req, res) {
+  let user;
+  if(req.user.icAdmin){
+    switch (Number(req.params.categoriaId)) {
+      case 1:
+        user = await abecedarioCtrl.aceitar(req);
+        res.json(user);
+        break;
+      case 2:
+        user = await entrevistaCtrl.aceitar(req);
+        res.json(user);
+        break;
+      case 3:
+        user = await audioCtrl.aceitar(req);
+        res.json(user);
+        break;
+      case 4:
+        user = await producaoAcademicaCtrl.aceitar(req);
+        res.json(user);
+        break;
+
+      case 5:
+        user = await politicaCtrl.aceitar(req);
+        res.json(user);
+        break;
+
+      case 6:
+        user = await escolaCtrl.aceitar(req);
+        res.json(user);
+        break;
+
+      case 7:
+        user = await cursoCtrl.aceitar(req);
+        res.json(user);
+        break;
+
+      case 8:
+        user = await cineclubCtrl.aceitar(req);
+        res.json(user);
+        break;
+      default:
+        break;
+    }
+  } else {
+    res.send(401, 'Acesso Não Autorizado');
   }
 }
 

@@ -5,6 +5,7 @@ const userCtrl = require('../controllers/user.controller');
 const authCtrl = require('../controllers/auth.controller');
 const config = require('../config/config');
 const pointsCtrl = require('../controllers/point.controller');
+const pointsUserCtrl = require('../controllers/point-user.controller');
 
 const router = express.Router();
 module.exports = router;
@@ -67,11 +68,6 @@ async function refresh(req, res) {
   });
 }
 
-async function getPointsByCategoriaAdmin(req, res) {
-  let user = await pointsCtrl.getPointsByCategoriaAdmin(req);
-  res.json(user);
-}
-
 async function register(req, res, next) {
   let user = await userCtrl.insert(req.body);
   user = user.toObject();
@@ -89,42 +85,112 @@ function login(req, res) {
   });
 }
 
+
+async function getPointsByCategoriaAdmin(req, res) {
+
+  let user;
+
+  if(req.user.icAdmin) {
+    user = await pointsCtrl.getPointsByCategoriaAdmin(req);
+  } else {
+    user = await pointsUserCtrl.getPointsByCategoria(req);
+  }
+
+  res.json(user);
+}
+
 async function getAbecedarioPointAdmin(req, res) {
-  let user = await pointsCtrl.getAbecedarioPointAdmin(req);
+
+  let user;
+
+  if(req.user.icAdmin) {
+    user = await pointsCtrl.getAbecedarioPointAdmin(req);
+  } else {
+    user = await pointsUserCtrl.getAbecedarioPoint(req);
+  }
+
   res.json(user);
 }
 
 async function getAudioPointAdmin(req, res) {
-  let user = await pointsCtrl.getAudioPointAdmin(req);
+  let user;
+
+  if(req.user.icAdmin) {
+    user = await pointsCtrl.getAudioPointAdmin(req);
+  } else {
+    user = await pointsUserCtrl.getAudioPoint(req);
+  }
+
   res.json(user);
 }
 
 async function getEntrevistaPointAdmin(req, res) {
-  let user = await pointsCtrl.getEntrevistaPointAdmin(req);
+
+  let user;
+
+  if(req.user.icAdmin) {
+    user = await pointsCtrl.getEntrevistaPointAdmin(req);
+  } else {
+    user = await pointsUserCtrl.getEntrevistaPoint(req);
+  }
+
   res.json(user);
 }
 
 async function getProducaoAcademicaPointAdmin(req, res) {
-  let user = await pointsCtrl.getProducaoAcademicaPointAdmin(req);
+
+  let user;
+
+  if(req.user.icAdmin) {
+    user = await pointsCtrl.getProducaoAcademicaPointAdmin(req);
+  } else {
+    user = await pointsUserCtrl.getProducaoAcademicaPoint(req);
+  }
   res.json(user);
 }
 
 async function getPoliticaPointAdmin(req, res) {
-  let user = await pointsCtrl.getPoliticaPointAdmin(req);
+  let user;
+
+  if(req.user.icAdmin) {
+    user = await pointsCtrl.getPoliticaPointAdmin(req);
+  } else {
+    user = await pointsUserCtrl.getPoliticaPoint(req);
+  }
+
   res.json(user);
 }
 
 async function getEscolaPointAdmin(req, res) {
-  let user = await pointsCtrl.getEscolaPointAdmin(req);
+  let user;
+  if(req.user.icAdmin) {
+    user = await pointsCtrl.getEscolaPointAdmin(req);
+  } else {
+    user = await pointsUserCtrl.getEscolaPoint(req);
+  }
   res.json(user);
 }
 
 async function getCursoPointAdmin(req, res) {
-  let user = await pointsCtrl.getCursoPointAdmin(req);
+
+  let user;
+  if(req.user.icAdmin) {
+    user = await pointsCtrl.getCursoPointAdmin(req);
+  } else {
+    user = await pointsUserCtrl.getCursoPoint(req);
+  }
+
   res.json(user);
 }
 
 async function getCineclubPointAdmin(req, res) {
-  let user = await pointsCtrl.getcineclubPointAdmin(req);
+
+  let user;
+  if(req.user.icAdmin) {
+    user = await pointsCtrl.getcineclubPointAdmin(req);
+  } else {
+    user = await pointsUserCtrl.getcineclubPoint(req);
+  }
+
   res.json(user);
 }

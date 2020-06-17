@@ -334,7 +334,7 @@ export class UploadComponent implements OnInit {
   selectMarker(position: any) {
     this.point = position;
 
-    this.http.get("api/points/" + this.categoria + "/" + position._id).subscribe((res: any) => {
+    this.http.get("api/points/admin/" + this.categoria + "/" + position._id).subscribe((res: any) => {
       this.contents = res;
 
       this.contents.forEach(element => {
@@ -413,6 +413,25 @@ export class UploadComponent implements OnInit {
       this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');
     });
   }
+
+  reciverAceitar(content) {
+    this.carregando = true;
+
+    this.http.put(`api/points/admin/aceitar/` + this.categoria + "/" + content._id, {icAprovado: content.icAprovado}).subscribe((res: any) => {
+      this.carregando = false;
+
+      if (res && res.temErro) {
+        this.toastr.error(res.mensagem, 'Erro: ');
+      } else {
+        this.toastr.success('', 'Sucesso');
+      }
+    }, err => {
+
+      this.carregando = false;
+      this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');
+    });
+  }
+
 
   reciverAlter(content) {
 

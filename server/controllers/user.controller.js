@@ -23,7 +23,7 @@ async function insert(user) {
   delete user.password;
 
   //todo temover
-  user.icAdmin = true;
+  //user.icAdmin = true;
 
   return await new User(user).save();
 }

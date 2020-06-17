@@ -22,6 +22,7 @@ module.exports = {
   getCursoPointAdmin,
   getCineclubPointAdmin,
   getContentOfPoint,
+  getContentOfPointAdmin,
   create,
   getPointsByCategoriaAdmin,
   changePointName,
@@ -78,6 +79,31 @@ async function getContentOfPoint(req) {
       return await getCursoPoint(req);
     case 8:
       return await getCineclubPoint(req);
+    default:
+
+      break;
+  }
+}
+
+async function getContentOfPointAdmin(req) {
+
+  switch (Number(req.params.categoriaId)) {
+    case 1:
+      return await getAbecedarioPointAdmin(req);
+    case 2:
+      return await getEntrevistaPointAdmin(req);
+    case 3:
+      return await getAudioPointAdmin(req);
+    case 4:
+      return await getProducaoAcademicaPointAdmin(req);
+    case 5:
+      return await getPoliticaPointAdmin(req);
+    case 6:
+      return await getEscolaPointAdmin(req);
+    case 7:
+      return await getCursoPointAdmin(req);
+    case 8:
+      return await getCineclubPointAdmin(req);
     default:
 
       break;

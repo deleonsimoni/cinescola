@@ -6,7 +6,8 @@ const PointsCtrl = require('./point.controller');
 module.exports = {
   insert,
   update,
-  deletar
+  deletar,
+  aceitar
 }
 
 async function insert(req) {
@@ -47,6 +48,11 @@ async function insert(req) {
 async function update(req) {
   return await Abecedario.findByIdAndUpdate(req.body.content._id, req.body.content);
 }
+
+async function aceitar(req) {
+  return await Abecedario.findByIdAndUpdate(req.params.contentId, {icAprovado: req.body.icAprovado});
+}
+
 
 async function deletar(req) {
   return await Abecedario.findOneAndRemove({

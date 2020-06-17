@@ -11,8 +11,10 @@ export class AbecedarioComponent implements OnInit {
 
   @Input() contents: any;
   @Input() isAdmin: boolean;
+  @Input() isCoordinator: boolean;
   @Output() remover = new EventEmitter();
   @Output() alterar = new EventEmitter();
+  @Output() aceitar = new EventEmitter();
 
   constructor(
     private _sanitizer: DomSanitizer,
@@ -27,6 +29,15 @@ export class AbecedarioComponent implements OnInit {
   }
   update(abecedario) {
     this.alterar.emit(abecedario);
+  }
+  accept(item, aceito){
+    if(aceito == '1'){
+      item.icAprovado = true;
+    } else {
+      item.icAprovado = false;
+    }
+    this.aceitar.emit(item);
+
   }
 
   sanitizeURL(url) {

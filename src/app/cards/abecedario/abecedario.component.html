@@ -17,8 +17,13 @@
     <mat-card-header> <b>Descrição:&nbsp;</b> {{ item.descricao }} </mat-card-header>
 
     <mat-card-actions>
-      <button *ngIf="item._id && isAdmin" mat-button (click)="delete(item._id)">Deletar</button>
+      <button *ngIf="item._id && isAdmin && isCoordinator" mat-button (click)="delete(item._id)">Deletar</button>
       <button *ngIf="item._id && isAdmin" mat-button (click)="update(item)">Editar</button>
+
+      <div>
+        <button *ngIf="item._id && isAdmin" mat-button (click)="accept(item, 1)">Aceitar</button>
+        <button *ngIf="item._id && isAdmin" mat-button (click)="accept(item, 0)">Recusar</button>
+      </div>
     </mat-card-actions>
   </mat-card>
 </div>

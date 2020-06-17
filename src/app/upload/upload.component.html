@@ -57,7 +57,7 @@
                         <div class="input-group">
                           <input type="text" name="titlae" class="form-control mt-2" id="title"
                             placeholder="Nome do local para o ponto" [(ngModel)]="point.nome" />
-                            <div class="input-group-append">
+                            <div *ngIf="user.icAdmin" class="input-group-append">
                               <button *ngIf="!carregandoAlterarNome" (click)="changePointName()" class="btn btn-primary"
                                 type="button">Alterar Nome</button>
                               <button *ngIf="carregandoAlterarNome" class="btn btn-primary" type="button"><i
@@ -72,50 +72,50 @@
 
 
                         <div *ngIf="categoria == 1 && contents.length > 0">
-                          <app-abecedario [contents]="contents" [isAdmin]="true" (remover)="reciverDelete($event)"
-                            (alterar)="reciverAlter($event)">
+                          <app-abecedario [contents]="contents" [isAdmin]="true" [isCoordinator]="user.icAdmin" (remover)="reciverDelete($event)"
+                            (alterar)="reciverAlter($event)" (aceitar)="reciverAceitar($event)">
                           </app-abecedario>
                         </div>
 
                         <div *ngIf="categoria == 2 && contents.length > 0">
-                          <app-entrevista [contents]="contents" [isAdmin]="true" (remover)="reciverDelete($event)"
-                            (alterar)="reciverAlter($event)">
+                          <app-entrevista [contents]="contents" [isAdmin]="true" [isCoordinator]="user.icAdmin" (remover)="reciverDelete($event)"
+                            (alterar)="reciverAlter($event)"  (aceitar)="reciverAceitar($event)">
                           </app-entrevista>
                         </div>
 
                         <div *ngIf="categoria == 3 && contents.length > 0">
-                          <app-audio [contents]="contents" [isAdmin]="true" (remover)="reciverDelete($event)"
-                            (alterar)="reciverAlter($event)">
+                          <app-audio [contents]="contents" [isAdmin]="true" [isCoordinator]="user.icAdmin" (remover)="reciverDelete($event)"
+                            (alterar)="reciverAlter($event)"  (aceitar)="reciverAceitar($event)">
                           </app-audio>
                         </div>
 
                         <div *ngIf="categoria == 4 && contents.length > 0">
-                          <app-producao-academica [contents]="contents" [isAdmin]="true"
-                            (remover)="reciverDelete($event)" (alterar)="reciverAlter($event)">
+                          <app-producao-academica [contents]="contents" [isAdmin]="true" [isCoordinator]="user.icAdmin"
+                            (remover)="reciverDelete($event)" (alterar)="reciverAlter($event)"  (aceitar)="reciverAceitar($event)">
                           </app-producao-academica>
                         </div>
 
                         <div *ngIf="categoria == 5 && contents.length > 0">
-                          <app-politicas [contents]="contents" [isAdmin]="true" (remover)="reciverDelete($event)"
-                            (alterar)="reciverAlter($event)">
+                          <app-politicas [contents]="contents" [isAdmin]="true" [isCoordinator]="user.icAdmin" (remover)="reciverDelete($event)"
+                            (alterar)="reciverAlter($event)"  (aceitar)="reciverAceitar($event)">
                           </app-politicas>
                         </div>
 
                         <div *ngIf="categoria == 6 && contents.length > 0">
-                          <app-escolas [contents]="contents" [isAdmin]="true" (remover)="reciverDelete($event)"
-                            (alterar)="reciverAlter($event)">
+                          <app-escolas [contents]="contents" [isAdmin]="true" [isCoordinator]="user.icAdmin" (remover)="reciverDelete($event)"
+                            (alterar)="reciverAlter($event)"  (aceitar)="reciverAceitar($event)">
                           </app-escolas>
                         </div>
 
                         <div *ngIf="categoria == 7 && contents.length > 0">
-                          <app-cursos [contents]="contents" [isAdmin]="true" (remover)="reciverDelete($event)"
-                            (alterar)="reciverAlter($event)">
+                          <app-cursos [contents]="contents" [isAdmin]="true" [isCoordinator]="user.icAdmin" (remover)="reciverDelete($event)"
+                            (alterar)="reciverAlter($event)"  (aceitar)="reciverAceitar($event)">
                           </app-cursos>
                         </div>
 
                         <div *ngIf="categoria == 8 && contents.length > 0">
-                          <app-cineclubes [contents]="contents" [isAdmin]="true" (remover)="reciverDelete($event)"
-                            (alterar)="reciverAlter($event)">
+                          <app-cineclubes [contents]="contents" [isAdmin]="true" [isCoordinator]="user.icAdmin" (remover)="reciverDelete($event)"
+                            (alterar)="reciverAlter($event)"  (aceitar)="reciverAceitar($event)">
                           </app-cineclubes>
                         </div>
 

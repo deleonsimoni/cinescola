@@ -54,6 +54,10 @@
     margin: 5px, 5px, 5px, 0px;
     padding-right: 1.8rem!important;
   }
+
+  *:focus {
+    outline: none;
+  }
   
   .sobre-over{
     overflow-y: auto;

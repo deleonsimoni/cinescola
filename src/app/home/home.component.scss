@@ -20,6 +20,10 @@
   font-family: Timeless !important;
 }
 
+*:focus {
+  outline: none;
+}
+
 .bg-head {
   background-color: #000!important;
   margin-top: 80px;
@@ -41,7 +45,7 @@
 
 
 .content-section {
-  padding-top: 7.5rem;
+  padding-top: 2.5rem;
   padding-bottom: 7.5rem;
   background-color: #000 !important;
 }

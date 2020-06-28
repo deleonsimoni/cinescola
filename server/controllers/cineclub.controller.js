@@ -14,7 +14,7 @@ async function insert(req) {
   let response = {
     status: 200,
     temErro: false,
-    message: `Abecedário criado com sucesso.`
+    message: `Cineclube criado com sucesso.`
   };
   req.body.userId = req.user._id;
 

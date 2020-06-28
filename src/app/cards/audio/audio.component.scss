@@ -50,6 +50,10 @@
     width: 100%;
   }
   
+  *:focus {
+    outline: none;
+  }
+  
   .desc-item {
     margin: 5px, 5px, 5px, 0px;
     padding-right: 1.8rem!important;

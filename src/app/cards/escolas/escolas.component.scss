@@ -56,6 +56,10 @@
   padding-right: 1.8rem!important;
 }
 
+*:focus {
+  outline: none;
+}
+
 .sobre-over {
   overflow-y: auto;
   max-height: 24em;

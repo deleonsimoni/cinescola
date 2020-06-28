@@ -64,6 +64,10 @@
     max-height: 24em;
     text-align: justify;
   }
+
+  *:focus {
+    outline: none;
+  }
   
   .link{
     padding: 0.5em;

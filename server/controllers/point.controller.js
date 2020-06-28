@@ -25,6 +25,7 @@ module.exports = {
   create,
   getPointsByCategoriaAdmin,
   changePointName,
+  getNews,
 
 }
 
@@ -83,6 +84,85 @@ async function getContentOfPoint(req) {
       break;
   }
 }
+
+async function getNews(req) {
+  let retorno = [];
+  let result;
+  let random;
+  let randomUsed = [];
+  for (let index = 0; index < 4; index++) {
+    random = Math.floor(Math.random() * (8 - 1 + 1)) + 1;
+
+    switch (Number(random)) {
+      case 1:
+        if(randomUsed.indexOf(random) == -1){
+          result = await Abecedario.findOne({'icAprovado':true}).populate('pointId', 'nome').sort({'createdAt': -1}).select('nome pointId');
+          randomUsed.push(random);
+          if (result) retorno.push({id: result.pointId._id, category: 1, nome: result.nome, pointId: result.pointId.nome})
+        } else {
+          index -=1;
+        }
+      break;
+      case 2:
+        if(randomUsed.indexOf(random) == -1){
+          result = await Entrevista.findOne({'icAprovado':true}).populate('pointId', 'nome').sort({'createdAt': -1}).select('verbete pointId.nome');
+          randomUsed.push(random);
+          if (result) retorno.push({id: result.pointId._id, category: 2, nome: result.verbete, pointId: result.pointId.nome})
+        } else {
+          index -=1;
+        }
+      break;
+      case 3:
+      /*result = await Audio.find({'icAprovado':true}).sort({'createdAt': -1}).limit(4).select('descricao pointId');
+      if (result) retorno.push({category: 3, nome: result.descricao, pointId: result.pointId})
+      LIBERAR QUANDO TIVER INFO NO BANCO
+      */
+      index -=1;
+      break;
+      case 4:
+        if(randomUsed.indexOf(random) == -1){
+          result = await ProducaoAcademica.findOne({'icAprovado':true}).populate('pointId', 'nome').sort({'createdAt': -1}).select('titulo pointId');
+          randomUsed.push(random);
+          if (result) retorno.push({id: result.pointId._id, category: 4, nome: result.titulo, pointId: result.pointId.nome})
+        } else {
+          index -=1;
+        }
+      break;
+      case 5:
+        if(randomUsed.indexOf(random) == -1){
+          result = await Politica.findOne({'icAprovado':true}).populate('pointId', 'nome').sort({'createdAt': -1}).select('nome pointId');
+          randomUsed.push(random);
+          if (result) retorno.push({id: result.pointId._id, category: 5, nome: result.nome, pointId: result.pointId.nome})
+        } else {
+          index -=1;
+        }
+      break;
+      case 6:
+        if(randomUsed.indexOf(random) == -1){
+          result = await Escola.findOne({'icAprovado':true}).populate('pointId', 'nome').sort({'createdAt': -1}).select('nome pointId');
+          randomUsed.push(random);
+          if (result) retorno.push({id: result.pointId._id, category: 6, nome: result.nome, pointId: result.pointId.nome})
+        } else {
+          index -=1;
+        }
+      break;
+      case 7:
+      /*result = await Curso.find({'icAprovado':true}).sort({'createdAt': -1}).limit(4).select('nome pointId');
+      if (result) retorno.push({category: 7, nome: result.nome, pointId: result.pointId})*/
+      index -=1;
+      break;
+      case 8:
+      /*result = await Cineclub.find({'icAprovado':true}).sort({'createdAt': -1}).limit(4).select('nome pointId');
+      if (result) retorno.push({category: 8, nome: result.nome, pointId: result.pointId})*/
+      index -=1;
+      break;
+
+    }
+  }
+  //console.log(retorno)
+  return await retorno;
+}
+
 
 async function getPointsByCategoria(req) {
   switch (Number(req.params.categoriaId)) {
@@ -426,4 +506,3 @@ async function getCineclubPointAdmin(req) {
       createAt: 1
     });
 }
-

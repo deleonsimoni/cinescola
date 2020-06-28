@@ -6,6 +6,7 @@ import { AuthService } from '../auth/auth.service';
 import { EmbedVideoService } from 'ngx-embed-video';
 import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 
 declare var google: any;
 
@@ -37,7 +38,7 @@ export class MapasComponent implements OnInit {
 
   modalRef: BsModalRef;
   carregando = false;
-  isCategoriaAberta = false;
+  isCategoriaAberta = true;
   geocoder: any;
   galleries: any;
   gallerieSelect: any;
@@ -75,11 +76,22 @@ export class MapasComponent implements OnInit {
     private http: HttpClient,
     private toastr: ToastrService,
     private embedService: EmbedVideoService,
-    private _sanitizer: DomSanitizer
+    private _sanitizer: DomSanitizer,
+    private route: ActivatedRoute,
+
   ) { }
 
   ngOnInit() {
     this.carregando = true;
+
+    const idContent = this.route.snapshot.paramMap.get('id');
+
+    if (idContent) {
+      this.categoriaSelecionada = Number(this.route.snapshot.paramMap.get('category'));
+      this.selectMarker({'_id': idContent});
+    }
+
+
     this.http.get("api/points/" + this.categoriaSelecionada).subscribe((res: any) => {
       this.carregando = false;
       this.points = res;
@@ -171,7 +183,4 @@ export class MapasComponent implements OnInit {
     return '../../assets/icones/' + icone;
   }
 
-  styles = [
-
-  ]
 }

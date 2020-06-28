@@ -37,6 +37,7 @@ import { PoliticasComponent } from './cards/politicas/politicas.component';
 import { EscolasComponent } from './cards/escolas/escolas.component';
 import { CursosComponent } from './cards/cursos/cursos.component';
 import { CineclubesComponent } from './cards/cineclubes/cineclubes.component';
+import { CategoryPipe } from './pipes/category.pipe';
 
 @NgModule({
   declarations: [
@@ -49,11 +50,13 @@ import { CineclubesComponent } from './cards/cineclubes/cineclubes.component';
     AbecedarioComponent,
     AudioComponent,
     ProducaoAcademicaComponent,
+    CategoryPipe,
     EntrevistaComponent,
     PoliticasComponent,
     EscolasComponent,
     CursosComponent,
     CineclubesComponent,
+    CategoryPipe,
   ],
   imports: [
     BrowserModule,

@@ -363,8 +363,10 @@
       <h3 class="mb-0" style="color: #f4e9db;">COLABORAÇÕES RECENTES</h3>
       <h2 class="mb-5" style="color: white;">Últimas postagens feitas na plataforma</h2>
     </div>
+
     <div class="row no-gutters" style="padding: 18px;">
       <ngb-carousel
+      *ngIf="loadNews"
       [showNavigationArrows]="true"
       [showNavigationIndicators]="true"
       interval="10000"
@@ -373,59 +375,31 @@
       [wrap]="true"
       style="text-align: center;
       margin: auto;
-      width: 100%;
-">
-      <ng-template ngbSlide style="text-align: center;
-      margin: auto;
-      width: 50%;
-">
-        <h1 title="Ir para o conteúdo" style="cursor: pointer;">Abecedário de Inês Girgel 
+      width: 100%;">
+
+
+      <ng-template ngbSlide 
+                   style="text-align: center; margin: auto; width: 50%;"
+                   *ngFor="let new of news"
+      >
+        <h1 title="Ir para o conteúdo" (click)="irParaConteudo(new.id, new.category)" style="cursor: pointer;">{{new.nome}}
           <i class="fa fa-share" style="font: normal normal normal 14px/1 FontAwesome !important; font-size: 35px !important;"></i>
         </h1>
         
-        <h3>Local: estrada</h3>
+        <h3>Local: {{new.pointId}}</h3>
         <h3 style="margin-bottom: 50px;">
-          Categoria: Abecedário
+          Categoria: {{new.category | category}}
         </h3>
       </ng-template>
 
-      <ng-template ngbSlide style="text-align: center;
-      margin: auto;
-      width: 50%;
-">
-        <h1>Marta Cardoso Guedes</h1>
-        <h3>Local: estrada</h3>
-        <h3 style="margin-bottom: 50px;">Categoria: Escola</h3>
-      </ng-template>
-
-      <ng-template ngbSlide style="text-align: center;
-      margin: auto;
-      width: 50%;
-">
-        <h1>Entrevista com Raúl Miranda</h1>
-        <h3>Local: estrada</h3>
-        <h3 style="margin-bottom: 50px;">Categoria: México</h3>
-      </ng-template>
-
-      <ng-template ngbSlide style="text-align: center;
-      margin: auto;
-      width: 50%;
-">
-        <h1>Abecedário de Virgínia Kastrup: cartografias da invenção</h1>
-        <h3>Local: estrada</h3>
-        <h3 style="margin-bottom: 50px;">Categoria: Abecedário</h3>
-      </ng-template>
-
-      <ng-template ngbSlide style="text-align: center;
-      margin: auto;
-      width: 50%;
-">
-        <h1>TESE DE DOUTORADO: A PRODUÇÃO DE PRESENÇA NEGRA NA FORMAÇÃO DE PROFESSORES PELOS OLHARES DECOLONIAIS DA CINEMATOGRAFIA DE ZÓZIMO BULBUL</h1>
-        <h3>Local: estrada</h3>
-        <h3 style="margin-bottom: 50px;">Categoria: Abecedário</h3>
-      </ng-template>
   
     </ngb-carousel>
+
+    <div *ngIf="!loadNews" class=""><button class="btn btn-primary"><i
+      class="fa fa-spinner fa-pulse"></i>Carregando</button>
+    </div>
+
+
     </div>
   </div>
 </section>

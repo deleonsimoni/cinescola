@@ -1,6 +1,8 @@
 import { Component, OnInit, TemplateRef, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -11,8 +13,14 @@ export class HomeComponent implements OnInit {
 
   modalRef: BsModalRef;
   @ViewChild('template', { static: false }) templateRef: TemplateRef<any>;
+  loadNews = false;
+  news = [];
 
-  constructor(private route: ActivatedRoute, private router: Router, private modalService: BsModalService) {
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private http: HttpClient,
+              private toastr: ToastrService,
+              private modalService: BsModalService) {
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -30,12 +38,22 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
 
-    /*setTimeout(() => {
-      this.modalRef = this.modalService.show(this.templateRef);
-    }, 500);*/
+    this.http.get("api/points/news").subscribe((res: any) => {
+
+      this.loadNews = true;
+      this.news = res;
+
+    }, err => {
+      this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');
+    });
 
   }
 
-  itemPesquisa: String = "";
+  irParaConteudo(id, category){
+
+    this.router.navigate(['mapas', {id: id, category: category}]);
+
+
+  }
 
 }

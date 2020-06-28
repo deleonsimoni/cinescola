@@ -19,6 +19,7 @@ module.exports = router;
 /*router.use(passport.authenticate('jwt', {
   session: false
 }))*/
+router.get('/news', asyncHandler(getNews));
 
 router.get('/:categoriaId', asyncHandler(getPointsByCategoria));
 router.get('/:categoriaId/:pointId', asyncHandler(getContentOfPoint));
@@ -78,6 +79,11 @@ async function getAudioPoint(req, res) {
 async function getEntrevistaPoint(req, res) {
   let user = await pointsCtrl.getEntrevistaPoint(req);
   res.json(user);
+}
+
+async function getNews(req, res) {
+  let news = await pointsCtrl.getNews(req);
+  res.json(news);
 }
 
 async function getProducaoAcademicaPoint(req, res) {

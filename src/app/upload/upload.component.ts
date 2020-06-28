@@ -66,7 +66,7 @@ export class UploadComponent implements OnInit {
     { id: 7, name: 'Acervos' },
     { id: 6, name: 'Educação Formal' },
     { id: 2, name: 'Entrevistas' },
-    { id: 8, name: 'Outras Iniciativas' }
+    { id: 8, name: 'Outras Iniciativas' },
     { id: 3, name: 'Podcasts' },
     { id: 5, name: 'Políticas' },
     { id: 4, name: 'Produção Acadêmica' },

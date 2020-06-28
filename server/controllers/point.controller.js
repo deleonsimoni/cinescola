@@ -87,6 +87,7 @@ async function getContentOfPoint(req) {
 async function getPointsByCategoria(req) {
   switch (Number(req.params.categoriaId)) {
     case 1:
+      
       return await Points.find({
          /*   'location.coordinates': {
           $near: {
@@ -98,6 +99,7 @@ async function getPointsByCategoria(req) {
             }
           }
         }*/
+        
         abecedarios: {
           $gt: []
         }

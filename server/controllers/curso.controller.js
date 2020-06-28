@@ -14,7 +14,7 @@ async function insert(req) {
   let response = {
     status: 200,
     temErro: false,
-    message: `Curso criado com sucesso.`
+    message: `Acervo criado com sucesso.`
   };
   req.body.userId = req.user._id;
 

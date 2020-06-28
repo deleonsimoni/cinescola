@@ -63,13 +63,14 @@ export class UploadComponent implements OnInit {
 
   public categorias = [
     { id: 1, name: 'Abecedários', icon: 'abecedario.png' },
+    { id: 7, name: 'Acervos' },
+    { id: 6, name: 'Educação Formal' },
     { id: 2, name: 'Entrevistas' },
-    { id: 3, name: 'Audios' },
-    { id: 4, name: 'Produção Acadêmica' },
+    { id: 8, name: 'Outras Iniciativas' }
+    { id: 3, name: 'Podcasts' },
     { id: 5, name: 'Políticas' },
-    { id: 6, name: 'Escolas' },
-    { id: 7, name: 'Cursos' },
-    { id: 8, name: 'Cineclubes' }
+    { id: 4, name: 'Produção Acadêmica' },
+
   ];
 
   constructor(

@@ -374,6 +374,9 @@
         required />
       <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Cidade"
         [(ngModel)]="escola.cidade" required />
+        
+        <textarea [(ngModel)]="escola.descricao" placeholder="Descrição" class="form-control mt-2"
+        id="exampleFormControlTextarea1" rows="3"></textarea>
 
       <div class="mt-2" *ngFor="let linkExtra of links; let i = index;">
         Link Extra (PDF, Imagens, etc...)

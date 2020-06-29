@@ -74,7 +74,7 @@
                           <input 
 
                             joyrideStep="4Step" 
-                            title="Legal! Caso o ponto seja novo, digite o nome do local para armazenar-mos na plataforma, caso contrário verifique se o nome do local está correto." 
+                            title="Legal! Caso o ponto seja novo, digite o nome do local para ser armazenado na plataforma. Caso contrário, verifique se o nome do local está correto." 
                             type="text" name="titlae" class="form-control mt-2" id="title"
                             placeholder="Nome do local para o ponto" [(ngModel)]="point.nome" />
                             <div *ngIf="point._id" class="input-group-append">
@@ -93,7 +93,7 @@
 
                         <button 
                         joyrideStep="6Step" 
-                              title="Chegou a hora! Ao clicar neste botão será aberta a janela para que você possa inserir o conteúdo."
+                              title="Após o nome do local, Chegou a hora! Ao clicar neste botão será aberta a janela para que você possa inserir o conteúdo."
                         
                         (click)="openModal($event)" class="btn btn-success" type="button">Adicionar
                           Conteúdo</button>

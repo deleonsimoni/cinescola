@@ -13,7 +13,7 @@ import { AdminModule } from './admin/admin.module';
 import { AuthHeaderInterceptor } from './interceptors/header.interceptor';
 import { CatchErrorInterceptor } from './interceptors/http-error.interceptor';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-
+import { JoyrideModule } from 'ngx-joyride';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
@@ -61,6 +61,7 @@ import { CategoryPipe } from './pipes/category.pipe';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    JoyrideModule.forRoot(),
     HttpClientModule,
     RouterModule,
     MatCardModule,

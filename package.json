@@ -63,6 +63,7 @@
     "ng2-dragula": "^1.5.0",
     "ngx-bootstrap": "^5.2.0",
     "ngx-embed-video": "^1.0.4",
+    "ngx-joyride": "^2.2.11",
     "ngx-mask": "^8.1.2",
     "ngx-toastr": "^11.1.2",
     "ngx-twitter-timeline": "^0.1.5",

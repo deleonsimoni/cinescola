@@ -16,7 +16,15 @@
                 <div class="form-row">
                   <div class="form-group col-md-12">
                     <div>
-                      <select class="form-control" id="opt" [(ngModel)]="categoria" (change)="mudarCategoria()">
+                      <div joyrideStep="0Step" 
+                      title="Olá! Vou te guiar na utilização da plataforma para inserir conteúdos! :)" ></div>
+                      <select 
+                          joyrideStep="firstStep" 
+                          title="Primeiro Selecione a Categoria que deseja incluir conteúdo" 
+                          class="form-control" 
+                          id="opt" 
+                          [(ngModel)]="categoria" 
+                          (change)="mudarCategoria()">
                         <option disabled="true" [value]="0">Selecione a
                           categoria</option>
 
@@ -31,7 +39,11 @@
                         <hr />
                         Selecione no mapa o local para inclusão das informações.<br />
                         <div class="input-group">
-                          <input type="text" class="form-control" placeholder="Informe a localidade"
+                          <input 
+                            joyrideStep="2Step" 
+                            title="Caso saiba o endereço do local para incluir a informação, digite-o na caixa de texto
+                             em seguida clique no botão pesquisar e aguarde até encontrarmos o local no mapa" 
+                            type="text" class="form-control" placeholder="Informe a localidade"
                             aria-label="Informe a localidade" [(ngModel)]="address" aria-describedby="basic-addon2">
                           <div class="input-group-append">
                             <button *ngIf="!carregandoMapa" (click)="findLocation()" class="btn btn-primary"
@@ -42,7 +54,11 @@
                         </div>
                         <br />
 
-                        <agm-map #map [latitude]="locationMap.lat" [longitude]="locationMap.lng"
+                        <agm-map #map 
+                          joyrideStep="3Step" 
+                          title="Se preferir pode navegar no mapa e clicando com o mouse poderá marcar o local que deseja incluir contéudo. 
+                          Caso precise alterar alguma informação clique em um ponto já existente para exibir o conteúdo cadastrado para que possa alterá-lo" 
+                          [latitude]="locationMap.lat" [longitude]="locationMap.lng"
                           [zoom]="locationMap.zoom" [styles]="styles" (mapClick)="placeMarker($event)">
                           <agm-marker *ngIf="!point._id" [latitude]="point.lat" [longitude]="point.lng">
                           </agm-marker>
@@ -55,10 +71,18 @@
 
                       <div *ngIf="point.lng || point?.location?.coordinates[0]">
                         <div  class="input-group">
-                          <input type="text" name="titlae" class="form-control mt-2" id="title"
+                          <input 
+
+                            joyrideStep="4Step" 
+                            title="Legal! Caso o ponto seja novo, digite o nome do local para armazenar-mos na plataforma, caso contrário verifique se o nome do local está correto." 
+                            type="text" name="titlae" class="form-control mt-2" id="title"
                             placeholder="Nome do local para o ponto" [(ngModel)]="point.nome" />
                             <div *ngIf="point._id" class="input-group-append">
-                              <button *ngIf="!carregandoAlterarNome" (click)="changePointName()" class="btn btn-primary"
+                              <button 
+                              joyrideStep="5Step" 
+                              title="Caso precise alterar o nome do local, basta clicar neste botão para realizar a ação." 
+                              
+                              *ngIf="!carregandoAlterarNome" (click)="changePointName()" class="btn btn-primary"
                                 type="button">Alterar Nome</button>
                               <button *ngIf="carregandoAlterarNome" class="btn btn-primary" type="button"><i
                                   class="fa fa-spinner fa-pulse" style="font-style: normal;font-variant: normal;text-rendering: auto;"></i>Aguarde...</button>
@@ -67,7 +91,11 @@
                         <hr />
 
 
-                        <button (click)="openModal($event)" class="btn btn-success" type="button">Adicionar
+                        <button 
+                        joyrideStep="6Step" 
+                              title="Chegou a hora! Ao clicar neste botão será aberta a janela para que você possa inserir o conteúdo."
+                        
+                        (click)="openModal($event)" class="btn btn-success" type="button">Adicionar
                           Conteúdo</button>
 
 

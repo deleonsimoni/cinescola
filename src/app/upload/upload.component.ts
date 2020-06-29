@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../auth/auth.service';
 import { EmbedVideoService } from 'ngx-embed-video';
 import { DomSanitizer } from '@angular/platform-browser';
+import { JoyrideService } from "ngx-joyride";
 
 
 declare var google: any;
@@ -82,6 +83,7 @@ export class UploadComponent implements OnInit {
     private authService: AuthService,
     private embedService: EmbedVideoService,
     private sanitizer: DomSanitizer,
+    private readonly joyrideService: JoyrideService,
 
   ) {
     this.mapsApiLoader = mapsApiLoader;
@@ -90,16 +92,31 @@ export class UploadComponent implements OnInit {
     });
   }
 
+  fazerTour() {
+    this.joyrideService.startTour(
+      { steps: ['0Step', 'firstStep']} // Your steps order
+    );
+  }
+
   ngOnInit() {
     this.authService.refresh().subscribe((res: any) => {
       this.user = res.user;
       this.carregando = false;
+      this.fazerTour();
     });
+
   }
 
   pesquisaPorCategoria() {
     this.http.get("api/auth/" + this.categoria).subscribe((res: any) => {
       this.points = res;
+
+      this.joyrideService.startTour(
+        { 
+          steps: ['2Step', '3Step'],
+          stepDefaultPosition: 'bottom'
+        });
+
     }, err => {
       this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');
     });
@@ -330,16 +347,23 @@ export class UploadComponent implements OnInit {
     this.contents = {};
     this.point.lat = position.coords.lat;
     this.point.lng = position.coords.lng;
+
+    this.joyrideService.startTour(
+      { 
+        steps: ['4Step', '6Step'],
+        stepDefaultPosition: 'bottom'
+      });
   }
 
   selectMarker(position: any) {
+
     this.point = position;
 
     this.http.get("api/points/" + this.categoria + "/" + position._id).subscribe((res: any) => {
       this.contents = res;
 
       this.contents.forEach(element => {
-        
+
         if (element.linkVideo) {
           element.ytEmbed = this.embedService.embed(element.linkVideo, {
             attr: { width: 400, height: 315, frameborder: 0 }
@@ -351,6 +375,12 @@ export class UploadComponent implements OnInit {
         }
 
       });
+
+      this.joyrideService.startTour(
+        { 
+          steps: ['4Step', '5Step', '6Step'],
+          stepDefaultPosition: 'bottom'
+        });
 
     }, err => {
       this.toastr.error('Servidor momentaneamente inoperante.', 'Erro: ');

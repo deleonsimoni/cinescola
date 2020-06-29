@@ -54,10 +54,10 @@
                       </div>
 
                       <div *ngIf="point.lng || point?.location?.coordinates[0]">
-                        <div class="input-group">
+                        <div  class="input-group">
                           <input type="text" name="titlae" class="form-control mt-2" id="title"
                             placeholder="Nome do local para o ponto" [(ngModel)]="point.nome" />
-                            <div class="input-group-append">
+                            <div *ngIf="point._id" class="input-group-append">
                               <button *ngIf="!carregandoAlterarNome" (click)="changePointName()" class="btn btn-primary"
                                 type="button">Alterar Nome</button>
                               <button *ngIf="carregandoAlterarNome" class="btn btn-primary" type="button"><i
@@ -71,7 +71,7 @@
                           Conteúdo</button>
 
 
-                        <div *ngIf="categoria == 1 && contents.length > 0">
+                        <div class="clearfix" *ngIf="categoria == 1 && contents.length > 0">
                           <app-abecedario [contents]="contents" [isAdmin]="true" (remover)="reciverDelete($event)"
                             (alterar)="reciverAlter($event)">
                           </app-abecedario>
@@ -157,6 +157,7 @@
         [(ngModel)]="abecedario.nome" required />
       <input type="text" name="title" class="form-control mt-2" id="abc12" placeholder="URL do abecedário (YouTube)"
         [(ngModel)]="abecedario.linkVideo" required />
+        <span style="font-family: monospace !important;">Exemplo: https://www.youtube.com/watch?v=-Ob4XS2al_w</span>
       <input type="text" name="title" class="form-control mt-2" id="abc13" placeholder="Entrevistada(o)"
         [(ngModel)]="abecedario.entrevistado" />
       <input type="text" name="title" class="form-control mt-2" id="abc14" placeholder="País"

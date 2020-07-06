@@ -25,6 +25,12 @@ const CineclubSchema = new mongoose.Schema({
   pagina: {
     type: String
   },
+  instituicao: {
+    type: String
+  },
+  descricao: {
+    type: String
+  },
 
   icAprovado: {
     type: Boolean,

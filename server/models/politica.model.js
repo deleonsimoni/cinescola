@@ -22,6 +22,9 @@ const PoliticaSchema = new mongoose.Schema({
   cidade: {
     type: String
   },
+  descricao: {
+    type: String
+  },
 
   icAprovado: {
     type: Boolean,

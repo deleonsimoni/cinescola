@@ -19,6 +19,9 @@ const ProducaoAcademicaSchema = new mongoose.Schema({
   descricao: {
     type: String
   },
+  tipo: {
+    type: String
+  },
   autoria: {
     type: String
   },

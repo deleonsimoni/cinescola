@@ -29,7 +29,7 @@
     <ng-template ngbSlide>
       <div class="picsum-img-wrapper img-responsive">
         <img
-          src="../../assets/img/carrosel/cineclubes.png"
+          src="../../assets/img/carrosel/acervos.png"
           width=""
           alt="Random first slide"
           class="mh-100 img-fluid"
@@ -37,14 +37,14 @@
         />
       </div>
       <div class="carousel-caption">
-        <!-- <h3>Conversas e entrevistas</h3>-->
+        <!--  <h3>Abecedários</h3>-->
       </div>
     </ng-template>
 
     <ng-template ngbSlide>
       <div class="picsum-img-wrapper img-responsive">
         <img
-          src="../../assets/img/carrosel/cursos.png"
+          src="../../assets/img/carrosel/educacaoFormal.png"
           width=""
           alt="Random first slide"
           class="mh-100 img-fluid"
@@ -52,7 +52,7 @@
         />
       </div>
       <div class="carousel-caption">
-        <!--<h3>Produção acadêmica</h3>-->
+        <!--  <h3>Abecedários</h3>-->
       </div>
     </ng-template>
 
@@ -67,24 +67,22 @@
         />
       </div>
       <div class="carousel-caption">
-        <!-- <h3>Cinematecas</h3>-->
+        <!--  <h3>Abecedários</h3>-->
       </div>
     </ng-template>
 
     <ng-template ngbSlide>
       <div class="picsum-img-wrapper img-responsive">
         <img
-          src="../../assets/img/carrosel/escolas.png"
+          src="../../assets/img/carrosel/outrasIniciativas.png"
           width=""
           alt="Random first slide"
           class="mh-100 img-fluid"
           
         />
-        <!-- <img src="../../assets/img/encontros.jpg" width="740px" alt="Random first slide" class="mh-100 img-fluid"
-          style="height: 50vh">-->
       </div>
       <div class="carousel-caption">
-        <!-- <h3>Escolas</h3>-->
+        <!--  <h3>Abecedários</h3>-->
       </div>
     </ng-template>
 
@@ -99,7 +97,7 @@
         />
       </div>
       <div class="carousel-caption">
-        <!--  <h3>Politicas</h3>-->
+        <!--  <h3>Abecedários</h3>-->
       </div>
     </ng-template>
 
@@ -114,7 +112,7 @@
         />
       </div>
       <div class="carousel-caption">
-        <!--  <h3>Politicas</h3>-->
+        <!--  <h3>Abecedários</h3>-->
       </div>
     </ng-template>
 
@@ -129,9 +127,11 @@
         />
       </div>
       <div class="carousel-caption">
-        <!--  <h3>Politicas</h3>-->
+        <!--  <h3>Abecedários</h3>-->
       </div>
     </ng-template>
+
+
   </ngb-carousel>
 </section>
 
@@ -185,11 +185,16 @@
           a uma série de abecedários audiovisuais, entrevistas e conversas entre pessoas que, de
           formas diferentes, são atravessadas pelas políticas e pedagogias que vinculam cinema e
           educação na escola.
+
           <br /><br />
-          <i>Cinenaescola</i> é resultado de uma pesquisa de pós-doutorado 2019/2020, realizado no DIE
-          CINVESTAV/México, sob a supervisão da Professora Inés Dussel por Adriana Fresquet
-          (CINEAD 1 do Laboratório de Educação, Cinema e Audiovisual da Faculdade de Educação da
-          UFRJ), com bolsa do Conselho Nacional de Desenvolvimento Científico e Tecnológico/ CNPq).
+          <br /><br />
+          <span style="font-size: 14px;">
+            <i>Cinenaescola</i> é resultado de uma pesquisa de pós-doutorado 2019/2020, realizado no Departamento 
+            de Investigaciones Educativas/DIE CINVESTAV - México, sob a supervisão da Professora Inés Dussel, 
+            por Adriana Fresquet, Coordenadora do CINEAD/LECAV - Laboratório de Educação, Cinema e Audiovisual 
+            da Faculdade de Educação da UFRJ - Universidade Federal do Rio de Janeiro, com bolsa PDE do Conselho 
+            Nacional de Desenvolvimento Científico e Tecnológico/ CNPq.
+          </span>
 
         </p>
       </div>
@@ -361,7 +366,7 @@
   <div class="container-portfolio" style="padding-top: 15px;">
     <div class="content-section-heading text-center">
       <h3 class="mb-0" style="color: #f4e9db;">COLABORAÇÕES RECENTES</h3>
-      <h2 class="mb-5" style="color: white;">Últimas postagens feitas na plataforma</h2>
+      <h3 class="mb-1" style="color: white;">Últimas postagens feitas na plataforma</h3>
     </div>
 
     <div class="row no-gutters" style="padding: 18px;">
@@ -382,14 +387,14 @@
                    style="text-align: center; margin: auto; width: 50%;"
                    *ngFor="let new of news"
       >
-        <h1 title="Ir para o conteúdo" (click)="irParaConteudo(new.id, new.category)" style="cursor: pointer !important;">{{new.nome}}
-          <i class="fa fa-share" style="font: normal normal normal 14px/1 FontAwesome !important; font-size: 35px !important;"></i>
-        </h1>
-        
-        <h3>Local: {{new.pointId}}</h3>
-        <h3 style="margin-bottom: 50px;">
-          Categoria: {{new.category | category}}
+        <h3 title="Ir para o conteúdo" (click)="irParaConteudo(new.id, new.category)" style="cursor: pointer !important;">{{new.nome}}
+          <i class="fa fa-share" style="font: normal normal normal 14px/1 FontAwesome !important; font-size: 25px !important;"></i>
         </h3>
+        
+        <h4>Local: {{new.pointId}}</h4>
+        <h4 style="margin-bottom: 50px;">
+          Categoria: {{new.category | category}}
+        </h4>
       </ng-template>
 
   

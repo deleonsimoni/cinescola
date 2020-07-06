@@ -183,4 +183,5 @@ export class MapasComponent implements OnInit {
     return '../../assets/icones/' + icone;
   }
 
+  styles = [];
 }

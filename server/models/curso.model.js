@@ -22,13 +22,15 @@ const cursoSchema = new mongoose.Schema({
   universidade: {
     type: String
   },
-  faculdade: {
+  pais: {
     type: String
   },
   pagina: {
     type: String
   },
-
+  descricao: {
+    type: String
+  },
   icAprovado: {
     type: Boolean,
     default: false

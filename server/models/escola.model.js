@@ -19,6 +19,9 @@ const EscolaSchema = new mongoose.Schema({
   pais: {
     type: String
   },
+  instituicao: {
+    type: String
+  },
   cidade: {
     type: String
   },

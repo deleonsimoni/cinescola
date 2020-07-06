@@ -2,6 +2,8 @@
   <mat-card *ngFor="let item of contents" class="card mt-3 mr-3">
     {{ item.titulo }}
 
+    <mat-card-header> <b>Tipo:&nbsp;</b> {{ item.tipo }} </mat-card-header>
+
     <mat-card-header> <b> Autoria: &nbsp;</b> {{ item.autoria }} </mat-card-header>
 
     <mat-card-header> <b> País:&nbsp;</b> {{ item.pais }} </mat-card-header>
@@ -48,7 +50,8 @@
           </div>
 
           <div class="col-12 d-flex flex-row flex-wrap">
-            <div class="desc-item"><b> Autoria: &nbsp;</b> {{ item.autoria }}</div>
+            <div class="desc-item"><b>Tipo: &nbsp;</b> {{ item.tipo }}</div>
+            <div class="desc-item"><b>Autoria: &nbsp;</b> {{ item.autoria }}</div>
             <div class="desc-item"><b>País:&nbsp;</b> {{ item.pais }}</div>
 
             <div class="desc-item"><b>Formato:&nbsp;</b> {{ item.formato }}</div>

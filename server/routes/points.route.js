@@ -7,6 +7,7 @@ const entrevistaCtrl = require('../controllers/entrevista.controller');
 const producaoAcademicaCtrl = require('../controllers/producaoAcademica.controller');
 const politicaCtrl = require('../controllers/politica.controller');
 const escolaCtrl = require('../controllers/escola.controller');
+const filmeCtrl = require('../controllers/filme.controller');
 const cursoCtrl = require('../controllers/curso.controller');
 const cineclubCtrl = require('../controllers/cineclub.controller');
 
@@ -56,6 +57,7 @@ router.get('/politica/:pointId', asyncHandler(getPoliticaPoint));
 router.get('/escola/:pointId', asyncHandler(getEscolaPoint));
 router.get('/curso/:pointId', asyncHandler(getCursoPoint));
 router.get('/cineclub/:pointId', asyncHandler(getCineclubPoint));
+router.get('/filme/:pointId', asyncHandler(getFilmePoint));
 
 //****** METODOS  *******/
 
@@ -111,13 +113,17 @@ async function getCineclubPoint(req, res) {
   res.json(user);
 }
 
+async function getFilmePoint(req, res) {
+  let user = await filmeCtrl.getFilmePoint(req);
+  res.json(user);
+}
+
 async function getPointsByCategoria(req, res) {
   let user = await pointsCtrl.getPointsByCategoria(req);
   res.json(user);
 }
 
 async function changePointName(req, res) {
-  console.log(req.body)
   if (req.user.icAdmin) {
     let point = await pointsCtrl.changePointName(req.params.idPoint, req.body.nome);
     res.json(point);
@@ -171,6 +177,11 @@ async function incluirContentByCategoria(req, res) {
       res.json(content);
       break;
 
+    case 9:
+      content = await filmeCtrl.insert(req);
+      res.json(content);
+      break;
+
     default:
       break;
   }
@@ -215,6 +226,11 @@ async function deleteContentByCategoria(req, res) {
       user = await cineclubCtrl.deletar(req);
       res.json(user);
       break;
+
+    case 9:
+      user = await filmeCtrl.deletar(req);
+      res.json(user);
+      break;
     default:
       break;
   }
@@ -255,6 +271,10 @@ async function updateContentByCategoria(req, res) {
       user = await cineclubCtrl.update(req);
       res.json(user);
       break;
+    case 9:
+        user = await filmeCtrl.update(req);
+        res.json(user);
+        break;
     default:
       break;
   }

@@ -28,6 +28,7 @@ export class UploadComponent implements OnInit {
   @ViewChild('escolasModal', { static: false }) escolasRef: TemplateRef<any>;
   @ViewChild('cursosModal', { static: false }) cursosRef: TemplateRef<any>;
   @ViewChild('cineclubesmodal', { static: false }) cinecluberef: TemplateRef<any>;
+  @ViewChild('filmemodal', { static: false }) filmeref: TemplateRef<any>;
 
   geocoder: any;
   modalRef: BsModalRef;
@@ -44,6 +45,7 @@ export class UploadComponent implements OnInit {
   public escola: any = {};
   public curso: any = {};
   public cineclube: any = {};
+  public filme: any = {};
 
   public point: any = {};
   public points: any = {};
@@ -64,10 +66,11 @@ export class UploadComponent implements OnInit {
 
   public categorias = [
     { id: 1, name: 'Abecedários', icon: 'abecedario.png' },
-    { id: 7, name: 'Acervos' },
+    { id: 7, name: 'Acervos' }, // CURSOS
     { id: 6, name: 'Educação Formal' },
     { id: 2, name: 'Entrevistas' },
-    { id: 8, name: 'Outras Iniciativas' },
+    { id: 9, name: 'Filmes' },
+    { id: 8, name: 'Outras Iniciativas' }, // Cineclubes
     { id: 3, name: 'Podcasts' },
     { id: 5, name: 'Políticas' },
     { id: 4, name: 'Produção Acadêmica' },
@@ -124,6 +127,7 @@ export class UploadComponent implements OnInit {
 
   mudarCategoria() {
     this.points = {};
+    this.point = {};
     this.abecedario = {};
     this.audio = {};
     this.entrevista = {};
@@ -131,7 +135,9 @@ export class UploadComponent implements OnInit {
     this.politica = {};
     this.escola = {};
     this.curso = {};
+    this.filme = {};
     this.cineclube = {};
+    this.address = '';
 
     this.contents = {};
 
@@ -216,6 +222,12 @@ export class UploadComponent implements OnInit {
 
         break;
 
+      case 9:
+        this.filme = {};
+        this.modalRef = this.modalService.show(this.filmeref);
+
+        break;
+
       default:
         break;
     }
@@ -272,12 +284,16 @@ export class UploadComponent implements OnInit {
 
         break;
 
+      case 9:
+        this.point.content = this.filme;
+
+        break;
+
       default:
         break;
     }
 
     this.point.content.links = this.links;
-    this.links = [{ nome: '', link: '' }];
 
     if (this.point.content._id) {
       this.updateContent(this.point)
@@ -332,6 +348,7 @@ export class UploadComponent implements OnInit {
         this.point._id = res.point._id;
         this.selectMarker(this.point);
         this.getContentsPoint();
+        this.links = [{ nome: '', link: '' }];
 
       }
     }, err => {
@@ -395,7 +412,8 @@ export class UploadComponent implements OnInit {
       this.toastr.error('Digite o local que deseja buscar.', 'Atenção: ');
 
     } else {
-
+      this.point = {};
+      this.contents = {};
       this.carregandoMapa = true;
       if (!this.geocoder) { this.geocoder = new google.maps.Geocoder(); }
       this.geocoder.geocode({
@@ -454,14 +472,14 @@ export class UploadComponent implements OnInit {
         this.links = this.abecedario.links;
         this.modalRef = this.modalService.show(this.abecedarioRef);
 
-        break;
+      break;
       case 2:
         this.entrevista = content;
         this.links = this.entrevista.links;
 
         this.modalRef = this.modalService.show(this.entrevistaRef);
 
-        break;
+      break;
       case 3:
         this.audio = content;
         this.links = this.audio.links;
@@ -474,35 +492,44 @@ export class UploadComponent implements OnInit {
         this.links = this.producaoAcademica.links;
 
         this.modalRef = this.modalService.show(this.producaoAcademicaRef);
-        break;
+      break;
 
       case 5:
         this.politica = content;
         this.links = this.politica.links;
 
         this.modalRef = this.modalService.show(this.politica);
-        break;
+      break;
 
       case 6:
         this.escola = content;
         this.links = this.escola.links;
 
         this.modalRef = this.modalService.show(this.escolasRef);
-        break;
+      break;
 
       case 7:
         this.curso = content;
         this.links = this.curso.links;
 
         this.modalRef = this.modalService.show(this.cursosRef);
-        break;
+      break;
 
       case 8:
         this.cineclube = content;
         this.links = this.cineclube.links;
 
         this.modalRef = this.modalService.show(this.cinecluberef);
-        break;
+      break;
+
+      case 9:
+        this.filme = content;
+        this.links = this.filme.links;
+
+        this.modalRef = this.modalService.show(this.filmeref);
+      break;
+
+
 
       default:
         break;

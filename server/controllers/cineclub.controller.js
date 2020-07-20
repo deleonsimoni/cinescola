@@ -18,10 +18,17 @@ async function insert(req) {
   };
   req.body.userId = req.user._id;
 
-  let pointFound = await PointsCtrl.getPointsByCoordinator(req.body.lat, req.body.lng);
-  if (!pointFound) {
-    pointFound = await PointsCtrl.create(req.body);
+  let pointFound = {};
+
+  if(req.body._id){
+    pointFound._id = req.body._id;
+  } else {
+    pointFound = await PointsCtrl.getPointsByCoordinator(req.body.lat, req.body.lng);
+    if (!pointFound) {
+      pointFound = await PointsCtrl.create(req.body);
+    }
   }
+
   req.body.content.userId = req.user._id;
   req.body.content.pointId = pointFound._id;
 

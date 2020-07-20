@@ -1,0 +1,80 @@
+<div *ngIf="isAdmin">
+    <div *ngIf="isAdmin">
+      <mat-card *ngFor="let item of contents" class="card mt-3 mr-3">
+        <mat-card-header *ngIf="item.linkVideo" style="text-align: center;">
+          <div [innerHtml]="item.ytEmbed"></div>
+        </mat-card-header>
+  
+        <mat-card-header> <b>Título: &nbsp;</b> {{ item.nome }} </mat-card-header>
+  
+        <mat-card-header> <b>Indicado Por: &nbsp;</b> {{ item.indicadoPor }} </mat-card-header>
+  
+        <mat-card-header> <b>Ficha Técnica:&nbsp;</b> {{ item.fichaTecnica }} </mat-card-header>
+  
+        <mat-card-header> <b>Sinopse:&nbsp;</b> {{ item.sinopse }} </mat-card-header>
+    
+        <mat-card-header> <b>Observações:&nbsp;</b> {{ item.descricao }} </mat-card-header>
+  
+        <mat-card-actions>
+          <button *ngIf="item._id && isAdmin" mat-button (click)="delete(item._id)">Deletar</button>
+          <button *ngIf="item._id && isAdmin" mat-button (click)="update(item)">Editar</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  
+  <ngb-carousel
+    *ngIf="!isAdmin"
+    [showNavigationArrows]="true"
+    [showNavigationIndicators]="true"
+    [keyboard]="true"
+    [wrap]="false"
+    [activeId]="'slideTwo'"
+    interval="0"
+  >
+    <ng-template *ngFor="let item of contents" ngbSlide>
+      <mat-card class="card">
+        <!-- Titulo -->
+        <mat-card-header>
+          <mat-card-title>
+            <h1>{{ item.nome }}</h1>
+          </mat-card-title>
+        </mat-card-header>
+  
+        <!-- Conteudo -->
+        <mat-card-content>
+          <div class="row">
+            <!-- Video -->
+            <div class="col-sm-7">
+              <div class="iframe-container">
+                <iframe [src]="item.ytEmbed"></iframe>
+              </div>
+            </div>
+            <!-- Informações -->
+            <div class="col-sm-5">
+              <mat-card-header>
+                <p>{{ item.sinopse }}</p>
+              </mat-card-header>
+            </div>
+            <div class="col-12 d-flex flex-row flex-wrap">
+              <div class="desc-item"><b>Indicado Por:&nbsp;</b> {{ item.indicadoPor }}</div>
+              <div class="desc-item"><b>Ficha Técnica: &nbsp;</b> {{ item.fichaTecnica }}</div>
+
+            </div>
+            <div *ngIf="item.links.length > 0 && item.links[0].nome" class="col-sm-12">
+              <mat-card-header>
+                <h3 class="mt-3 mt-sm-0">Links para conteúdos</h3>
+              </mat-card-header>
+  
+              <mat-card-header class="d-flex flex-row flex-wrap">
+                <div *ngFor="let linkExtra of item.links; let i = index" class="m-2">
+                  <a href="{{ linkExtra.link }}" target="_blank" class="link">{{ linkExtra.nome }}</a>
+                </div>
+              </mat-card-header>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </ng-template>
+  </ngb-carousel>
+  

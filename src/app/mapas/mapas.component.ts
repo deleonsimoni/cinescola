@@ -57,6 +57,7 @@ export class MapasComponent implements OnInit {
     { id: 7, name: 'Acervos', icon: 'cursos.png' },
     { id: 6, name: 'Educação Formal', icon: 'escolas.png' },
     { id: 2, name: 'Entrevistas', icon: 'entrevista.png' },
+    { id: 9, name: 'Filmes', icon: 'filmes.png' },
     { id: 8, name: 'Outras Iniciativas', icon: 'cineclub.png' },
     { id: 3, name: 'Podcasts', icon: 'poscast.png' },
     { id: 5, name: 'Políticas', icon: 'politicas.png' },

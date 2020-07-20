@@ -80,6 +80,13 @@ const PointsSchema = new mongoose.Schema({
         }
     ],
 
+    filmes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Filme'
+        }
+    ],
+
 
     createdAt: {
         type: Date,

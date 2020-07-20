@@ -365,8 +365,8 @@
 >
   <div class="container-portfolio" style="padding-top: 15px;">
     <div class="content-section-heading text-center">
-      <h3 class="mb-0" style="color: #f4e9db;">COLABORAÇÕES RECENTES</h3>
-      <h3 class="mb-1" style="color: white;">Últimas postagens feitas na plataforma</h3>
+      <h4 class="mb-0" style="color: #f4e9db;">COLABORAÇÕES RECENTES</h4>
+      <h4 class="mb-1" style="color: white;">Últimas postagens feitas na plataforma</h4>
     </div>
 
     <div class="row no-gutters" style="padding: 18px;">
@@ -387,14 +387,14 @@
                    style="text-align: center; margin: auto; width: 50%;"
                    *ngFor="let new of news"
       >
-        <h3 title="Ir para o conteúdo" (click)="irParaConteudo(new.id, new.category)" style="cursor: pointer !important;">{{new.nome}}
-          <i class="fa fa-share" style="font: normal normal normal 14px/1 FontAwesome !important; font-size: 25px !important;"></i>
-        </h3>
-        
-        <h4>Local: {{new.pointId}}</h4>
-        <h4 style="margin-bottom: 50px;">
-          Categoria: {{new.category | category}}
+        <h4 title="Ir para o conteúdo" (click)="irParaConteudo(new.id, new.category)" style="cursor: pointer !important;">{{new.nome}}
+          <i class="fa fa-share" style="font: normal normal normal 14px/1 FontAwesome !important; font-size: 20px !important;"></i>
         </h4>
+        
+        <h5>Local: {{new.pointId}}</h5>
+        <h5 style="margin-bottom: 50px;">
+          Categoria: {{new.category | category}}
+        </h5>
       </ng-template>
 
   

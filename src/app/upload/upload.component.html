@@ -41,8 +41,8 @@
                         <div class="input-group">
                           <input 
                             joyrideStep="2Step" 
-                            title="Caso saiba o endereço do local para incluir a informação, digite-o na caixa de texto
-                             em seguida clique no botão pesquisar e aguarde até encontrarmos o local no mapa" 
+                            title="Caso saiba o endereço do local pode digitar o endereço ou o nome da instituição que deseja incluir e 
+                            em seguida clique no botão pesquisar e aguarde até encontrarmos o local no mapa" 
                             type="text" class="form-control" placeholder="Informe a localidade"
                             aria-label="Informe a localidade" [(ngModel)]="address" aria-describedby="basic-addon2">
                           <div class="input-group-append">
@@ -147,6 +147,12 @@
                           </app-cineclubes>
                         </div>
 
+                        <div *ngIf="categoria == 9 && contents.length > 0">
+                          <app-filmes [contents]="contents" [isAdmin]="true" (remover)="reciverDelete($event)"
+                            (alterar)="reciverAlter($event)">
+                          </app-filmes>
+                        </div>
+
 
                       </div>
 
@@ -233,9 +239,10 @@
         [(ngModel)]="entrevista.verbete" required />
       <input type="text" name="title" class="form-control mt-2" id="title" placeholder="URL vídeo (YouTube)"
         [(ngModel)]="entrevista.linkVideo" required />
+        <span style="font-family: monospace !important;">Exemplo: https://www.youtube.com/watch?v=-Ob4XS2al_w</span>
       <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Entrevistada(o)"
         [(ngModel)]="entrevista.entrevistado" />
-      <input type="text" name="title" class="form-control mt-2" id="title" placeholder="País"
+      <input type="text" name="title" class="form-control mt-2" id="title" placeholder="País, estado e ano"
         [(ngModel)]="entrevista.pais" />
       <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Duração"
         [(ngModel)]="entrevista.duracao" />
@@ -428,7 +435,7 @@
       <button type="button" class="btn btn-success mt-2" (click)="addLinkExtraForm()">+ Link</button>
 
       <div class="justify-content-center">
-        <button class="btn btn-primary mt-2" (click)="addContent()">Salvar Escola</button>
+        <button class="btn btn-primary mt-2" (click)="addContent()">Salvar</button>
       </div>
     </div>
   </div>
@@ -437,7 +444,7 @@
 <ng-template #cursosModal>
   <div class="modal-upload">
     <div class="modal-header">
-      <h4 class="modal-title pull-left">Acervos (Cursos)</h4>
+      <h4 class="modal-title pull-left">Acervos</h4>
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -453,7 +460,7 @@
         <span style="font-family: monospace !important;">(Cinemateca, Museu de Imagem e Som, Fundação, Universidade, etc.)</span>
       <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Nome do projeto específico (caso houver)"
         [(ngModel)]="curso.nome" required />
-      <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Link para o programa"
+      <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Link"
         [(ngModel)]="curso.pagina" />
       <textarea [(ngModel)]="curso.descricao" placeholder="Descrição" class="form-control mt-2"
         id="exampleFormControlTextarea1" rows="3"></textarea>
@@ -481,7 +488,7 @@
 <ng-template #cineclubesmodal>
   <div class="modal-upload">
     <div class="modal-header">
-      <h4 class="modal-title pull-left">Outras Iniciativas (Cineclubes)</h4>
+      <h4 class="modal-title pull-left">Outras Iniciativas</h4>
       <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -517,6 +524,53 @@
 
       <div class="justify-content-center">
         <button class="btn btn-primary mt-2" (click)="addContent()">Salvar Cineclube</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #filmemodal>
+  <div class="modal-upload">
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Filmes</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Nome"
+        [(ngModel)]="filme.nome" required />
+      <input type="text" name="title" class="form-control mt-2" id="title" placeholder="URL vídeo (YouTube)"
+        [(ngModel)]="filme.linkVideo" required />
+        <span style="font-family: monospace !important;">Exemplo: https://www.youtube.com/watch?v=-Ob4XS2al_w</span>
+
+      <input type="text" name="title" class="form-control mt-2" id="title" placeholder="Indicado por: "
+        [(ngModel)]="filme.indicadoPor" />
+
+      <textarea [(ngModel)]="filme.fichaTecnica" placeholder="Ficha Técnica" class="form-control mt-2"
+      id="exampleFormControlTextarea1" rows="3"></textarea>
+
+      <textarea [(ngModel)]="filme.sinopse" placeholder="Sinopse" class="form-control mt-2"
+      id="exampleFormControlTextarea2" rows="3"></textarea>
+
+      <textarea [(ngModel)]="filme.descricao" placeholder="Observações" class="form-control mt-2"
+        id="exampleFormControlTextarea3" rows="3"></textarea>
+
+      <div class="mt-2" *ngFor="let linkExtra of links; let i = index;">
+        Conteúdos extras (associados, entrevistas etc...)
+        <button type="button" class="btn btn-danger" *ngIf="i > 0" (click)="removeLinkExtraForm(i)">Remover</button>
+        <input type="text" name="nome_{{i}}" class="form-control mt-2" id="abc65" placeholder="Nome do Conteúdo"
+          [(ngModel)]="linkExtra.nome" />
+        <input type="text" name="link_{{i}}" class="form-control mt-2" id="abc66" placeholder="Link para o conteúdo"
+          [(ngModel)]="linkExtra.link" />
+      </div>
+
+      <button type="button" class="btn btn-success mt-2" (click)="addLinkExtraForm()">+ Link</button>
+
+
+      <div class="justify-content-center">
+        <button class="btn btn-primary mt-2" (click)="addContent()">Salvar Filme</button>
       </div>
     </div>
   </div>

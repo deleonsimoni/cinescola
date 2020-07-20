@@ -82,5 +82,10 @@
       (remover)="reciverDelete($event)" (alterar)="reciverAlter($event)">
     </app-cineclubes>
 
+    <app-filmes *ngIf="categoriaSelecionada == 9" [contents]="contents" [isAdmin]="false"
+      (remover)="reciverDelete($event)" (alterar)="reciverAlter($event)">
+    </app-filmes>
+
+
   </div>
 </ng-template>

@@ -3,7 +3,7 @@ const Abecedario = require('../models/abecedario.model');
 const Audio = require('../models/audio.model');
 const Entrevista = require('../models/entrevista.model');
 const ProducaoAcademica = require('../models/producaoAcademica.model');
-
+const Filme = require('../models/filme.model');
 const Escola = require('../models/escola.model');
 const Politica = require('../models/politica.model');
 const Curso = require('../models/curso.model');
@@ -18,6 +18,7 @@ module.exports = {
   getEntrevistaPointAdmin,
   getProducaoAcademicaPointAdmin,
   getEscolaPointAdmin,
+  getFilmePointAdmin,
   getPoliticaPointAdmin,
   getCursoPointAdmin,
   getCineclubPointAdmin,
@@ -79,6 +80,8 @@ async function getContentOfPoint(req) {
       return await getCursoPoint(req);
     case 8:
       return await getCineclubPoint(req);
+    case 9:
+      return await getFilmePoint(req);
     default:
 
       break;
@@ -113,11 +116,13 @@ async function getNews(req) {
         }
       break;
       case 3:
-      /*result = await Audio.find({'icAprovado':true}).sort({'createdAt': -1}).limit(4).select('descricao pointId');
-      if (result) retorno.push({category: 3, nome: result.descricao, pointId: result.pointId})
-      LIBERAR QUANDO TIVER INFO NO BANCO
-      */
-      index -=1;
+      if(randomUsed.indexOf(random) == -1){
+        result = await Audio.findOne({'icAprovado':true}).populate('pointId', 'nome').sort({'createdAt': -1}).select('descricao pointId.nome');
+        randomUsed.push(random);
+        if (result) retorno.push({id: result.pointId._id, category: 3, nome: result.descricao, pointId: result.pointId.nome})
+      } else {
+        index -=1;
+      }
       break;
       case 4:
         if(randomUsed.indexOf(random) == -1){
@@ -147,15 +152,33 @@ async function getNews(req) {
         }
       break;
       case 7:
-      /*result = await Curso.find({'icAprovado':true}).sort({'createdAt': -1}).limit(4).select('nome pointId');
-      if (result) retorno.push({category: 7, nome: result.nome, pointId: result.pointId})*/
-      index -=1;
+     
+      if(randomUsed.indexOf(random) == -1){
+        result = await Curso.findOne({'icAprovado':true}).populate('pointId', 'nome').sort({'createdAt': -1}).select('nome pointId');
+        randomUsed.push(random);
+        if (result) retorno.push({id: result.pointId._id, category: 7, nome: result.nome, pointId: result.pointId.nome})
+      } else {
+        index -=1;
+      }
       break;
       case 8:
-      /*result = await Cineclub.find({'icAprovado':true}).sort({'createdAt': -1}).limit(4).select('nome pointId');
-      if (result) retorno.push({category: 8, nome: result.nome, pointId: result.pointId})*/
-      index -=1;
+      if(randomUsed.indexOf(random) == -1){
+        result = await Cineclub.findOne({'icAprovado':true}).populate('pointId', 'nome').sort({'createdAt': -1}).select('nome pointId');
+        randomUsed.push(random);
+        if (result) retorno.push({id: result.pointId._id, category: 8, nome: result.nome, pointId: result.pointId.nome})
+      } else {
+        index -=1;
+      }
       break;
+      case 9:
+        if(randomUsed.indexOf(random) == -1){
+          result = await Filme.findOne({'icAprovado':true}).populate('pointId', 'nome').sort({'createdAt': -1}).select('nome pointId');
+          randomUsed.push(random);
+          if (result) retorno.push({id: result.pointId._id, category: 9, nome: result.nome, pointId: result.pointId.nome})
+        } else {
+          index -=1;
+        }
+        break;
 
     }
   }
@@ -257,6 +280,15 @@ async function getPointsByCategoria(req) {
         .sort({
           createAt: 1
         });
+    case 9:
+      return await Points.find({
+      filmes: {
+          $gt: []
+        }
+      })
+        .sort({
+          createAt: 1
+        });
 
     default:
       break;
@@ -339,6 +371,16 @@ async function getPointsByCategoriaAdmin(req) {
     case 8:
       return await Points.find({
         cineclub: {
+          $gt: []
+        }
+      })
+        .sort({
+          createAt: 1
+        });
+
+    case 9:
+      return await Points.find({
+        filmes: {
           $gt: []
         }
       })
@@ -500,6 +542,25 @@ async function getCineclubPoint(req) {
 
 async function getCineclubPointAdmin(req) {
   return await Cineclub.find({
+    pointId: req.params.pointId
+  })
+    .sort({
+      createAt: 1
+    });
+}
+
+async function getFilmePoint(req) {
+  return await Filme.find({
+    pointId: req.params.pointId,
+    icAprovado: true
+  })
+    .sort({
+      createAt: 1
+    });
+}
+
+async function getFilmePointAdmin(req) {
+  return await Filme.find({
     pointId: req.params.pointId
   })
     .sort({

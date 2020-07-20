@@ -38,6 +38,7 @@ import { EscolasComponent } from './cards/escolas/escolas.component';
 import { CursosComponent } from './cards/cursos/cursos.component';
 import { CineclubesComponent } from './cards/cineclubes/cineclubes.component';
 import { CategoryPipe } from './pipes/category.pipe';
+import { FilmesComponent } from './cards/filmes/filmes.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { CategoryPipe } from './pipes/category.pipe';
     CursosComponent,
     CineclubesComponent,
     CategoryPipe,
+    FilmesComponent,
   ],
   imports: [
     BrowserModule,

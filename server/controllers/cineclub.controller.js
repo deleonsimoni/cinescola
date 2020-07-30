@@ -51,11 +51,13 @@ async function update(req) {
 async function deletar(req) {
   return await Cineclub.findOneAndRemove({
     _id: req.params.contentId
-  }, function (err, doc) {
+  }, async function (err, doc) {
     if (err) {
       console.log("erro ao deletar o Cineclub: " + req.params.contentId, err);
     } else {
       console.log("Cineclub deletado com sucesso: " + req.params.contentId);
+      await Points.updateOne( {_id: req.params.pointId}, { $pull: { cineclub: req.params.contentId } } )
+
     }
   });
 }

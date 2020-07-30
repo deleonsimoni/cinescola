@@ -445,7 +445,7 @@ export class UploadComponent implements OnInit {
   reciverDelete(contentId) {
     this.carregando = true;
 
-    this.http.delete(`api/points/` + this.categoria + "/" + contentId).subscribe((res: any) => {
+    this.http.delete(`api/points/` + this.categoria + "/" + contentId + "/" + this.point._id).subscribe((res: any) => {
       this.carregando = false;
 
       if (res && res.temErro) {

@@ -51,11 +51,13 @@ async function update(req) {
 async function deletar(req) {
   return await Politica.findOneAndRemove({
     _id: req.params.contentId
-  }, function (err, doc) {
+  }, async function (err, doc) {
     if (err) {
       console.log("erro ao deletar o Politica: " + req.params.contentId, err);
     } else {
       console.log("Politica deletado com sucesso: " + req.params.contentId);
+      await Points.updateOne( {_id: req.params.pointId}, { $pull: { politica: req.params.contentId } } )
+
     }
   });
 }

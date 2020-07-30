@@ -51,11 +51,18 @@ async function update(req) {
 async function deletar(req) {
   return await Abecedario.findOneAndRemove({
     _id: req.params.contentId
-  }, function (err, doc) {
+  }, async function (err, doc) {
     if (err) {
       console.log("erro ao deletar o Abecedario: " + req.params.contentId, err);
     } else {
       console.log("Abecedario deletado com sucesso: " + req.params.contentId);
+      await Points.updateOne( {_id: req.params.pointId}, { $pull: { abecedarios: req.params.contentId } }, function (err, doc) { 
+        if (err) {
+          console.log("erro ao deletar abecedario do ponto ", err);
+        } else {
+          console.log("abecedario do ponto deletado com sucesso", doc);
+        }
+      });
     }
   });
 }

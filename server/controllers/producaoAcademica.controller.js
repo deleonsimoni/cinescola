@@ -51,11 +51,12 @@ async function update(req) {
 async function deletar(req) {
   return await ProducaoAcademica.findOneAndRemove({
     _id: req.params.contentId
-  }, function (err, doc) {
+  }, async function (err, doc) {
     if (err) {
       console.log("erro ao deletar o ProducaoAcademica: " + req.params.contentId, err);
     } else {
       console.log("ProducaoAcademica deletado com sucesso: " + req.params.contentId);
+      await Points.updateOne( {_id: req.params.pointId}, { $pull: { producaoAcademica: req.params.contentId } } )
     }
   });
 }

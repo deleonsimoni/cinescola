@@ -33,7 +33,7 @@ router.post('/:categoriaId', passport.authenticate('jwt', {
 
 
 
-router.delete('/:categoriaId/:contentId', passport.authenticate('jwt', {
+router.delete('/:categoriaId/:contentId/:pointId', passport.authenticate('jwt', {
   session: false
 }), asyncHandler(deleteContentByCategoria));
 

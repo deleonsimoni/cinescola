@@ -50,11 +50,13 @@ async function update(req) {
 async function deletar(req) {
   return await Filme.findOneAndRemove({
     _id: req.params.contentId
-  }, function (err, doc) {
+  }, async function (err, doc) {
     if (err) {
       console.log("Erro ao deletar o Filme: " + req.params.contentId, err);
     } else {
       console.log("Filme deletado com sucesso: " + req.params.contentId);
+      await Points.updateOne( {_id: req.params.pointId}, { $pull: { filmes: req.params.contentId } } )
+
     }
   });
 }

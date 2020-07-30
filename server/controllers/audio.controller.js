@@ -51,11 +51,12 @@ async function update(req) {
 async function deletar(req) {
   return await Audio.findOneAndRemove({
     _id: req.params.contentId
-  }, function (err, doc) {
+  }, async function (err, doc) {
     if (err) {
       console.log("erro ao deletar o Audio: " + req.params.contentId, err);
     } else {
       console.log("Audio deletado com sucesso: " + req.params.contentId);
+      await Points.updateOne( {_id: req.params.pointId}, { $pull: { audios: req.params.contentId } } )
     }
   });
 }

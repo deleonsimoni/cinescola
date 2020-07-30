@@ -114,7 +114,7 @@ export class MapasComponent implements OnInit {
         if (element.linkVideo) {
           if(element.linkVideo.includes('youtube')){
             element.ytEmbed = this._sanitizer.bypassSecurityTrustResourceUrl(element.linkVideo.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/"));
-          } if(element.linkVideo.includes('youtu.be')){
+          } else if(element.linkVideo.includes('youtu.be')){
             element.ytEmbed = this._sanitizer.bypassSecurityTrustResourceUrl(element.linkVideo.replace("youtu.be/", "www.youtube.com/embed/"));
           } else {
             element.ytEmbed = this._sanitizer.bypassSecurityTrustResourceUrl(element.linkVideo.replace("https://vimeo.com/", "https://player.vimeo.com/video/"));

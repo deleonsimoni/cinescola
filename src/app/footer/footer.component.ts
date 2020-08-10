@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  views;
+
+  constructor(
+    private http: HttpClient,
+    ) { }
 
   ngOnInit() {
+    this.viewsUp();
+  }
+
+  viewsUp(){
+    this.http.get('/api/user/viewsUp').subscribe((data: any) => {
+      this.views = data.counter;
+    }, error => {
+     console.log('error views up');
+    });
   }
 
 }

@@ -3,6 +3,7 @@ const passport = require('passport');
 const asyncHandler = require('express-async-handler');
 const userCtrl = require('../controllers/user.controller');
 const fileUpload = require('express-fileupload');
+const visitController = require('../controllers/visit.controller')
 
 const router = express.Router();
 module.exports = router;
@@ -13,11 +14,19 @@ router.post('/upload', [fileUpload()], asyncHandler(upload));
 router.post('/upload-galeria', [fileUpload()], asyncHandler(uploadGaleria));
 router.get('/downloadFile', downloadFile);
 router.get('/getGallerys', getGallerys);
+router.get('/viewsUp', viewsUp);
 router.delete('/deleteDepoimento/:depoimentoId', deleteDepoimento);
 
 router.route('/')
   .post(asyncHandler(insert));
 
+
+      
+async function viewsUp(req, res) {
+  //contaiblizando os views do site
+  let retorno = await visitController.viewsUp();
+  res.json(retorno);
+}
 
 async function insert(req, res) {
   let user = await userCtrl.insert(req.body);

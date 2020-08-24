@@ -1,0 +1,11 @@
+<div (click)="changeLike()" [ngClass]="isLiked ? 'is_animating' : ''" class="heart"></div><div class="amei">{{ counter | number }} ameis</div>
+<br/>
+<div *ngIf="notLogin" style="background-color: black;">
+        <p style="color: white;">
+            Puxa, você ainda não realizou login na plataforma, para poder interagir você deverá efetuar o login acessando o menu "Colabore".
+        </p>
+    <!--<div style="text-align: center">
+        <button mat-raised-button color="primary" (click)="irParaLogin()" tabindex="1">Acessar</button>
+        <button mat-raised-button mat-dialog-close tabindex="-1">Agora não...</button>
+    </div>-->
+</div>

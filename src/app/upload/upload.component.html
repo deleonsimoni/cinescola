@@ -70,7 +70,7 @@
                       </div>
 
                       <div *ngIf="point.lng || point?.location?.coordinates[0]">
-                        <div  class="input-group">
+                        <div class="input-group">
                           <input 
 
                             joyrideStep="4Step" 
@@ -82,7 +82,7 @@
                               joyrideStep="5Step" 
                               title="Caso precise alterar o nome do local, basta clicar neste botão para realizar a ação." 
                               
-                              *ngIf="!carregandoAlterarNome" (click)="changePointName()" class="btn btn-primary"
+                              *ngIf="!carregandoAlterarNome && user.icAdmin" (click)="changePointName()" class="btn btn-primary"
                                 type="button">Alterar Nome</button>
                               <button *ngIf="carregandoAlterarNome" class="btn btn-primary" type="button"><i
                                   class="fa fa-spinner fa-pulse" style="font-style: normal;font-variant: normal;text-rendering: auto;"></i>Aguarde...</button>
@@ -523,7 +523,7 @@
       <button type="button" class="btn btn-success mt-2" (click)="addLinkExtraForm()">+ Link</button>
 
       <div class="justify-content-center">
-        <button class="btn btn-primary mt-2" (click)="addContent()">Salvar Cineclube</button>
+        <button class="btn btn-primary mt-2" (click)="addContent()">Salvar Outras Iniciativas</button>
       </div>
     </div>
   </div>

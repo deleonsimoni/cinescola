@@ -15,14 +15,14 @@
       <b>Descrição:&nbsp;</b> {{ item.descricao }}
     </mat-card-header>
 
-    <mat-card-actions>
+    <mat-card-actions *ngIf="user.icAdmin">
       <button *ngIf="item._id && isAdmin" mat-button (click)="delete(item._id)">Deletar</button>
       <button *ngIf="item._id && isAdmin" mat-button (click)="update(item)">Editar</button>
     </mat-card-actions>
   </mat-card>
 </div>
 
-<ngb-carousel *ngIf="!isAdmin" [showNavigationArrows]="true" [showNavigationIndicators]="true" [keyboard]="true"
+<ngb-carousel #myCarousel="ngbCarousel" *ngIf="!isAdmin" [showNavigationArrows]="true" [showNavigationIndicators]="true" [keyboard]="true"
   [wrap]="false" [activeId]="'slideTwo'" interval="0">
   <ng-template *ngFor="let item of contents" ngbSlide>
     <mat-card class="mt-5 mt-sm-0 card">
@@ -83,11 +83,17 @@
             </mat-card-header>
           </div>
 
+          <div class="col-sm-12">
+            <app-animated-like [likes]='item.likes' [user]='user' [content]='item' [category]='5'></app-animated-like>
+          </div>
 
         </div>
       </mat-card-content>
 
 
     </mat-card>
+    <div *ngIf="contents.length > 1" style="background-color: white; text-align: center;">
+      <a style="color:blue; cursor: pointer;" (click)="myCarousel.prev()"><<<< Anterior</a> | <a style="color:blue;cursor: pointer;" (click)="myCarousel.next()">Próximo >>>></a> 
+    </div>
   </ng-template>
 </ngb-carousel>

@@ -1,0 +1,32 @@
+.heart {
+    height: 80px;
+    width: 80px;
+    max-width: 80px;
+    margin-top: 10px;
+    margin-right: -45px;
+    float: left;
+    transform: translate(-50%, -50%);
+    background: url('../../assets/img/heart.png') no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+}
+
+  @keyframes fave-heart {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: -2800px 0;
+    }
+  }
+
+  .is_animating {
+    animation: fave-heart 1s steps(28);
+    animation-fill-mode: forwards;
+  }
+
+  .amei {
+      text-align: initial;
+      margin-top: 10px;
+    
+  }

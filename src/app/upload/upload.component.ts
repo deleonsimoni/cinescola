@@ -64,6 +64,12 @@ export class UploadComponent implements OnInit {
     zoom: 5
   };
 
+  public customTexts = {
+    next: 'Próximo',
+    prev: 'Anterior',
+    done: 'Ok'
+  };
+
   public categorias = [
     { id: 1, name: 'Abecedários', icon: 'abecedario.png' },
     { id: 7, name: 'Acervos' }, // CURSOS
@@ -96,9 +102,10 @@ export class UploadComponent implements OnInit {
   }
 
   fazerTour() {
-    this.joyrideService.startTour(
-      { steps: ['0Step', 'firstStep']} // Your steps order
-    );
+    this.joyrideService.startTour({
+      steps: ['0Step', 'firstStep'],
+      customTexts: this.customTexts,
+    });
   }
 
   ngOnInit() {
@@ -114,10 +121,10 @@ export class UploadComponent implements OnInit {
     this.http.get("api/auth/" + this.categoria).subscribe((res: any) => {
       this.points = res;
 
-      this.joyrideService.startTour(
-        { 
+      this.joyrideService.startTour({ 
           steps: ['2Step', '3Step'],
-          stepDefaultPosition: 'bottom'
+          stepDefaultPosition: 'bottom',
+          customTexts: this.customTexts,
         });
 
     }, err => {
@@ -365,10 +372,10 @@ export class UploadComponent implements OnInit {
     this.point.lat = position.coords.lat;
     this.point.lng = position.coords.lng;
 
-    this.joyrideService.startTour(
-      { 
+    this.joyrideService.startTour({
         steps: ['4Step', '6Step'],
-        stepDefaultPosition: 'bottom'
+        stepDefaultPosition: 'bottom',
+        customTexts: this.customTexts,
       });
   }
 
@@ -393,10 +400,10 @@ export class UploadComponent implements OnInit {
 
       });
 
-      this.joyrideService.startTour(
-        { 
+      this.joyrideService.startTour({ 
           steps: ['4Step', '5Step', '6Step'],
-          stepDefaultPosition: 'bottom'
+          stepDefaultPosition: 'bottom',
+          customTexts: this.customTexts,
         });
 
     }, err => {

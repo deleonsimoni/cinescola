@@ -45,7 +45,9 @@ const AbecedarioSchema = new mongoose.Schema({
   links: [{
     nome: String,
     link: String
-  }]
+  }],
+  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+
 
 }, {
   versionKey: false

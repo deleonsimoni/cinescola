@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { EmbedVideoService } from 'ngx-embed-video';
+import { AuthService } from '../../auth/auth.service';
 @Component({
   selector: 'app-politicas',
   templateUrl: './politicas.component.html',
@@ -13,11 +14,16 @@ export class PoliticasComponent implements OnInit {
   @Output() remover = new EventEmitter();
   @Output() alterar = new EventEmitter();
 
+  user;
+  
   constructor(
     private _sanitizer: DomSanitizer,
+    private authService: AuthService,
+
   ) { }
 
   ngOnInit() {
+    this.user = this.authService.getDecodedAccessToken(this.authService.getToken());
 
   }
 

@@ -134,6 +134,9 @@ async function changePointName(req, res) {
 async function incluirContentByCategoria(req, res) {
   let content;
 
+  //TODO ARRUMAR
+  req.body.content.icAprovado = true;
+
   if (req.user.icAdmin) {
     req.body.content.icAprovado = true;
   }

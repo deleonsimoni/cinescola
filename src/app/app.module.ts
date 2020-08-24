@@ -39,6 +39,8 @@ import { CursosComponent } from './cards/cursos/cursos.component';
 import { CineclubesComponent } from './cards/cineclubes/cineclubes.component';
 import { CategoryPipe } from './pipes/category.pipe';
 import { FilmesComponent } from './cards/filmes/filmes.component';
+import { AnimatedLikeComponent } from './animated-like/animated-like.component';
+import { ConfirmationDialogComponent } from './modals/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import { FilmesComponent } from './cards/filmes/filmes.component';
     CineclubesComponent,
     CategoryPipe,
     FilmesComponent,
+    AnimatedLikeComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,7 +94,7 @@ import { FilmesComponent } from './cards/filmes/filmes.component';
       useClass: AuthHeaderInterceptor,
       multi: true,
     }],
-  entryComponents: [],
+  entryComponents: [ConfirmationDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

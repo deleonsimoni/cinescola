@@ -8,7 +8,7 @@
         <div class="box">
           <div class="form">
             <div class="section-header">
-              <h2>Upload Conteúdo</h2>
+              <h2>Incluir Conteúdo</h2>
             </div>
 
             <div>
@@ -43,8 +43,8 @@
                             joyrideStep="2Step" 
                             title="Caso saiba o endereço do local pode digitar o endereço ou o nome da instituição que deseja incluir e 
                             em seguida clique no botão pesquisar e aguarde até encontrarmos o local no mapa" 
-                            type="text" class="form-control" placeholder="Informe a localidade"
-                            aria-label="Informe a localidade" [(ngModel)]="address" aria-describedby="basic-addon2">
+                            type="text" class="form-control" placeholder="Endereço (ou a Cidade)"
+                            aria-label="Endereço (ou a Cidade)" [(ngModel)]="address" aria-describedby="basic-addon2">
                           <div class="input-group-append">
                             <button *ngIf="!carregandoMapa" (click)="findLocation()" class="btn btn-primary"
                               type="button">Pesquisar</button>
@@ -76,7 +76,7 @@
                             joyrideStep="4Step" 
                             title="Legal! Caso o ponto seja novo, digite o nome do local para ser armazenado na plataforma. Caso contrário, verifique se o nome do local está correto." 
                             type="text" name="titlae" class="form-control mt-2" id="title"
-                            placeholder="Nome do local para o ponto" [(ngModel)]="point.nome" />
+                            placeholder="Nome da Instituição" [(ngModel)]="point.nome" />
                             <div *ngIf="point._id" class="input-group-append">
                               <button 
                               joyrideStep="5Step" 
